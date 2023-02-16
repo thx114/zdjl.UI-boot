@@ -8,7 +8,7 @@ const R = Symbol("R")
 const REALPATH = Symbol("REALPATH")
 var all = {
     add: (obj) => {
-        let id = getid()
+        let id=obj[ID]??getid()
         all[id] = obj
         obj.self = function () { return all[id] }
         obj[ID] = id
@@ -64,7 +64,8 @@ class Var {
             return Object.entries(object).map(([key, value]) => {return { name: key, value: value }})
         }
     }
-    static Array2Object(array) {
+    static Array2Object(array=[]) {
+    if (array.length==0){return {}}
         return array.reduce((obj, item) => {
             obj[item.name] = item.value
             return obj
@@ -107,11 +108,12 @@ class Var {
 
     constructor(k, v,type="string",obj) {
         this[R]=false
+        this.k=k
         this.varType=type
         this.exp(k, v)
         this.val = (a) => { 
             if (a) { exp(k,a)}
-            return this[k] || eval(this.__vars[k].valueExp) 
+            return (this[k] ?? eval(this.__vars[k].valueExp) )
         }
         Object.assign(this, obj)
     }
@@ -125,6 +127,8 @@ class Var {
             catch { return null }
         }
     }
+    get nid() { all.add(this) ;return this[ID]}
+    get id() { return this[ID]}
     get e() { return this.__vars }
     get r() { this[R] = ture }
     textT = (a) => { return this.exp('textLineBefore', a)}
@@ -155,6 +159,11 @@ class Var {
     get c() { this.closeDialogOnAction = false; return this }
     get ww(){ return this.w(100) }
     get set(){ new setvar({name:this[NAME]||"noname",value:this}).run }
+    apply=(a)=>{ 
+    this.objectVars = [...this.objectVars,...Var.Object2Array(a)]
+    this[CJSON] = Var.Array2Object(this.objectVars)
+    Var.ReMap(this, this.objectVars)
+    }
 }
 
 
@@ -172,23 +181,31 @@ class obj extends Var {
         this.objectVars = Var.Object2Array(input)
         this[CJSON] = Var.Array2Object(this.objectVars)
         Var.ReMap(this, this.objectVars)
+        this.objectVars.forEach(i=>{
+        i.value[Mother]=this
+        })
     }
 }
-class Action { constructor(type) { this.type = type } }
-function string(input) { return new Var('value', input, "string" )}
-function number(input) { return new Var('number', input, "number" )}
-function bool(input) { return new Var('value', input, "bool" )}
-function text(input) { return new Var('textContent', input, "ui_text" )}
-function button(input) { return new Var('buttonText', input, "ui_button" )}
-function object(input) { return new obj(input) }
-function image(input) { return new Var('imageData', input, "ui_image" )}
+class Action { constructor(type,obj={}) {
+ this.type = type
+ Object.assign(this,obj)
+  } }
+function string(input="") { return new Var('value', input, "string" )}
+function number(input=0) { return new Var('number', input, "number" )}
+function bool(input=false) { return new Var('value', input, "bool" )}
+function text(input="") { return new Var('textContent', input, "ui_text" )}
+function button(input="") { return new Var('buttonText', input, "ui_button" )}
+function object(input={}) { return new obj(input) }
+function image(input={}) { return new Var('imageData', input, "ui_image" )}
 function color(input) { return new Var('color', input, "color" )}
 function xy(input) { return new Var('position', input, "position" )}
 function area(input) { return new Var('screen_area', input, "screen_area" )}
 function jscode(input) { return new Var('jsCode', input, "js_function" )}
 
 function setvars(input) { return new setvars(input) }
-function js(input) { return new Action('运行JS代码')}
+function js(input) {
+input=Array.isArray(input)?input[0][0]:input
+ return new Action('运行JS代码',{jsCode:input})}
 
 
 
@@ -284,10 +301,36 @@ if (typeof zdjl == "undefined") {
         }
     }
 }
+// window.var m = {}
+// m.test=(a)=>{ this
+// return object({
+// Name:string(),
+  // __:button()
+    // .JS([[`
+    
+      // .h([['@@istrue']])
+      // .BGcolor("#404040")
+    // return
+     // `]]),
+// })
 
-b=new setvar({a:new object({b:new object({c:new object({d:new object({e:new string("a")})})})})})
-b.scan
-console.log(all.b.c.d)
-b.run
+class test extends object{constructor(){super()
+let id=this.nid;this.apply({
 
+a:string(),
+b:string(),
+c:button().js([[` zdjl.alert("qaq") `]])
+
+})}}
+// test=object({
+// a:string("qaq"),
+// b:button(),
+// c:object({
+  // d:number(12),
+  // e:text("qaq")
+  // })
+// })
+new setvar({
+v:new test
+}).run
 
