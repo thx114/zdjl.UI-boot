@@ -102,8 +102,7 @@ class Var {
     showInput = true
     mustInput = false
     syncValueOnChange = true
-    get e() { return this.__vars }
-    get r() { this[R]=ture}
+
     exp = (k, v) => { exp(k, v, this) }
 
     constructor(k, v,type="string",obj) {
@@ -126,12 +125,41 @@ class Var {
             catch { return null }
         }
     }
-
+    get e() { return this.__vars }
+    get r() { this[R] = ture }
+    textT = (a) => { return this.exp('textLineBefore', a)}
+    textB = (a) => { return this.exp('textLineAfter',a)}
+    textL = (a) => { return this.exp('showInputLabel',a)}
+    textR = (a) => { return this.exp('textAppendRight', a)} 
+    w = (a) => { return this.exp('showInputWidthBasis', a) }
+    g = (a) => { return this.exp('showInputWidthGrow', a) }
+    h = (a) => { return this.exp('showInputHiddenView', a) }
+    size = (a) => { return this.exp('textSize', a) }
+    color = (a) => { return this.exp('textColor', a) }
+    action = (a) => { this.action = a; return this }
+    list = (a) => { return this.exp('stringItems', a) }
+    js = (a) => { this.action = js(a); return this }
+    C = (a) => { this.closeDialogOnAction = a;return this}
+    push = (a) => { this[a.name]=a.value; return this }
+    text = (a) => { return this.exp('buttonText', a) }
+    textT = (a) => { return this.exp('textLineBefore', a) }
+    textB = (a) => { return this.exp('textLineAfter', a) }
+    textL = (a) => { return this.exp('showInputLabel', a) }
+    textR = (a) => { return this.exp('textAppendRight', a) }
+    BGcolor = (a) => { return this.exp('backgroundColor', a) }
+    BGimg = (a) => { return this.exp('backgroundImageData', a) }
+    get s() { this.showInput = false; return this }
+    get m() { this.mustInput = true; return this }
+    get sync() { this.syncValueOnChange = false; return this }
+    get t() { this.showInputHiddenLabel = true; return this }
+    get c() { this.closeDialogOnAction = false; return this }
+    get ww(){ return this.w(100) }
+    get set(){ new setvar({name:this[NAME]||"noname",value:this}).run }
 }
 
 
 
-class object extends Var {
+class obj extends Var {
     varType = "object"
     showInputHiddenLabel = false
     syncValueOnChange = false
@@ -146,22 +174,28 @@ class object extends Var {
         Var.ReMap(this, this.objectVars)
     }
 }
-
+class Action { constructor(type) { this.type = type } }
 function string(input) { return new Var('value', input, "string" )}
 function number(input) { return new Var('number', input, "number" )}
 function bool(input) { return new Var('value', input, "bool" )}
 function text(input) { return new Var('textContent', input, "ui_text" )}
 function button(input) { return new Var('buttonText', input, "ui_button" )}
+function object(input) { return new obj(input) }
+function image(input) { return new Var('imageData', input, "ui_image" )}
+function color(input) { return new Var('color', input, "color" )}
+function xy(input) { return new Var('position', input, "position" )}
+function area(input) { return new Var('screen_area', input, "screen_area" )}
+function jscode(input) { return new Var('jsCode', input, "js_function" )}
+
+function setvars(input) { return new setvars(input) }
+function js(input) { return new Action('运行JS代码')}
 
 
 
 
-
-
-
-
-class setvar {
+class setvar extends Action {
     constructor(input) {
+        super('设置变量')
         this.vars = Var.Object2Array(input)
         this[CJSON] = Var.Array2Object(this.vars)
         function scan(realpath, vars,allpath) {
@@ -227,6 +261,10 @@ class setvar {
         }
         scan(null, this.vars, all)
     }
+    get run(){
+        this.scan
+        zdjl.runActionAsync(this)
+    }
 }
 if (typeof zdjl == "undefined") {
     zdjl = {
@@ -239,11 +277,17 @@ if (typeof zdjl == "undefined") {
             console.log(`setVar ${name} = ${value}`)
             global[name] = value
 
+        },
+        runActionAsync: function (action) {
+            return undefined
+            
         }
     }
 }
+
 b=new setvar({a:new object({b:new object({c:new object({d:new object({e:new string("a")})})})})})
 b.scan
 console.log(all.b.c.d)
+b.run
 
 
