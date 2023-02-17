@@ -171,8 +171,9 @@ class Var {
     if (typeof this[this.k] != "undefined") { return this[this.k] }
     else {
         try{return eval(this.__vars[this.k].valueExp)}
-    catch(e){console.error(e)} }
+        catch{console.error('eval error');return undefined} 
     }
+}
 
     get real() {return lookforMother(this)}
     get reload(){this.val(this.real)}
