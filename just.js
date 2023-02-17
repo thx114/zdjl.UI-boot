@@ -6,8 +6,8 @@ const NAME = Symbol("NAME")
 const Mother = Symbol("Mother")
 const R = Symbol("R")
 const REALPATH = Symbol("REALPATH")
-window.id = ''
-// GID=zdjl.getVar("GID")
+var id = ''
+zdjl.setVar("id",id)
 window.all = {
     add: (obj) => {
         let id=obj[ID]??getid()
