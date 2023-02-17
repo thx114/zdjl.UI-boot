@@ -1,3 +1,4 @@
+
 const { realpath } = require("fs")
 const ID = Symbol("ID")
 const CJSON = Symbol("CJSON")
@@ -148,7 +149,7 @@ class Var {
     mustInput = false
     syncValueOnChange = true
 
-    exp = (k, v) => { exp(k, v, this) }
+    exp = (k, v) => { exp(k, v, this) ;return this}
 
     constructor(k, v,type="string",obj) {
         this[R]=false
