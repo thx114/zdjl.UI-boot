@@ -86,7 +86,7 @@ function exp(keyname, value, apply) {
         }
     }
     else if (Array.isArray(value) && Array.isArray(value[0]) && typeof value[0][0] == "string") {
-        if (typeof id == "undefined") { let id = window.id ?? global.id ?? zdjl.getVar('id') }
+    if (typeof id == "undefined") { var id = window.id ?? global.id ?? zdjl.getVar('id') }
     if (`${id}`.length===0){ console.error(`ID 无法找到`)}
 
     let out=value[0][0]
