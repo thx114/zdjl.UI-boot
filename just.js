@@ -6,7 +6,7 @@ const Mother = Symbol("Mother")
 const R = Symbol("R")
 const REALPATH = Symbol("REALPATH")
 
-// all=zdjl.getVar("all")
+// GID=zdjl.getVar("GID")
 window.all = {
     add: (obj) => {
         let id=obj[ID]??getid()
@@ -25,6 +25,29 @@ window.all = {
         )
     }
 }
+function lookforMother(obj){
+      if (obj[Mother]!=null){
+        let a=lookforMother(obj[Mother])
+        if (typeof a[obj[NAME]] == "undefined"){
+        a[obj[NAME]]=obj.val()}
+        return lookforMother(obj[Mother])[obj[NAME]]
+        }
+      else {
+        if (typeof zdjl.getVar(obj[NAME]) == 'undefined'){
+        zdjl.setVar(obj[NAME],obj.val())}
+        return zdjl.getVar(obj[NAME])
+        }
+      }
+function scanforpath(obj){
+if (!obj.Mother){return obj.name}
+let objnow=obj
+let list=obj.name
+while (typeof objnow.Mother != "undefined"){
+list=objnow.Mother.name+"."+list
+objnow=objnow.Mother
+}
+return list
+}
 function set(name,value=114){
   let list
   var path
@@ -39,7 +62,9 @@ function set(name,value=114){
   if (list.length==1){ zdjl.setVar(name,value) }
   }
 function get(name){
-return set(name)}
+
+return set(name)
+}
 function getid() { //生成一个在all里不重复的数值
     let id = 0
     while (all[id]) {
@@ -58,7 +83,10 @@ function exp(keyname, value, apply) {
         }
     }
     else if (Array.isArray(value) && Array.isArray(value[0]) && typeof value[0][0] == "string") {
-        apply.e[keyname] = { valueExp: value[0][0], varType: 'expression' }
+    let out=value[0][0]
+    .replace(/#this/g,`all[${id}]`)
+    .replace(/this/g,`eval(all[${id}].R)`)
+        apply.e[keyname] = { valueExp: out, varType: 'expression' }
     }
     else if (apply.e[keyname]) {
         delete apply.e[keyname]
@@ -127,36 +155,14 @@ class Var {
         this.k=k
         this.varType=type
         this.exp(k, v)
-        this.val = (a) => { 
-            if (a) {this.exp(this.k,a)}
-            if(type=="object"){return{}}
-            return (this[k] ?? eval(this.__vars[k].valueExp) )
-        }
         Object.assign(this, obj)
         
     }
-    get real() {
-    // let lookat=this
-    // let list=[]
-    // zdjl.alert(JSON.stringify(this[Mother]))
-    console.log(`look for real`)
-    function lookforMother(obj){ 
-    // console.log(`look _`)
-      if (obj[Mother]!=null){
-        let a=lookforMother(obj[Mother])
-        if (typeof a[obj[NAME]] == "undefined"){
-        a[obj[NAME]]=obj.val()}
-        
-        return lookforMother(obj[Mother])[obj[NAME]]
-        }
-      else {
-        if (typeof zdjl.getVar(obj[NAME]) == 'undefined'){
-        zdjl.setVar(obj[NAME],obj.val())}
-        return zdjl.getVar(obj[NAME])
-        }
-      }
-       
-    return lookforMother(this)
+    val=(a)=>{
+    if(a){this.exp(this.k,a);}
+    if(this.varType=='object'){return {}}
+    return this[this.k] ?? eval(this.__vars[this.k].valueExp)}
+    get real() {return lookforMother(this)
     }
     get reload(){this.val(this.real)}
     // this.val(
@@ -164,6 +170,15 @@ class Var {
     get id() { return this[ID]}
     get e() { return this.__vars }
     get r() { this[R] = true;return this }
+    get name(){return this[NAME]}
+    get Mother(){return this[Mother]}
+    // get mname(){return this.Mother.name}
+    // get realv(){
+    // while this.mname
+    get R(){return this.REALPATH}
+    
+    
+    // }
     textT = (a) => { return this.exp('textLineBefore', a)}
     textB = (a) => { return this.exp('textLineAfter',a)}
     textL = (a) => { return this.exp('showInputLabel',a)}
@@ -206,7 +221,6 @@ class Var {
     }
     push=(a)=>{
     this.objectVars = [...this.objectVars,...Var.Object2Array(a)]
-    // zdjl.alert(JSON.stringify(this.objectVars))
     this[CJSON] = Var.Array2Object(this.objectVars)
     Var.ReMap(this, this.objectVars)
     this.objectVars.forEach(i=>{
@@ -230,9 +244,12 @@ class obj extends Var {
     get remap() { Var.ReMap(this, this.objectVars) }
     remvoe = (key) => { this.objectVars.splice(this.objectVars.findIndex(v => v.name == key), 1) }
     remvoe = (key, val) => { this.objectVars.find(v => v.name == key).value = val }
-    constructor(input = {},id=null) {
+    constructor(input = {}) {
         super('objectVars', [])
-        if (id!=null){all.add(this)}
+        all.add(this)
+        window.id=this[ID]
+        // zdjl.setVar("GID",this[ID])
+        
         this.objectVars = Var.Object2Array(input)
         this[CJSON] = Var.Array2Object(this.objectVars)
         Var.ReMap(this, this.objectVars)
@@ -250,7 +267,7 @@ class Action { constructor(type,obj={}) {
 function string(input="") { return new Var('value', input, "string" )}
 function number(input=0) { return new Var('number', input, "number" )}
 function bool(input=false) { return new Var('value', input, "bool" )}
-function text(input="") { return new Var('textContent', input, "ui_text" )}
+function text(input="") { return new Var('textContent', input, "ui_text" ).sync}
 function button(input="") { return new Var('buttonText', input, "ui_button" ).sync}
 function object(input={},id=null) { return new obj(input,id) }
 function image(input={}) { return new Var('imageData', input, "ui_image" )}
@@ -262,6 +279,11 @@ function jscode(input) { return new Var('jsCode', input, "js_function" )}
 function setvars(input) { return new setvars(input) }
 function js(input) {
 input=Array.isArray(input)?input[0][0]:input
+// zdjl.alert(input)
+input=input
+.replace(/#this/g,`all[${id}]`)
+.replace(/this/g,`eval(all[${id}].R)`)
+// zdjl.alert(input)
  return new Action('运行JS代码',{jsCode:input})}
 
 
@@ -278,13 +300,13 @@ class setvar extends Action {
             v.value[NAME]=v.name
             if ( typeof v.value == "undefined"){
             return}
-                if (v.value.varType == "object") {
-                    ascan(v.value.objectVars, all[v.value[ID]])
-                    v.value.remap
-                }
-            if ( v.value[R]){
-            v.value.reload}
-                })
+            if (v.value.varType == "object") {
+               ascan(v.value.objectVars, all[v.value[ID]])
+               v.value.remap
+               }
+            if ( v.value[R]){v.value.reload}
+            v.value.REALPATH=scanforpath(v.value)
+               })
         }
         ascan(this.vars, all)
         return this
@@ -295,40 +317,9 @@ class setvar extends Action {
         zdjl.runActionAsync(this)
     }
 }
-// if (typeof zdjl == "undefined") {
-    // zdjl = {
-        // getVar: function (name) {
-            // try{return eval(name)}
-            // catch{return null}
-        // },
-        // setVar: function (name, value) {
-            // console.log(`setVar ${name} = ${value}`)
-            // global[name] = value
-        // },
-        // runActionAsync: function (action) {
-            // return undefined     
-        // }
-    // }
-// }
 
 
-m={
-test:()=>{return object({},id=getid()).apply({
 
+for (i of [getid,Var,exp,obj,Action,string,number,bool,text,button,object,image,color,xy,area,jscode,setvars,js,setvar,set,get,lookforMother,scanforpath]){
+window[i.name]=i}
 
-a:string().r,
-b:string().r,
-c:button().js([[`
-all[${id}].push({_:m.test()}) 
-`]])
-}).t
-
-}
-}
-for (i of [getid,Var,exp,obj,Action,string,number,bool,text,button,object,image,color,xy,area,jscode,setvars,js,setvar,set,get]){window[i.name]=i}
-
-window.RUNTIME=
-new setvar({
-v: m.test()
-})
-set(`codeoff`,true)
