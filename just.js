@@ -93,6 +93,7 @@ function exp(keyname, value, apply) {
     let out=value[0][0]
     .replace(/#this/g,`all[${id}]`)
     .replace(/this/g,`eval(all[${id}].R)`)
+        console.log(`Exp: ${out}  <${apply.name}>`)
         apply.e[keyname] = { valueExp: out, varType: 'expression' }
     }
     else if (apply.e[keyname]) {
