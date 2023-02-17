@@ -305,13 +305,15 @@ class setvar extends Action {
             if ( typeof v.value == "undefined"){
             return}
             v.value.REALPATH = scanforpath(v.value)  
+                lookforMother(v.value)
+                v.value.REALPATH = scanforpath(v.value)  
             if (v.value.varType == "object") {
 
                ascan(v.value.objectVars)
                v.value.remap
                }
             if ( v.value[R]){v.value.reload} 
-            lookforMother(v.value)
+
                })
 
         }
