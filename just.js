@@ -280,7 +280,7 @@ then = (a) => {
      this.scriptCallbacks.afterExecSuc = a; return this 
     }
 then_js = (input) => {
-    zdjl.alert(JSON.stringify(a))
+    zdjl.alert(JSON.stringify(input))
     this.scriptCallbacks = {}
     this.scriptCallbacks.afterExecSuc = js(input); return this 
     }
