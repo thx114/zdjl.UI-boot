@@ -1,4 +1,4 @@
-
+window=global
 const { realpath } = require("fs")
 const ID = Symbol("ID")
 const CJSON = Symbol("CJSON")
@@ -6,7 +6,7 @@ const NAME = Symbol("NAME")
 const Mother = Symbol("Mother")
 const R = Symbol("R")
 const REALPATH = Symbol("REALPATH")
-
+window.id = ''
 // GID=zdjl.getVar("GID")
 window.all = {
     add: (obj) => {
@@ -163,23 +163,15 @@ class Var {
     if(a){this.exp(this.k,a);}
     if(this.varType=='object'){return {}}
     return this[this.k] ?? eval(this.__vars[this.k].valueExp)}
-    get real() {return lookforMother(this)
-    }
+    get real() {return lookforMother(this)}
     get reload(){this.val(this.real)}
-    // this.val(
     get nid() { all.add(this) ;return this[ID]}
     get id() { return this[ID]}
     get e() { return this.__vars }
     get r() { this[R] = true;return this }
     get name(){return this[NAME]}
     get Mother(){return this[Mother]}
-    // get mname(){return this.Mother.name}
-    // get realv(){
-    // while this.mname
     get R(){return this.REALPATH}
-    
-    
-    // }
     textT = (a) => { return this.exp('textLineBefore', a)}
     textB = (a) => { return this.exp('textLineAfter',a)}
     textL = (a) => { return this.exp('showInputLabel',a)}
@@ -280,7 +272,6 @@ function jscode(input) { return new Var('jsCode', input, "js_function" )}
 function setvars(input) { return new setvars(input) }
 function js(input) {
 input=Array.isArray(input)?input[0][0]:input
-// zdjl.alert(input)
 input=input
 .replace(/#this/g,`all[${id}]`)
 .replace(/this/g,`eval(all[${id}].R)`)
