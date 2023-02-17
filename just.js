@@ -84,8 +84,7 @@ function exp(keyname, value, apply) {
         }
     }
     else if (Array.isArray(value) && Array.isArray(value[0]) && typeof value[0][0] == "string") {
-        let id = id
-        if (typeof id == "undefined") { id = '' }
+        if (typeof id == "undefined") { var id = '' }
 
     let out=value[0][0]
     .replace(/#this/g,`all[${id}]`)
