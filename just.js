@@ -269,11 +269,11 @@ class obj extends Var {
     }
 }
 class Action { 
-    scriptCallbacks = {}
     constructor(type,obj={}) {
- this.type = type
- Object.assign(this,obj)
-  } 
+        this.type = type
+        this.scriptCallbacks={}
+        Object.assign(this,obj)
+    } 
 then = (a) => { this.scriptCallbacks.afterExecSuc = a; return this }
 then_js = (a) => { this.scriptCallbacks.afterExecSuc = js(a); return this }
 }
