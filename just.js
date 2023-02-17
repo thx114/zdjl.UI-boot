@@ -112,7 +112,7 @@ class Var {
             return object
         }
         else if (typeof object === "object") { //InputObject to Array input {name:value} output [{name:name,value:value}]
-            return Object.entries(object).map(([key, value]) => {return { name: key, value: value }})
+            return Object.entries(object).map(([key, value]) => {return { name: key, value: value }}).filter(i=> typeof i.value != 'undefind')
         }
     }
     static Array2Object(array=[]) {
@@ -295,7 +295,6 @@ class setvar extends Action {
             try{
             window[i.name] = i.vlaue.val()
             global[i.name] = i.vlaue.val()
-            
             zdjl.setVar(i.name, i.vlaue.val())
             }catch{}
         })
