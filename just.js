@@ -112,7 +112,7 @@ class Var {
             return object
         }
         else if (typeof object === "object") { //InputObject to Array input {name:value} output [{name:name,value:value}]
-            return Object.entries(object).map(([key, value]) => {return { name: key, value: value }}).filter(i=> typeof i.value != 'undefind')
+            return Object.entries(object).map(([key, value]) => {return { name: key, value: value }}).filter(i=> typeof i.value != "undefined")
         }
     }
     static Array2Object(array=[]) {
