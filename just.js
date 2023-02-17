@@ -88,7 +88,7 @@ function exp(keyname, value, apply) {
         }
     }
     else if (Array.isArray(value) && Array.isArray(value[0]) && typeof value[0][0] == "string") {
-        if (typeof id == "undefined") { id = '' }
+    let id = window.id ?? global.id ?? zdjl.getVar('id') 
 
     let out=value[0][0]
     .replace(/#this/g,`all[${id}]`)
