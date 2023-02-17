@@ -86,8 +86,8 @@ function exp(keyname, value, apply) {
         }
     }
     else if (Array.isArray(value) && Array.isArray(value[0]) && typeof value[0][0] == "string") {
-    let id = window.id ?? global.id ?? zdjl.getVar('id')
-        if (`${id}`.length===1){ console.error(`ID 无法找到`)}
+    let id = id ?? window.id ?? global.id ?? zdjl.getVar('id')
+    if (`${id}`.length===1){ console.error(`ID 无法找到`)}
 
     let out=value[0][0]
     .replace(/#this/g,`all[${id}]`)
