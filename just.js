@@ -169,9 +169,11 @@ class Var {
     if(a){this.exp(this.k,a);}
     if(this.varType=='object'){return {}}
     if (typeof this[this.k] != "undefined") { return this[this.k] }
-    else { try {eval(this.__vars[this.k].valueExp) }}
+    else {
+        try{return eval(this.__vars[this.k].valueExp)}
+    catch(e){console.error(e)} }
+    }
 
-    this[this.k] ?? eval(this.__vars[this.k].valueExp)}
     get real() {return lookforMother(this)}
     get reload(){this.val(this.real)}
     get nid() { all.add(this) ;return this[ID]}
