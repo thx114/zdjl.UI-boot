@@ -168,7 +168,10 @@ class Var {
     val=(a)=>{
     if(a){this.exp(this.k,a);}
     if(this.varType=='object'){return {}}
-    return this[this.k] ?? eval(this.__vars[this.k].valueExp)}
+    if (typeof this[this.k] != "undefined") { return this[this.k] }
+    else { try {eval(this.__vars[this.k].valueExp) }}
+
+    this[this.k] ?? eval(this.__vars[this.k].valueExp)}
     get real() {return lookforMother(this)}
     get reload(){this.val(this.real)}
     get nid() { all.add(this) ;return this[ID]}
@@ -298,12 +301,13 @@ class setvar extends Action {
             v.value[NAME]=v.name
             if ( typeof v.value == "undefined"){
             return}
+            v.value.REALPATH = scanforpath(v.value)  
             if (v.value.varType == "object") {
+
                ascan(v.value.objectVars)
                v.value.remap
                }
-            if ( v.value[R]){v.value.reload}
-            v.value.REALPATH=scanforpath(v.value)  
+            if ( v.value[R]){v.value.reload} 
             lookforMother(v.value)
                })
 
