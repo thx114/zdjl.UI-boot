@@ -271,7 +271,10 @@ class obj extends Var {
 class Action { constructor(type,obj={}) {
  this.type = type
  Object.assign(this,obj)
-  } }
+  } 
+then = (a) => { this.scriptCallbacks.afterExecSuc = a; return this }
+then_js = (a) => { this.scriptCallbacks.afterExecSuc = js(a); return this }
+}
 function string(input="") { return new Var('value', input, "string" )}
 function number(input=0) { return new Var('number', input, "number" )}
 function bool(input=false) { return new Var('value', input, "bool" )}
