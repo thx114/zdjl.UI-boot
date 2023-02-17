@@ -291,13 +291,6 @@ class setvar extends Action {
         super('设置变量')
         this.vars = Var.Object2Array(input)
         this[CJSON] = Var.Array2Object(this.vars)
-        this.vars.forEach(i=>{
-            try{
-                window[i.name] = i?.value?.val()
-                global[i.name] = i?.value?.val()
-            }catch{}
-        })
-
 
     }
     get scan(){
