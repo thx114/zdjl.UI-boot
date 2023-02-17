@@ -275,11 +275,11 @@ class Action {
         this.scriptCallbacks = new Object()
     } 
 then = (a) => {
-    this.scriptCallbacks |= {}
+    this.scriptCallbacks |= new Object()
      this.scriptCallbacks.afterExecSuc = a; return this 
     }
 then_js = (a) => {
-     this.scriptCallbacks |=  {}
+    this.scriptCallbacks |= new Object()
      this.scriptCallbacks.afterExecSuc = js(a); return this 
     }
 }
@@ -301,8 +301,11 @@ input=Array.isArray(input)?input[0][0]:input
 input=input
 .replace(/#this/g,`all[${id}]`)
 .replace(/this/g,`eval(all[${id}].R)`)
-// zdjl.alert(input)
- return new Action('运行JS代码',{jsCode:input})}
+
+let out =new Action('运行JS代码',{jsCode:input})
+    zdjl.alert(JSON.stringify(out))
+    return out
+}
 
 
 
