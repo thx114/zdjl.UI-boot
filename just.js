@@ -1,4 +1,4 @@
-window=global
+
 const { realpath } = require("fs")
 const ID = Symbol("ID")
 const CJSON = Symbol("CJSON")
@@ -293,13 +293,13 @@ class setvar extends Action {
         this.repeatCount = 2
     }
     get scan(){
-        function ascan(vars, allpath) {
+        function ascan(vars) {
             vars.forEach((v) => {
             v.value[NAME]=v.name
             if ( typeof v.value == "undefined"){
             return}
             if (v.value.varType == "object") {
-               ascan(v.value.objectVars, all[v.value[ID]])
+               ascan(v.value.objectVars)
                v.value.remap
                }
             if ( v.value[R]){v.value.reload}
@@ -314,7 +314,6 @@ class setvar extends Action {
     }
     get run(){
         this.scan
-        console.log(JSON.parse(JSON.stringify(this)))
         zdjl.runActionAsync(this)
     }
 }
