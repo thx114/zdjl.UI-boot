@@ -6,11 +6,9 @@ const NAME = Symbol("NAME")
 const Mother = Symbol("Mother")
 const R = Symbol("R")
 const REALPATH = Symbol("REALPATH")
-var id = '0'
-zdjl.setVar("id",id)
 window.all = {
     add: (obj) => {
-        let id=obj[ID]??getid()
+        let id = obj[ID]??getid()
         all[id] = obj
         obj.self = function () { return all[id] }
         obj[ID] = id
@@ -88,7 +86,8 @@ function exp(keyname, value, apply) {
         }
     }
     else if (Array.isArray(value) && Array.isArray(value[0]) && typeof value[0][0] == "string") {
-    let id = window.id ?? global.id ?? zdjl.getVar('id') 
+    let id = window.id ?? global.id ?? zdjl.getVar('id')
+        if (`${id}`.length===1){ console.error(`ID 无法找到`)}
 
     let out=value[0][0]
     .replace(/#this/g,`all[${id}]`)
@@ -247,10 +246,7 @@ class obj extends Var {
     constructor(input = {}) {
         super('objectVars', [])
         all.add(this)
-        window.id=this[ID]
-        var id = this[ID]
-        global.id = this[ID]
-        zdjl.setVar("id",this[ID])
+        window.id = this[ID]
         
         this.objectVars = Var.Object2Array(input)
         this[CJSON] = Var.Array2Object(this.objectVars)
