@@ -5,10 +5,9 @@ const NAME = Symbol("NAME")
 const Mother = Symbol("Mother")
 const R = Symbol("R")
 const REALPATH = Symbol("REALPATH")
-zdjl.setVar(`Gthis`,{a:0})
 
-all=zdjl.getVar("all")
-all = {
+// all=zdjl.getVar("all")
+window.all = {
     add: (obj) => {
         let id=obj[ID]??getid()
         all[id] = obj
@@ -130,6 +129,7 @@ class Var {
         this.exp(k, v)
         this.val = (a) => { 
             if (a) {this.exp(this.k,a)}
+            if(type=="object"){return{}}
             return (this[k] ?? eval(this.__vars[k].valueExp) )
         }
         Object.assign(this, obj)
@@ -139,15 +139,23 @@ class Var {
     // let lookat=this
     // let list=[]
     // zdjl.alert(JSON.stringify(this[Mother]))
-    function lookforMother(obj){
-      if (obj[Mother]){
+    console.log(`look for real`)
+    function lookforMother(obj){ 
+    // console.log(`look _`)
+      if (obj[Mother]!=null){
+        let a=lookforMother(obj[Mother])
+        if (typeof a[obj[NAME]] == "undefined"){
+        a[obj[NAME]]=obj.val()}
+        
         return lookforMother(obj[Mother])[obj[NAME]]
         }
       else {
-      // zdjl.alert(obj[NAME],zdjl.getVar(obj[NAME]))
-        
-        return zdjl.getVar(obj[NAME])??zdjl.setVar(obj[NAME],obj.val)??zdjl.getVar(obj[NAME])
-        }}
+        if (typeof zdjl.getVar(obj[NAME]) == 'undefined'){
+        zdjl.setVar(obj[NAME],obj.val())}
+        return zdjl.getVar(obj[NAME])
+        }
+      }
+       
     return lookforMother(this)
     }
     get reload(){this.val(this.real)}
@@ -156,7 +164,6 @@ class Var {
     get id() { return this[ID]}
     get e() { return this.__vars }
     get r() { this[R] = true;return this }
-    get l(){ zdjl.setVar(`Gthis`,this);return this}
     textT = (a) => { return this.exp('textLineBefore', a)}
     textB = (a) => { return this.exp('textLineAfter',a)}
     textL = (a) => { return this.exp('showInputLabel',a)}
@@ -187,7 +194,6 @@ class Var {
     get set(){ new setvar({name:this[NAME]||"noname",value:this}).run }
     get wa(){ return this.wa()}
     apply=(a)=>{ 
-    Gthis = this
     
     this.objectVars = [...this.objectVars,...Var.Object2Array(a)]
     this[CJSON] = Var.Array2Object(this.objectVars)
@@ -205,6 +211,7 @@ class Var {
     Var.ReMap(this, this.objectVars)
     this.objectVars.forEach(i=>{
         i.value[Mother]=this
+        i.value[NAME]=i.name
         })
         
         return this
@@ -244,7 +251,7 @@ function string(input="") { return new Var('value', input, "string" )}
 function number(input=0) { return new Var('number', input, "number" )}
 function bool(input=false) { return new Var('value', input, "bool" )}
 function text(input="") { return new Var('textContent', input, "ui_text" )}
-function button(input="") { return new Var('buttonText', input, "ui_button" )}
+function button(input="") { return new Var('buttonText', input, "ui_button" ).sync}
 function object(input={},id=null) { return new obj(input,id) }
 function image(input={}) { return new Var('imageData', input, "ui_image" )}
 function color(input) { return new Var('color', input, "color" )}
@@ -306,15 +313,15 @@ class setvar extends Action {
 
 
 m={
-test:()=>{return object({},getid()).l.apply({
+test:()=>{return object({},id=getid()).apply({
 
 
 a:string().r,
 b:string().r,
-c:button().js([[`zdjl.alert(${Gthis.id});
-all[${Gthis.id}].push({_:m.test()}) 
+c:button().js([[`
+all[${id}].push({_:m.test()}) 
 `]])
-})
+}).t
 
 }
 }
