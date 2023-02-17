@@ -280,7 +280,7 @@ then = (a) => {
      this.scriptCallbacks.afterExecSuc = a; return this 
     }
 then_js = (input) => {
-    zdjl.alert(JSON.stringify(input))
+
     this.scriptCallbacks = {}
     this.scriptCallbacks.afterExecSuc = js(input); return this 
     }
@@ -306,7 +306,7 @@ let outt
 .replace(/this/g,`eval(all[${id}].R)`)
 
     let out = new Action('运行JS代码', { jsCode: outt })
-    zdjl.alert(JSON.stringify(out))
+
     return out
 }
 
