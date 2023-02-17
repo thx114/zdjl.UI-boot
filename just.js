@@ -35,7 +35,9 @@ function lookforMother(obj){
         }
       else {
         if (typeof zdjl.getVar(obj[NAME]) == 'undefined'){
+            eval.call(`window.${obj[NAME]} = ${obj.val()}`)
         zdjl.setVar(obj[NAME],obj.val())}
+
         return zdjl.getVar(obj[NAME])
         }
       }
@@ -290,7 +292,6 @@ class setvar extends Action {
         super('设置变量')
         this.vars = Var.Object2Array(input)
         this[CJSON] = Var.Array2Object(this.vars)
-        this.repeatCount = 2
     }
     get scan(){
         function ascan(vars) {
