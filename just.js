@@ -271,16 +271,18 @@ class obj extends Var {
 class Action { 
     constructor(type,obj={}) {
         this.type = type
-        Object.assign(this,obj)
+        if (obj){Object.assign(this,obj)}
         this.scriptCallbacks = new Object()
+        return this
     } 
 then = (a) => {
-    this.scriptCallbacks |= new Object()
+     this.scriptCallbacks = {}
      this.scriptCallbacks.afterExecSuc = a; return this 
     }
-then_js = (a) => {
-    this.scriptCallbacks |= new Object()
-     this.scriptCallbacks.afterExecSuc = js(a); return this 
+then_js = (input) => {
+    zdjl.alert(JSON.stringify(a))
+    this.scriptCallbacks = {}
+    this.scriptCallbacks.afterExecSuc = js(input); return this 
     }
 }
 function string(input="") { return new Var('value', input, "string" )}
@@ -297,12 +299,13 @@ function jscode(input) { return new Var('jsCode', input, "js_function" )}
 
 function setvars(input) { return new setvars(input) }
 function js(input) {
-input=Array.isArray(input)?input[0][0]:input
-input=input
+let outt
+    outt=Array.isArray(input)?input[0][0]:input
+    outt = outt
 .replace(/#this/g,`all[${id}]`)
 .replace(/this/g,`eval(all[${id}].R)`)
 
-let out =new Action('运行JS代码',{jsCode:input})
+    let out = new Action('运行JS代码', { jsCode: outt })
     zdjl.alert(JSON.stringify(out))
     return out
 }
@@ -314,6 +317,7 @@ class setvar extends Action {
         super('设置变量')
         this.vars = Var.Object2Array(input)
         this[CJSON] = Var.Array2Object(this.vars)
+        return this
     }
     get scan(){
         function ascan(vars) {
