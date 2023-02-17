@@ -290,6 +290,7 @@ class setvar extends Action {
         super('设置变量')
         this.vars = Var.Object2Array(input)
         this[CJSON] = Var.Array2Object(this.vars)
+        this.repeatCount = 2
     }
     get scan(){
         function ascan(vars, allpath) {
