@@ -268,7 +268,9 @@ class obj extends Var {
         )
     }
 }
-class Action { constructor(type,obj={}) {
+class Action { 
+    scriptCallbacks = {}
+    constructor(type,obj={}) {
  this.type = type
  Object.assign(this,obj)
   } 
