@@ -6,7 +6,7 @@ const NAME = Symbol("NAME")
 const Mother = Symbol("Mother")
 const R = Symbol("R")
 const REALPATH = Symbol("REALPATH")
-var id = ''
+var id = '0'
 zdjl.setVar("id",id)
 window.all = {
     add: (obj) => {
@@ -248,7 +248,9 @@ class obj extends Var {
         super('objectVars', [])
         all.add(this)
         window.id=this[ID]
-        // zdjl.setVar("GID",this[ID])
+        var id = this[ID]
+        global.id = this[ID]
+        zdjl.setVar("id",this[ID])
         
         this.objectVars = Var.Object2Array(input)
         this[CJSON] = Var.Array2Object(this.objectVars)
