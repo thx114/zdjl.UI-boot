@@ -6,6 +6,7 @@ const NAME = Symbol("NAME")
 const Mother = Symbol("Mother")
 const R = Symbol("R")
 const REALPATH = Symbol("REALPATH")
+var id
 window.all = {
     add: (obj) => {
         let id = obj[ID]??getid()
@@ -16,12 +17,11 @@ window.all = {
         Object.defineProperty(all, obj[NAME], {
             configurable: true,
             get (){
-
                 return Object.values(all).find(k => k[NAME] == obj[NAME])
-                
             }
         }
         )
+        return id
     }
 }
 function lookforMother(obj){
@@ -86,12 +86,13 @@ function exp(keyname, value, apply) {
         }
     }
     else if (Array.isArray(value) && Array.isArray(value[0]) && typeof value[0][0] == "string") {
-    if (typeof id == "undefined") { var id = window.id ?? global.id ?? zdjl.getVar('id') }
-    if (`${id}`.length===0){ console.error(`ID 无法找到`)}
+    let _id
+     _id = id ?? window.id ?? global.id ?? zdjl.getVar('id') 
+        if (!_id){ console.error(`ID 无法找到`)}
 
     let out=value[0][0]
-    .replace(/#this/g,`all[${id}]`)
-    .replace(/this/g,`eval(all[${id}].R)`)
+        .replace(/#this/g, `all[${_id}]`)
+        .replace(/this/g, `eval(all[${_id}].R)`)
         console.log(`Exp: ${out}  <${apply.name}>`)
         apply.e[keyname] = { valueExp: out, varType: 'expression' }
     }
@@ -251,9 +252,11 @@ class obj extends Var {
     remvoe = (key, val) => { this.objectVars.find(v => v.name == key).value = val }
     constructor(input = {}) {
         super('objectVars', [])
-        all.add(this)
-        id = this[ID]
-        window.id = this[ID]
+        let thisid 
+        thisid =all.add(this)
+        id = thisid
+        window.id = thisid
+        global.id = thisid
         
         this.objectVars = Var.Object2Array(input)
         this[CJSON] = Var.Array2Object(this.objectVars)
