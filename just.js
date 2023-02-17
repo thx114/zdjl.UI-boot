@@ -293,9 +293,9 @@ class setvar extends Action {
         this[CJSON] = Var.Array2Object(this.vars)
         this.vars.forEach(i=>{
             try{
-            window[i.name] = i.vlaue.val()
-            global[i.name] = i.vlaue.val()
-            zdjl.setVar(i.name, i.vlaue.val())
+                window[i.name] = i?.vlaue?.val()
+                global[i.name] = i?.vlaue?.val()
+                zdjl.setVar(i.name, i?.vlaue?.val())
             }catch{}
         })
 
