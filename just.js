@@ -60,7 +60,10 @@ function set(name,value=114){
   }
   if (value==114){return path}
   path = value
-  if (list.length==1){ zdjl.setVar(name,value) }
+  if (list.length==1){ 
+    zdjl.setVar(name,value) 
+
+}
   }
 function get(name){
 
@@ -305,6 +308,7 @@ class setvar extends Action {
 
         }
         ascan(this.vars, all)
+        this.scan
         return this
     }
     get run(){
