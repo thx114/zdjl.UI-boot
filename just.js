@@ -271,8 +271,8 @@ class obj extends Var {
 class Action { 
     constructor(type,obj={}) {
         this.type = type
-        this.scriptCallbacks={}
         Object.assign(this,obj)
+        this.scriptCallbacks = new Object()
     } 
 then = (a) => { this.scriptCallbacks.afterExecSuc = a; return this }
 then_js = (a) => { this.scriptCallbacks.afterExecSuc = js(a); return this }
@@ -305,7 +305,6 @@ class setvar extends Action {
         super('设置变量')
         this.vars = Var.Object2Array(input)
         this[CJSON] = Var.Array2Object(this.vars)
-
     }
     get scan(){
         function ascan(vars) {
