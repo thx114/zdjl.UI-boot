@@ -274,8 +274,14 @@ class Action {
         Object.assign(this,obj)
         this.scriptCallbacks = new Object()
     } 
-then = (a) => { this.scriptCallbacks.afterExecSuc = a; return this }
-then_js = (a) => { this.scriptCallbacks.afterExecSuc = js(a); return this }
+then = (a) => {
+    this.scriptCallbacks |= {}
+     this.scriptCallbacks.afterExecSuc = a; return this 
+    }
+then_js = (a) => {
+     this.scriptCallbacks |=  {}
+     this.scriptCallbacks.afterExecSuc = js(a); return this 
+    }
 }
 function string(input="") { return new Var('value', input, "string" )}
 function number(input=0) { return new Var('number', input, "number" )}
