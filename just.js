@@ -301,6 +301,7 @@ class setvar extends Action {
             if ( v.value[R]){v.value.reload}
             v.value.REALPATH=scanforpath(v.value)
                })
+            lookforMother(v.value)
         }
         ascan(this.vars, all)
         return this
