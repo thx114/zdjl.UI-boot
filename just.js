@@ -86,7 +86,7 @@ function exp(keyname, value, apply) {
         }
     }
     else if (Array.isArray(value) && Array.isArray(value[0]) && typeof value[0][0] == "string") {
-    let id = id ?? window.id ?? global.id ?? zdjl.getVar('id')
+        if (typeof id == "undefined") { let id = window.id ?? global.id ?? zdjl.getVar('id') }
     if (`${id}`.length===0){ console.error(`ID 无法找到`)}
 
     let out=value[0][0]
@@ -252,6 +252,7 @@ class obj extends Var {
     constructor(input = {}) {
         super('objectVars', [])
         all.add(this)
+        id = this[ID]
         window.id = this[ID]
         
         this.objectVars = Var.Object2Array(input)
@@ -305,10 +306,8 @@ class setvar extends Action {
             if ( typeof v.value == "undefined"){
             return}
             v.value.REALPATH = scanforpath(v.value)  
-                lookforMother(v.value)
-                v.value.REALPATH = scanforpath(v.value)  
+            lookforMother(v.value)
             if (v.value.varType == "object") {
-
                ascan(v.value.objectVars)
                v.value.remap
                }
