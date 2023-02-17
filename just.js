@@ -291,7 +291,6 @@ class setvar extends Action {
         this.vars = Var.Object2Array(input)
         this[CJSON] = Var.Array2Object(this.vars)
         this.repeatCount = 2
-        this.scan
     }
     get scan(){
         function ascan(vars, allpath) {
