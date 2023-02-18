@@ -7,6 +7,13 @@ const Mother = Symbol("Mother")
 const R = Symbol("R")
 const REALPATH = Symbol("REALPATH")
 var id
+console.error = (function () {
+    var original = console.error;
+    return function (error) {
+        zdjl.alert(error)
+        original.call(this, error);
+    }
+})();
 Exp_Modules = {
   Button_Text_exp : (a,size,Vname) => { let rtext =`
     (()=>{
@@ -80,6 +87,7 @@ window.all = {
         return id
     }
 }
+
 function lookforMother(obj) {
     if (obj[Mother] != null) {
         let a = lookforMother(obj[Mother])
@@ -337,7 +345,12 @@ class Action {
     function area(input) { return new Var('screen_area', input, "screen_area") }
     function jscode(input) { return new Var('jsCode', input, "js_function") }
     function Switch(SwitchValueName,size=80) { let Thisobj = object().t
-        if (!SwitchValueName) { zdjl.alert(`开关输入参数错误 Switch() 需要一个必须输入参数 SwitchValueName  \ninput : \n  SwitchValueName :string \n  size :number`);throw error }
+        if (!SwitchValueName) { zdjl.alert(`
+        开关输入参数错误 Switch() 需要一个必须输入参数 SwitchValueName
+        input : 
+          SwitchValueName : string < 开关 开启与关闭 修改的全局变量中的 布尔值变量名
+          size : string < 开关 大小
+        `);throw Error()}
         new setvar([
             { name: `_${id}time`, value: number(0).s },
             { name: `_${id}mode`, value: string(`off`).s },
