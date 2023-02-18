@@ -421,5 +421,3 @@ for (i of [getid, Var, exp, obj, Action, string, number, bool, text, button, obj
     window[i.name] = i
  }
 
-
-Switch()
