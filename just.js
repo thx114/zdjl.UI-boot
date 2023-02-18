@@ -50,8 +50,8 @@ Exp_Modules = {
     (()=>{
     thisobjmode??="off"
     switch (thisobjmode){
-    case "off": thisobjmode= "go - on";new setvar({${Vname}:bool(true)}).run;break
-    case "on": thisobjmode= "go - off";new setvar({${Vname}:bool(false)}).run;break
+    case "off": thisobjmode= "go - on";new setvar({${Vname}:bool(true).s}).run;break
+    case "on": thisobjmode= "go - off";new setvar({${Vname}:bool(false).s}).run;break
     }
     })()`
       .replace(/thisobj/g, `_${a}`)
