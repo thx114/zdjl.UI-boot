@@ -40,7 +40,7 @@ Exp_Modules = {
     })()`
         .replace(/thisobj/g, `_${a}`)
         .replace(/width='80%'/g, `width='${size}%'`);
-      let out = [['eval(`' + rtext + '`)?" ":" "']]
+      let out = [['eval(`' + rtext + '`)']]
         console.log('B_TimeExp:' + JSON.stringify(out))
         return out
     },
