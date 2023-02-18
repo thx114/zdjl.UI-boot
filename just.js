@@ -1,4 +1,4 @@
-//版本 0.2<Switch log> 2023.2.18
+//版本 0.2<bool log> 2023.2.18
 if (typeof window == "undefined") { var window = global; }
 const ID = Symbol("ID")
 const CJSON = Symbol("CJSON")
