@@ -10,7 +10,6 @@ var id
 Exp_Modules = {
   Button_Text_exp : (a,Vname) => { let rtext =`
     (()=>{
-    thisobjmode??="off"
     switch (thisobjmode) {
     case "go - on":thisobjmode= "on - ing" ; thisobjtime= 0 ; #switch# = true ; return "#MD<img src='https://user-images.githubusercontent.com/52259890/219705758-abfb74ad-5b41-4be7-972b-e7cf54a0bfe3.gif' width='80%'>"
     case "on - ing": thisobjtime++ ; thisobjmode +="";return "#MD<img src='https://user-images.githubusercontent.com/52259890/219705758-abfb74ad-5b41-4be7-972b-e7cf54a0bfe3.gif' width='80%'>"
@@ -20,8 +19,9 @@ Exp_Modules = {
     case "on":return "#MD<img src='https://user-images.githubusercontent.com/52259890/219713381-4530445b-d41e-468f-8861-d60dae93511a.gif' width='80%'>"
     }
     })()`
-    .replace(/thisobj/g, `_${a}`)
-    .replace(/#switch#/g, Vname)
+        .replace(/thisobj/g, `_${a}`)
+        .replace(/#switch#/g, Vname);
+        console.log('B_textExp:' + rtext)
     return [[`eval(${rtext})`]]
     },
 
@@ -29,14 +29,14 @@ Exp_Modules = {
     Button_TextR_exp: (a) => { let rtext =`
     thisobjtime=
     (()=>{
-    thisobjtime??=0
     if( thisobjtime > 0 ) { thisobjtime++}
     if( thisobjtime > 2000 ) { 
       thisobjtime= 0 
       thisobjmode= thisobjmode.replace(" - ing","") }
       return thisobjtime
     })()`
-    .replace(/thisobj/g, `_${a}`)
+        .replace(/thisobj/g, `_${a}`);
+        console.log('B_timeExp:'+rtext)
     return [[`eval(${rtext})`]]
     },
 
@@ -50,7 +50,8 @@ Exp_Modules = {
     case "on": return thisobjmode= "go - off";break
     }
     })()`
-    .replace(/thisobj/g, `_${a}`)
+      .replace(/thisobj/g, `_${a}`);
+      console.log('B_ActionExp:' + rtext)
     return [[`eval(${rtext})`]]
     },
  }
