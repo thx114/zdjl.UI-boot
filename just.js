@@ -7,13 +7,8 @@ const Mother = Symbol("Mother")
 const R = Symbol("R")
 const REALPATH = Symbol("REALPATH")
 var id
-console.error = (function () {
-    var original = console.error;
-    return function (error) {
-        zdjl.alert(error)
-        original.call(this, error);
-    }
-})();
+
+
 Exp_Modules = {
   Button_Text_exp : (a,size,Vname) => { let rtext =`
     (()=>{
@@ -144,8 +139,6 @@ function exp(keyname, value, apply) {
     else if (Array.isArray(value) && Array.isArray(value[0]) && typeof value[0][0] == "string") {
         let _id
         _id = id ?? window.id ?? global.id ?? zdjl.getVar('id')
-        if (!_id) { console.error(`ID 无法找到`) }
-
         let out = value[0][0]
             .replace(/#this/g, `all[${_id}]`)
             .replace(/this/g, `eval(all[${_id}].R)`)
@@ -346,16 +339,17 @@ class Action {
     function jscode(input) { return new Var('jsCode', input, "js_function") }
     function Switch(SwitchValueName,size=80) { let Thisobj = object().t
         if (!SwitchValueName) { zdjl.alert(
-        `开关输入参数错误 Switch() 需要一个必须输入参数 SwitchValueName
-        input : 
-          SwitchValueName : string 
-            < 开关 开启与关闭 修改的全局变量中的 布尔值变量名 >
-          size : string 
-            < 开关 大小 >
-        `.trim());throw Error()}
+         `开关输入参数错误 Switch() 需要一个必须输入参数 SwitchValueName
+         input : 
+           SwitchValueName : string 
+             < 开关 开启与关闭 修改的全局变量中的 布尔值变量名 >
+           size : string 
+             < 开关 大小 >
+         `.replace(/^\s+/gm, ''));throw Error()}
         new setvar([
             { name: `_${id}time`, value: number(0).s },
             { name: `_${id}mode`, value: string(`off`).s },
+            { name: SwitchValueName, value: bool(false).s }
         ]).run
         return Thisobj.apply({ button: button().c.style("none")
             .text(Exp_Modules.Button_Text_exp(id, size))
