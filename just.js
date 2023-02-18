@@ -345,12 +345,14 @@ class Action {
     function area(input) { return new Var('screen_area', input, "screen_area") }
     function jscode(input) { return new Var('jsCode', input, "js_function") }
     function Switch(SwitchValueName,size=80) { let Thisobj = object().t
-        if (!SwitchValueName) { zdjl.alert(`
-        开关输入参数错误 Switch() 需要一个必须输入参数 SwitchValueName
+        if (!SwitchValueName) { zdjl.alert(
+        `开关输入参数错误 Switch() 需要一个必须输入参数 SwitchValueName
         input : 
-          SwitchValueName : string < 开关 开启与关闭 修改的全局变量中的 布尔值变量名
-          size : string < 开关 大小
-        `);throw Error()}
+          SwitchValueName : string 
+            < 开关 开启与关闭 修改的全局变量中的 布尔值变量名 >
+          size : string 
+            < 开关 大小 >
+        `.trim());throw Error()}
         new setvar([
             { name: `_${id}time`, value: number(0).s },
             { name: `_${id}mode`, value: string(`off`).s },
@@ -420,3 +422,4 @@ for (i of [getid, Var, exp, obj, Action, string, number, bool, text, button, obj
  }
 
 
+Switch()
