@@ -352,9 +352,9 @@ class Action {
             { name: SwitchValueName, value: bool(false).s }
         ]).run
         return Thisobj.apply({ button: button().c.style("none")
-            .text(Exp_Modules.Button_Text_exp(id, size))
-            .textR(Exp_Modules.Button_TextR_exp(id, size))
-            .js(Exp_Modules.Button_Action_exp(id, size, SwitchValueName))
+            .text(Exp_Modules.Button_Text_exp(SwitchValueName, size))
+            .textR(Exp_Modules.Button_TextR_exp(SwitchValueName, size))
+            .js(Exp_Modules.Button_Action_exp(SwitchValueName, size, SwitchValueName))
         })}
 
     function setvars(input) { return new setvars(input) }
