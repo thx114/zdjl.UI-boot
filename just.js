@@ -27,7 +27,7 @@ Exp_Modules = {
     },
 
     
-    Button_TextR_exp: (a) => { let rtext =
+  Button_TextR_exp: (a) => { let rtext =
     thisobjtime=`
     (()=>{
     if( thisobjtime > 0 ) { thisobjtime++}
@@ -162,14 +162,14 @@ class Var {
         else if (typeof object === "object") { //InputObject to Array input {name:value} output [{name:name,value:value}]
             return Object.entries(object).map(([key, value]) => { return { name: key, value: value } }).filter(i => typeof i.value != "undefined")
         }
-    }
+     }
     static Array2Object(array = []) {
         if (array.length == 0) { return {} }
         return array.reduce((obj, item) => {
             obj[item.name] = item.value
             return obj
         })
-    }
+     }
     static ReMap(obj, applist) {
         // console.log(`  >>reMap ${obj[NAME]} for [${Object.values(applist).map(v => v.name).join(", ")}]`)
         applist.forEach((v) => {
@@ -197,7 +197,7 @@ class Var {
                 }
             })
         })
-    }
+     }
     __vars = {}
     showInput = true
     mustInput = false
@@ -208,7 +208,7 @@ class Var {
         this.varType = type
         this.exp(k, v)
         Object.assign(this, obj)
-    }
+     }
     val = (a) => {
         if (a) { this.exp(this.k, a); }
         if (this.varType == 'object') { return {} }
@@ -217,7 +217,7 @@ class Var {
             try { return eval(this.__vars[this.k].valueExp) }
             catch { console.error('eval error'); return undefined }
         }
-    }
+     }
     exp = (k, v) => { exp(k, v, this); return this }
     get real() { return lookforMother(this) }
     get reload() { this.val(this.real) }
@@ -267,7 +267,7 @@ class Var {
         })
 
         return this
-    }
+     }
     push = (a) => {
         this.objectVars = [...this.objectVars, ...Var.Object2Array(a)]
         this[CJSON] = Var.Array2Object(this.objectVars)
@@ -278,7 +278,7 @@ class Var {
         })
 
         return this
-    }
+     }
  }
 
 class obj extends Var {
@@ -340,7 +340,7 @@ class Action {
             { name: `_${id}time`, value: number(0).s },
             { name: `_${id}mode`, value: string(`off`).s },
         ]).run
-        return Thisobj.apply({ button: button().c
+        return Thisobj.apply({ button: button().c.style("none")
                 .text(Exp_Modules.Button_Text_exp(id))
                 .textR(Exp_Modules.Button_TextR_exp(id))
                 .js(Exp_Modules.Button_Action_exp(id, key))
