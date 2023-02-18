@@ -45,13 +45,13 @@ Exp_Modules = {
         return out
     },
 
-  Button_Action_exp : (a,size) => { let rtext = 
+  Button_Action_exp: (a, size, Vname) => { let rtext = 
     thisobjmode=`
     (()=>{
     thisobjmode??="off"
     switch (thisobjmode){
-    case "off": return thisobjmode= "go - on";break
-    case "on": return thisobjmode= "go - off";break
+    case "off": thisobjmode= "go - on";new setvar({${Vname}:bool(true)}).run;break
+    case "on": thisobjmode= "go - off";new setvar({${Vname}:bool(false)}).run;break
     }
     })()`
       .replace(/thisobj/g, `_${a}`)
