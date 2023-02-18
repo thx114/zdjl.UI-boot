@@ -1,3 +1,4 @@
+//版本 0.2<Switch> 2023.2.18
 if (typeof window == "undefined") { var window = global; }
 const { realpath } = require("fs");
 const Module = require("module");
