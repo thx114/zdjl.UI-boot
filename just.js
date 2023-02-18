@@ -21,8 +21,9 @@ Exp_Modules = {
     })()`
         .replace(/thisobj/g, `_${a}`)
         .replace(/#switch#/g, Vname);
-        console.log('B_textExp:' + rtext)
-    return [[`eval(\`${rtext}\`)`]]
+        let out = [['eval(`'+rtext+'`})']]
+        console.log('B_textExp:' + JSON.stringify(out))
+    return out
     },
 
     
@@ -36,8 +37,9 @@ Exp_Modules = {
       return thisobjtime
     })()`
         .replace(/thisobj/g, `_${a}`);
-        console.log('B_timeExp:'+rtext)
-    return [[`eval(\`${rtext}\`)`]]
+        let out = [['eval(`' + rtext + '`})']]
+        console.log('B_TimeExp:' + JSON.stringify(out))
+        return out
     },
 
 
@@ -51,8 +53,9 @@ Exp_Modules = {
     }
     })()`
       .replace(/thisobj/g, `_${a}`);
-      console.log('B_ActionExp:' + rtext)
-    return [[`eval(\`${rtext}\`)`]]
+      let out = [['eval(`' + rtext + '`})']]
+      console.log('B_ActionExp:' + JSON.stringify(out))
+      return out
     },
  }
 
