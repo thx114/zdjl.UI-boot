@@ -332,7 +332,7 @@ class Action {
     function xy(input) { return new Var('position', input, "position") }
     function area(input) { return new Var('screen_area', input, "screen_area") }
     function jscode(input) { return new Var('jsCode', input, "js_function") }
-    function Switch(key) { let Thisobj = object()
+    function Switch(key) { let Thisobj = object().t
         new setvar([
             { name: `_${id}time`, value: number(0).s },
             { name: `_${id}mode`, value: string(`off`).s },
