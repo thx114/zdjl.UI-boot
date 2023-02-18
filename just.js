@@ -347,8 +347,8 @@ class Action {
              < 开关 大小 >
          `.replace(/^\s+/gm, ''));throw Error()}
         new setvar([
-            { name: `_${id}time`, value: number(0).s },
-            { name: `_${id}mode`, value: string(`off`).s },
+            { name: `_${SwitchValueName}time`, value: number(0).s },
+            { name: `_${SwitchValueName}mode`, value: string(`off`).s },
             { name: SwitchValueName, value: bool(false).s }
         ]).run
         return Thisobj.apply({ button: button().c.style("none")
