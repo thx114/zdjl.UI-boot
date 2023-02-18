@@ -8,7 +8,7 @@ const R = Symbol("R")
 const REALPATH = Symbol("REALPATH")
 var id
 Exp_Modules = {
-  Button_Text_exp : (a,Vname) => { let rtext =`
+  Button_Text_exp : (a,size,Vname) => { let rtext =`
     (()=>{
     switch (thisobjmode) {
     case "go - on":thisobjmode= "on - ing" ; thisobjtime= 0 ; #switch# = true ; return "#MD<img src='https://user-images.githubusercontent.com/52259890/219705758-abfb74ad-5b41-4be7-972b-e7cf54a0bfe3.gif' width='80%'>"
@@ -20,14 +20,14 @@ Exp_Modules = {
     }
     })()`
         .replace(/thisobj/g, `_${a}`)
-        .replace(/#switch#/g, Vname);
+        .replace(/#switch#/g, Vname)
+        .replace(/width='80%'/g, `width='${size}%'`);
         let out = [['eval(`'+rtext+'`)']]
         console.log('B_textExp:' + JSON.stringify(out))
     return out
     },
-
     
-  Button_TextR_exp: (a) => { let rtext =
+  Button_TextR_exp: (a,size) => { let rtext =
     thisobjtime=`
     (()=>{
     if( thisobjtime > 0 ) { thisobjtime++}
@@ -36,14 +36,14 @@ Exp_Modules = {
       thisobjmode= thisobjmode.replace(" - ing","") }
       return thisobjtime
     })()`
-        .replace(/thisobj/g, `_${a}`);
+        .replace(/thisobj/g, `_${a}`)
+        .replace(/width='80%'/g, `width='${size}%'`);
         let out = [['eval(`' + rtext + '`)']]
         console.log('B_TimeExp:' + JSON.stringify(out))
         return out
     },
 
-
-  Button_Action_exp : (a) => { let rtext = 
+  Button_Action_exp : (a,size) => { let rtext = 
     thisobjmode=`
     (()=>{
     thisobjmode??="off"
@@ -52,7 +52,8 @@ Exp_Modules = {
     case "on": return thisobjmode= "go - off";break
     }
     })()`
-      .replace(/thisobj/g, `_${a}`);
+      .replace(/thisobj/g, `_${a}`)
+      .replace(/width='80%'/g, `width='${size}%'`);
       let out = [['eval(`' + rtext + '`)']]
       console.log('B_ActionExp:' + JSON.stringify(out))
       return out
@@ -335,15 +336,16 @@ class Action {
     function xy(input) { return new Var('position', input, "position") }
     function area(input) { return new Var('screen_area', input, "screen_area") }
     function jscode(input) { return new Var('jsCode', input, "js_function") }
-    function Switch(key) { let Thisobj = object().t
+    function Switch(SwitchValueName,size=80) { let Thisobj = object().t
+        if (!key) { zdjl.alert(`开关输入参数错误 Switch() 需要一个必须输入参数 SwitchValueName  \ninput : \n  SwitchValueName :string \n  size :number`);throw error }
         new setvar([
             { name: `_${id}time`, value: number(0).s },
             { name: `_${id}mode`, value: string(`off`).s },
         ]).run
         return Thisobj.apply({ button: button().c.style("none")
-                .text(Exp_Modules.Button_Text_exp(id))
-                .textR(Exp_Modules.Button_TextR_exp(id))
-                .js(Exp_Modules.Button_Action_exp(id, key))
+            .text(Exp_Modules.Button_Text_exp(id, size))
+            .textR(Exp_Modules.Button_TextR_exp(id, size))
+            .js(Exp_Modules.Button_Action_exp(id, size, SwitchValueName))
         })}
 
     function setvars(input) { return new setvars(input) }
