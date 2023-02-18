@@ -22,7 +22,7 @@ Exp_Modules = {
         .replace(/thisobj/g, `_${a}`)
         .replace(/#switch#/g, Vname);
         console.log('B_textExp:' + rtext)
-    return [[`eval(${rtext})`]]
+    return [[`eval(\`${rtext}\`)`]]
     },
 
     
@@ -37,7 +37,7 @@ Exp_Modules = {
     })()`
         .replace(/thisobj/g, `_${a}`);
         console.log('B_timeExp:'+rtext)
-    return [[`eval(${rtext})`]]
+    return [[`eval(\`${rtext}\`)`]]
     },
 
 
@@ -52,7 +52,7 @@ Exp_Modules = {
     })()`
       .replace(/thisobj/g, `_${a}`);
       console.log('B_ActionExp:' + rtext)
-    return [[`eval(${rtext})`]]
+    return [[`eval(\`${rtext}\`)`]]
     },
  }
 
