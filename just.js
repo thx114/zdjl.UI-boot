@@ -337,7 +337,7 @@ class Action {
     function area(input) { return new Var('screen_area', input, "screen_area") }
     function jscode(input) { return new Var('jsCode', input, "js_function") }
     function Switch(SwitchValueName,size=80) { let Thisobj = object().t
-        if (!key) { zdjl.alert(`开关输入参数错误 Switch() 需要一个必须输入参数 SwitchValueName  \ninput : \n  SwitchValueName :string \n  size :number`);throw error }
+        if (!SwitchValueName) { zdjl.alert(`开关输入参数错误 Switch() 需要一个必须输入参数 SwitchValueName  \ninput : \n  SwitchValueName :string \n  size :number`);throw error }
         new setvar([
             { name: `_${id}time`, value: number(0).s },
             { name: `_${id}mode`, value: string(`off`).s },
