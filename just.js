@@ -13,7 +13,7 @@ Exp_Modules = {
     switch (thisobjmode) {
     case "go - on":thisobjmode= "on - ing" ; thisobjtime= 0 ; #switch# = true ; return "#MD<img src='https://user-images.githubusercontent.com/52259890/219705758-abfb74ad-5b41-4be7-972b-e7cf54a0bfe3.gif' width='80%'>"
     case "on - ing": thisobjtime++ ; thisobjmode +="";return "#MD<img src='https://user-images.githubusercontent.com/52259890/219705758-abfb74ad-5b41-4be7-972b-e7cf54a0bfe3.gif' width='80%'>"
-    case "go - off":thisobjmode= "off - ing" ; thisobjtime= 0 #switch# = false ; ;return "#MD<img src='https://user-images.githubusercontent.com/52259890/219711727-8027dde0-1d93-4194-82ec-86009183f8c6.gif' width='80%'>"
+    case "go - off": thisobjmode = "off - ing"; thisobjtime = 0; #switch# = false ;return "#MD<img src='https://user-images.githubusercontent.com/52259890/219711727-8027dde0-1d93-4194-82ec-86009183f8c6.gif' width='80%'>"
     case "off - ing":thisobjtime++ ; thisobjmode +="";return "#MD<img src='https://user-images.githubusercontent.com/52259890/219711727-8027dde0-1d93-4194-82ec-86009183f8c6.gif' width='80%'>"
     case "off":return "#MD<img src='https://user-images.githubusercontent.com/52259890/219713371-76ab63f7-c1a7-4b4b-9548-428682ee45a3.gif' width='80%'>"
     case "on":return "#MD<img src='https://user-images.githubusercontent.com/52259890/219713381-4530445b-d41e-468f-8861-d60dae93511a.gif' width='80%'>"
@@ -21,14 +21,14 @@ Exp_Modules = {
     })()`
         .replace(/thisobj/g, `_${a}`)
         .replace(/#switch#/g, Vname);
-        let out = [['eval(`'+rtext+'`})']]
+        let out = [['eval(`'+rtext+'`)']]
         console.log('B_textExp:' + JSON.stringify(out))
     return out
     },
 
     
-    Button_TextR_exp: (a) => { let rtext =`
-    thisobjtime=
+    Button_TextR_exp: (a) => { let rtext =
+    thisobjtime=`
     (()=>{
     if( thisobjtime > 0 ) { thisobjtime++}
     if( thisobjtime > 2000 ) { 
@@ -37,14 +37,14 @@ Exp_Modules = {
       return thisobjtime
     })()`
         .replace(/thisobj/g, `_${a}`);
-        let out = [['eval(`' + rtext + '`})']]
+        let out = [['eval(`' + rtext + '`)']]
         console.log('B_TimeExp:' + JSON.stringify(out))
         return out
     },
 
 
-  Button_Action_exp : (a) => { let rtext = `
-    thisobjmode=
+  Button_Action_exp : (a) => { let rtext = 
+    thisobjmode=`
     (()=>{
     thisobjmode??="off"
     switch (thisobjmode){
@@ -53,7 +53,7 @@ Exp_Modules = {
     }
     })()`
       .replace(/thisobj/g, `_${a}`);
-      let out = [['eval(`' + rtext + '`})']]
+      let out = [['eval(`' + rtext + '`)']]
       console.log('B_ActionExp:' + JSON.stringify(out))
       return out
     },
@@ -403,4 +403,5 @@ class setvar extends Action {
 for (i of [getid, Var, exp, obj, Action, string, number, bool, text, button, object, image, color, xy, area, jscode, setvars, js, setvar, set, get, lookforMother, scanforpath, Switch]) {
     window[i.name] = i
  }
+
 
