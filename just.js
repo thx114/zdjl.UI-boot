@@ -487,6 +487,6 @@ window.M = {
  }
 
 
-for (i of [getid, Var, exp, obj, Action, string, number, bool, text, button, object, image, color, xy, area, jscode, setvars, js, setvar, set, get, lookforMother, scanforpath, Switch,SwitchImg,n,Ba]) {
+for (i of [getid, Var, exp, obj, Action, string, number, bool, text, button, object, image, color, xy, area, jscode, setvars, js, setvar, set, get, lookforMother, scanforpath, Switch,SwitchImg,n,Ba,gesture,click,location,action]) {
     window[i.name] = i
  }
