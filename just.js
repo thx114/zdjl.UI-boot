@@ -1,4 +1,4 @@
-//版本 0.31<textlist> 2023.2.19
+//版本 0.31<textlist2> 2023.2.19
 // if (typeof window == "undefined") { var window = global; }
 // if (typeof zdjl == "undefined") { var zdjl={
 //    getVar: function (name) { global[name] },
@@ -222,7 +222,18 @@ class Var {
             return object
         }
         else if (typeof object === "object") { //InputObject to Array input {name:value} output [{name:name,value:value}]
-            return Object.entries(object).map(([key, value]) => { return { name: key, value: value } }).filter(i => typeof i.value != "undefined")
+            return Object.entries(object).map(([key, value]) => { 
+                if (value.varType='object' && typeof all[key] == "undefined"){
+                    console .log(`Find obj ${key}`)
+                    Object.defineProperty(all, key, {
+                        configurable: true,
+                        get() {
+                            return value
+                        }
+                    })
+                }
+                return { name: key, value: value } 
+            }).filter(i => typeof i.value != "undefined")
         }
      }
     static Array2Object(array = []) {
@@ -327,6 +338,7 @@ class Var {
         this.objectVars.forEach(i => {
             i.value[Mother] = this
         })
+        Var.ReMap(this, this.objectVars)
         return this
      }
     push = (a) => {
@@ -476,7 +488,7 @@ class setvar extends Action {
               .color(value[1]?'#07ea00':'#ff0005')
             }
         })
-        
+        thisobj.apply({})
         return thisobj
     }
 
@@ -513,8 +525,10 @@ for (i of [getid, Var, exp, obj, Action, string, number, bool, text, button, obj
     window[i.name] = i
  }
 
-// a=
-// textlist({
+// a=new setvar({
+// qee:textlist({
 //     [[`this.qaq`]]:['qaq',true]
 // })
-// console.log(a.objectVars[0].value.__vars.showInputHiddenView)
+// })
+// a.run
+// console.log(all.qee._0)
