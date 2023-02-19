@@ -316,7 +316,7 @@ class Var {
     get t() { this.showInputHiddenLabel = true; return this }
     get c() { this.closeDialogOnAction = false; return this }
     get ww() { return this.w(100) }
-    get wa() { return this.wa() }
+    get wa() { return this.w("auto") }
     apply = (a) => {
         this.objectVars = [...this.objectVars, ...Var.Object2Array(a)]
         this[CJSON] = Var.Array2Object(this.objectVars)
