@@ -404,7 +404,33 @@ class Action {
         ]).run
         return Thisobj.apply({ button: button().c.style("none")
             .text(Exp_Modules.Button_Text_exp(SwitchValueName, size))
-            .js(Exp_Modules.Button_Action_exp(SwitchValueName, size, SwitchValueName ,time))
+            .js(Exp_Modules.Button_Action_exp(SwitchValueName, size, SwitchValueName ,time)),
+            test:text(`#MD<img src="https://user-images.githubusercontent.com/52259890/219910269-44a4c078-d8c6-4b0b-8bd1-d6a22a45b7ab.png" width="1%">
+            <img src="https://user-images.githubusercontent.com/52259890/219910241-bfdf25d0-be6b-4fbd-8a92-169ec721f332.png" width="1%">
+            <img src="https://user-images.githubusercontent.com/52259890/219910244-079e9225-5c90-4a3a-a023-1c39c35a2133.png" width="1%">
+            <img src="https://user-images.githubusercontent.com/52259890/219910247-1cd1c246-c7e1-484c-b83d-ee3c80c4552b.png" width="1%">
+            <img src="https://user-images.githubusercontent.com/52259890/219910249-09eca473-e93e-4952-be3b-2b41c8b952e3.png" width="1%">
+            <img src="https://user-images.githubusercontent.com/52259890/219910250-0b887251-10e2-4a21-ac8b-bcb0a3b71468.png" width="1%">
+            <img src="https://user-images.githubusercontent.com/52259890/219910252-4761975d-6e6e-4425-b945-64207882ca29.png" width="1%">
+            <img src="https://user-images.githubusercontent.com/52259890/219910254-3a126ce2-79e1-476e-a521-e8fd06e888dc.png" width="1%">
+            <img src="https://user-images.githubusercontent.com/52259890/219910255-d5069147-7b62-4ae2-94ef-7c9c13a808aa.png" width="1%">
+            <img src="https://user-images.githubusercontent.com/52259890/219910256-eb065815-387a-4a7c-9163-29dd6daa1f63.png" width="1%">
+            <img src="https://user-images.githubusercontent.com/52259890/219910258-fb0fd727-bc74-4b52-aecc-d4b36a03910c.png" width="1%">
+            <img src="https://user-images.githubusercontent.com/52259890/219910260-e8fad093-37ef-4ec8-b53d-33d1d960e3e3.png" width="1%">
+            <img src="https://user-images.githubusercontent.com/52259890/219910262-e46bfd7d-c475-46b1-83bf-ede4efc31155.png" width="1%">
+            <img src="https://user-images.githubusercontent.com/52259890/219910263-d1b64573-b80b-497c-ab14-e814aa286f0e.png" width="1%">
+            <img src="https://user-images.githubusercontent.com/52259890/219910264-c883ebcf-b9bd-482f-b3b9-b2278a6a6ef3.png" width="1%">
+            <img src="https://user-images.githubusercontent.com/52259890/219910266-7b8021e3-84d9-4d91-98d0-ef1c296c2b90.png" width="1%">
+            <img src="https://user-images.githubusercontent.com/52259890/219910267-749d9349-9e7f-4ed9-accd-6764c23d0c8c.png" width="1%">
+            <img src="https://user-images.githubusercontent.com/52259890/219910268-6c071cb5-ae67-43b9-9b51-5f61d1640ef8.png" width="1%">
+            <img src="https://user-images.githubusercontent.com/52259890/219910283-dfde49df-f102-471f-9cb5-3a9952cc2f9e.png" width="1%">
+            <img src="https://user-images.githubusercontent.com/52259890/219910287-22b0dc7e-11b9-462d-96c0-ed527d40fcf1.png" width="1%">
+            <img src="https://user-images.githubusercontent.com/52259890/219910289-518b84b9-9f6b-4be1-998b-9412661f470b.png" width="1%">
+            <img src="https://user-images.githubusercontent.com/52259890/219910290-911a6c50-3f3b-4a3f-ade6-c5654ab6b15d.png" width="1%">
+            <img src="https://user-images.githubusercontent.com/52259890/219910292-4732b4ad-cc85-41e4-b469-b7c29091e30d.png" width="1%">
+            <img src="https://user-images.githubusercontent.com/52259890/219910294-fae9d7a1-9638-426f-813c-e446a20b3736.png" width="1%">
+            <img src="https://user-images.githubusercontent.com/52259890/219910229-2c158ad8-1d04-4cff-919f-9b0728e2c2e8.png" width="1%">
+            `)
         })}
 
     function setvars(input) { return new setvars(input) }
