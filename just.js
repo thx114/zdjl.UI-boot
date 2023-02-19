@@ -88,7 +88,7 @@ TheImgSave = {
 }
 
 Exp_Modules = {
-  Button_Text_exp : (a,size,Vname) => { let rtext =`thisobjimg`+`'<img src="https://user-images.githubusercontent.com/52259890/219910269-44a4c078-d8c6-4b0b-8bd1-d6a22a45b7ab.png" width="1%">
+  Button_Text_exp : (a,size,Vname) => { let rtext =`thisobjimg +'<img src="https://user-images.githubusercontent.com/52259890/219910269-44a4c078-d8c6-4b0b-8bd1-d6a22a45b7ab.png" width="1%">
   <img src="https://user-images.githubusercontent.com/52259890/219910241-bfdf25d0-be6b-4fbd-8a92-169ec721f332.png" width="1%">
   <img src="https://user-images.githubusercontent.com/52259890/219910244-079e9225-5c90-4a3a-a023-1c39c35a2133.png" width="1%">
   <img src="https://user-images.githubusercontent.com/52259890/219910247-1cd1c246-c7e1-484c-b83d-ee3c80c4552b.png" width="1%">
