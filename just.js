@@ -399,7 +399,7 @@ class Action {
     function jscode(input) { return new Var('jsCode', input, "js_function") }
     function Switch(SwitchValueName,size=SwitchDefaultSize,time=SwitchDefaultTime) { 
         new setvar([
-            { name: `_${SwitchValueName}img`, value: string(TheImgSave.off).s },
+            { name: `_${SwitchValueName}img`, value: string(TheImgSave.off.replace('80%',size+"%")).s },
             { name: `_${SwitchValueName}mode`, value: string(`off`).s },
             { name: SwitchValueName, value: bool(false).s }
         ]).run
