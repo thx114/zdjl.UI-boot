@@ -13,8 +13,7 @@ const Mother = Symbol("Mother")
 const R = Symbol("R")
 const REALPATH = Symbol("REALPATH")
 var id
-
-TheImgSave = {
+window.TheImgSave = {
     off : "#MD<img src=\"https://user-images.githubusercontent.com/52259890/219910219-ce0abfa1-6252-41ae-9a1e-b19e14394197.png\" width=\"80%\">",
     on : "#MD<img src=\"https://user-images.githubusercontent.com/52259890/219910229-2c158ad8-1d04-4cff-919f-9b0728e2c2e8.png\" width=\"80%\">",
     goOn:[
@@ -75,20 +74,20 @@ TheImgSave = {
     go_on(a=100){ 
         return this.goOn.map((url,index)=>{
             let ms = index * 20 * a * 0.01 +  20 * a * 0.01;
-            return `new setvar({thisobjimg:string('${url}').s}).d( ${ms} ).run`
+            return `new setvar({thisobjimg:number('${index}').s.sync}).d( ${ms} ).run`
         }).join(';\n')
     },
     go_off(a=100){ 
         return this.goOff.map((url,index)=>{
             let ms = index * 20 * a * 0.01+  20 * a * 0.01;
-            return `new setvar({thisobjimg:string('${url}').s}).d( ${ms} ).run`
+            return `new setvar({thisobjimg:number('${index}').s.sync}).d( ${ms} ).run`
         }).join(';\n')
     }
 
 }
 
 Exp_Modules = {
-  Button_Text_exp : (a) => { let rtext =`thisobjimg + SwitchImg()`
+  Button_Text_exp : (a) => { let rtext =`thisobjmode=="off"?TheImgSave.goOff[thisobjimg]:TheImgSave.goOn[thisobjimg]`
         .replace(/thisobj/g, `_${a}`)
         .replace(/1%/g, `0%`)
         let out = [['eval(`' + rtext +'`)']]
