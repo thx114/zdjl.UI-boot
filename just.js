@@ -33,13 +33,13 @@ Exp_Modules = {
     return out
     },
 
-  Button_Action_exp: (a, size, Vname) => { let rtext = 
+  Button_Action_exp: (a, size, Vname , time) => { let rtext = 
     thisobjmode=`
     (()=>{
     thisobjmode??="off"
     switch (thisobjmode){
-    case "off": thisobjmode= "on - ing";new setvar({${Vname}:bool(true).s}).run; new setvar({thisobjmode:string("on").s}).d(2000).run ;break
-    case "on": thisobjmode= "off - ing";new setvar({${Vname}:bool(false).s}).run; new setvar({thisobjmode:string("off").s}).d(2000).run ;break
+    case "off": thisobjmode= "on - ing";new setvar({${Vname}:bool(true).s}).run; new setvar({thisobjmode:string("on").s}).d(${time}).run ;break
+    case "on": thisobjmode= "off - ing";new setvar({${Vname}:bool(false).s}).run; new setvar({thisobjmode:string("off").s}).d(${time}).run ;break
     }
     })()`
       .replace(/thisobj/g, `_${a}`)
@@ -327,7 +327,7 @@ class Action {
     function xy(input) { return new Var('position', input, "position") }
     function area(input) { return new Var('screen_area', input, "screen_area") }
     function jscode(input) { return new Var('jsCode', input, "js_function") }
-    function Switch(SwitchValueName,size=80) { let Thisobj = object().t
+    function Switch(SwitchValueName,size=80,time=2200) { let Thisobj = object().t
         new setvar([
             { name: `_${SwitchValueName}time`, value: number(0).s },
             { name: `_${SwitchValueName}mode`, value: string(`off`).s },
@@ -335,7 +335,7 @@ class Action {
         ]).run
         return Thisobj.apply({ button: button().c.style("none")
             .text(Exp_Modules.Button_Text_exp(SwitchValueName, size))
-            .js(Exp_Modules.Button_Action_exp(SwitchValueName, size, SwitchValueName))
+            .js(Exp_Modules.Button_Action_exp(SwitchValueName, size, SwitchValueName ,time))
         })}
 
     function setvars(input) { return new setvars(input) }
