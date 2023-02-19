@@ -7,13 +7,13 @@
 //    runActionAsync:function(a){return console.log(a)  }
 // } }
 
- const ID = Symbol("ID")
- const CJSON = Symbol("CJSON")
- const NAME = Symbol("NAME")
- const Mother = Symbol("Mother")
- const R = Symbol("R")
- const REALPATH = Symbol("REALPATH")
- var id
+const ID = Symbol("ID")
+const CJSON = Symbol("CJSON")
+const NAME = Symbol("NAME")
+const Mother = Symbol("Mother")
+const R = Symbol("R")
+const REALPATH = Symbol("REALPATH")
+var id
 
 window.SwitchDefaultTime = 100
 window.SwitchDefaultSize = 100
@@ -468,6 +468,17 @@ class setvar extends Action {
           .text([[`'#MD'+${boolname}img`]])
           .js([[JS[0][0]+RUNLIST]])
      }   
+    function textlist(obj){ let thisobj = object().t
+        thisobj.objectVars = Object.entries(obj).map(([key, value],index)=>{ 
+            return {name:`_${index}`,value:text(value[0])
+              .h([['!('+key+')']])
+              .BGcolor(value[1]?'#035d00':'#400300')
+              .color(value[1]?'#07ea00':'#ff0005')
+            }
+        })
+        
+        return thisobj
+    }
 
 
     function setvars(input) { return new setvar(input) }
@@ -498,6 +509,8 @@ window.M = {
  }
 
 
-for (i of [getid, Var, exp, obj, Action, string, number, bool, text, button, object, image, color, xy, area, jscode, setvars, js, setvar, set, get, lookforMother, scanforpath, Switch,SwitchImg,n,Ba,gesture,click,location,action]) {
+for (i of [getid, Var, exp, obj, Action, string, number, bool, text, button, object, image, color, xy, area, jscode, setvars, js, setvar, set, get, lookforMother, scanforpath, Switch,SwitchImg,n,Ba,gesture,click,location,action,textlist]) {
     window[i.name] = i
  }
+
+
