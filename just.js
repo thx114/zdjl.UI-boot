@@ -1,11 +1,11 @@
 //版本 0.2<switch async> 2023.2.19
-// if (typeof window == "undefined") { var window = global; }
-// if (typeof zdjl == "undefined") { var zdjl={
-//    getVar: function (name) { global[name] },
-//    setVar:function(name,value){global[name]=value},
-//    alert:function(msg_){console.log(msg_)},
-//    runActionAsync:function(a){return console.log(a)  }
-// } }
+if (typeof window == "undefined") { var window = global; }
+if (typeof zdjl == "undefined") { var zdjl={
+   getVar: function (name) { global[name] },
+   setVar:function(name,value){global[name]=value},
+   alert:function(msg_){console.log(msg_)},
+   runActionAsync:function(a){return console.log(a)  }
+} }
 const ID = Symbol("ID")
 const CJSON = Symbol("CJSON")
 const NAME = Symbol("NAME")
@@ -121,7 +121,16 @@ Exp_Modules = {
  }
 
 
-
+function Ba(boolname,JS,Imgs,size=100,time=100){
+    let RUNLIST = ';'+ Imgs.map((url,index)=>{
+        let ms = index * 20 * time * 0.01 +  20 * time * 0.01;
+        return `new setvar({${boolname}img:{varType:"string",value:"${url.replace('80%',size)}"}}).d( ${ms} ).run`
+    }).join(';\n')
+    new setvar([{name: `_${boolname}img`,value:string(Imgs[0]).s}]).run
+    return button().c.style("none")
+      .text([[`eval('${boolname}img')`]])
+      .js([[JS[0][0]+RUNLIST]])
+}
 
 window.all = {
     add: (obj) => {
@@ -473,8 +482,6 @@ window.M = {
  }
 
 
-for (i of [getid, Var, exp, obj, Action, string, number, bool, text, button, object, image, color, xy, area, jscode, setvars, js, setvar, set, get, lookforMother, scanforpath, Switch,SwitchImg,n]) {
+for (i of [getid, Var, exp, obj, Action, string, number, bool, text, button, object, image, color, xy, area, jscode, setvars, js, setvar, set, get, lookforMother, scanforpath, Switch,SwitchImg,n,Ba]) {
     window[i.name] = i
  }
- 
-
