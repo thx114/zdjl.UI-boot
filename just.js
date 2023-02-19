@@ -1,5 +1,5 @@
 //版本 0.2<switch async> 2023.2.19
-if (typeof window == "undefined") { var window = global; }
+// if (typeof window == "undefined") { var window = global; }
 // if (typeof zdjl == "undefined") { var zdjl={
 //    getVar: function (name) { global[name] },
 //    setVar:function(name,value){global[name]=value},
