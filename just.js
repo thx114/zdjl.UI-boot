@@ -422,7 +422,7 @@ class Action {
 
         return out
      }
-    function n() { return string().ww.size(0) }
+    function n() { return text().ww.size(0) }
     
     
 
