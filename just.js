@@ -1,5 +1,11 @@
 //版本 0.2<bool log> 2023.2.18
 if (typeof window == "undefined") { var window = global; }
+if (typeof zdjl == "undefined") { var zdjl={
+    getVar: function (name) { global[name] },
+    setVar:function(name,value){global[name]=value},
+    alert:function(msg_){alert(msg_)},
+    runActionAsync:function(a){return console.log(a)  }
+} }
 const ID = Symbol("ID")
 const CJSON = Symbol("CJSON")
 const NAME = Symbol("NAME")
@@ -32,8 +38,8 @@ Exp_Modules = {
     (()=>{
     thisobjmode??="off"
     switch (thisobjmode){
-    case "off": thisobjmode= "go - on";new setvar({${Vname}:bool(true).s}).run; new setvar({${thisobjmode}:string("on").s}).d(2000).run ;break
-    case "on": thisobjmode= "go - off";new setvar({${Vname}:bool(false).s}).run; new setvar({${thisobjmode}:string("off").s}).d(2000).run ;break
+    case "off": thisobjmode= "go - on";new setvar({${Vname}:bool(true).s}).run; new setvar({thisobjmode:string("on").s}).d(2000).run ;break
+    case "on": thisobjmode= "go - off";new setvar({${Vname}:bool(false).s}).run; new setvar({thisobjmode:string("off").s}).d(2000).run ;break
     }
     })()`
       .replace(/thisobj/g, `_${a}`)
@@ -401,3 +407,4 @@ for (i of [getid, Var, exp, obj, Action, string, number, bool, text, button, obj
     window[i.name] = i
  }
 
+Switch("qqa")
