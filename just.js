@@ -396,16 +396,16 @@ class Action {
     function xy(input) { return new Var('position', input, "position") }
     function area(input) { return new Var('screen_area', input, "screen_area") }
     function jscode(input) { return new Var('jsCode', input, "js_function") }
-    function Switch(SwitchValueName,size=80,time=100) { let Thisobj = object().t
+    function Switch(SwitchValueName,size=80,time=100) { 
         new setvar([
             { name: `_${SwitchValueName}img`, value: string(TheImgSave.off).s },
             { name: `_${SwitchValueName}mode`, value: string(`off`).s },
             { name: SwitchValueName, value: bool(false).s }
         ]).run
-        return Thisobj.apply({ button: button().c.style("none")
+        return  button().c.style("none")
             .text(Exp_Modules.Button_Text_exp(SwitchValueName, size))
             .js(Exp_Modules.Button_Action_exp(SwitchValueName, size, SwitchValueName ,time))
-        })}
+        }
 
     function setvars(input) { return new setvars(input) }
     function js(input) { new Action('运行JS代码', { jsCode: "" })
