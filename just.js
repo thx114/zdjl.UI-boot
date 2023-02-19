@@ -1,5 +1,5 @@
 //版本 0.2<switch async> 2023.2.19
-// if (typeof window == "undefined") { var window = global; }
+if (typeof window == "undefined") { var window = global; }
 // if (typeof zdjl == "undefined") { var zdjl={
 //    getVar: function (name) { global[name] },
 //    setVar:function(name,value){global[name]=value},
@@ -15,7 +15,7 @@ const REALPATH = Symbol("REALPATH")
 var id
 window.SwitchDefaultTime = 100
 window.SwitchDefaultSize = 100
-TheImgSave = {
+window.TheImgSave = {
     off : "<img src=\"https://user-images.githubusercontent.com/52259890/219910219-ce0abfa1-6252-41ae-9a1e-b19e14394197.png\" width=\"80%\">",
     on : "<img src=\"https://user-images.githubusercontent.com/52259890/219910229-2c158ad8-1d04-4cff-919f-9b0728e2c2e8.png\" width=\"80%\">",
     goOn:[
@@ -124,11 +124,11 @@ Exp_Modules = {
 function Ba(boolname,JS,Imgs,size=100,time=100){
     let RUNLIST = ';'+ Imgs.map((url,index)=>{
         let ms = index * 20 * time * 0.01 +  20 * time * 0.01;
-        return `new setvar({${boolname}img:{varType:"string",value:"${url.replace('80%',size)}"}}).d( ${ms} ).run`
+        return `new setvar({${boolname}img:{varType:"string",value:'${url.replace('80%',size)}'}}).d( ${ms} ).run`
     }).join(';\n')
-    new setvar([{name: `${boolname}img`,value:string(Imgs[0]).s}]).run
+    new setvar([{name: `'#MD'+${boolname}img`,value:string(Imgs[0]).s}]).run
     return button().c.style("none")
-      .text([[`eval('${boolname}img')`]])
+      .text([[`${boolname}img`]])
       .js([[JS[0][0]+RUNLIST]])
 }
 
@@ -485,3 +485,8 @@ window.M = {
 for (i of [getid, Var, exp, obj, Action, string, number, bool, text, button, object, image, color, xy, area, jscode, setvars, js, setvar, set, get, lookforMother, scanforpath, Switch,SwitchImg,n,Ba]) {
     window[i.name] = i
  }
+jtest=
+ new setvar({
+    qaq:Ba('ava',[[`console.log('qaq')`]],TheImgSave.goOn)
+    })
+console.log(jtest.vars[0].value.action.jsCode)
