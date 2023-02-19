@@ -223,7 +223,7 @@ class Var {
         }
         else if (typeof object === "object") { //InputObject to Array input {name:value} output [{name:name,value:value}]
             return Object.entries(object).map(([key, value]) => { 
-                if (value.varType='object' && typeof all[key] == "undefined"){
+                if (value.varType=='object' && typeof all[key] == "undefined"){
                     console .log(`Find obj ${key}`)
                     Object.defineProperty(all, key, {
                         configurable: true,
