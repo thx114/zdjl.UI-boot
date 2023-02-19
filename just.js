@@ -41,7 +41,7 @@ TheImgSave = {
      "https://user-images.githubusercontent.com/52259890/219910290-911a6c50-3f3b-4a3f-ade6-c5654ab6b15d.png",
      "https://user-images.githubusercontent.com/52259890/219910292-4732b4ad-cc85-41e4-b469-b7c29091e30d.png",
      "https://user-images.githubusercontent.com/52259890/219910294-fae9d7a1-9638-426f-813c-e446a20b3736.png",
-     "https://user-images.githubusercontent.com/52259890/219910219-ce0abfa1-6252-41ae-9a1e-b19e14394197.png"
+     "https://user-images.githubusercontent.com/52259890/219910229-2c158ad8-1d04-4cff-919f-9b0728e2c2e8.png"
      ],
     goOff:[
      "https://user-images.githubusercontent.com/52259890/219910305-b86665eb-de2e-47b6-aef3-8bda005f612a.png",
@@ -70,7 +70,7 @@ TheImgSave = {
      "https://user-images.githubusercontent.com/52259890/219910340-10c08c4f-c9a3-42b2-a088-81f56cf14ad9.png",
      "https://user-images.githubusercontent.com/52259890/219910341-89986f90-9d8b-4661-a16a-deb832e4dea5.png",
      "https://user-images.githubusercontent.com/52259890/219910342-8c3a1a58-abf5-4aac-b454-4925aeced4e7.png",
-     "https://user-images.githubusercontent.com/52259890/219910229-2c158ad8-1d04-4cff-919f-9b0728e2c2e8.png"
+     "https://user-images.githubusercontent.com/52259890/219910219-ce0abfa1-6252-41ae-9a1e-b19e14394197.png"
      ],
     go_on(a=100){ 
         return this.goOn.map((url,index)=>{
