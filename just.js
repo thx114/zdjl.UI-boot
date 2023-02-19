@@ -40,8 +40,7 @@ TheImgSave = {
      "#MD<img src=\"https://user-images.githubusercontent.com/52259890/219910289-518b84b9-9f6b-4be1-998b-9412661f470b.png\" width=\"80%\">",
      "#MD<img src=\"https://user-images.githubusercontent.com/52259890/219910290-911a6c50-3f3b-4a3f-ade6-c5654ab6b15d.png\" width=\"80%\">",
      "#MD<img src=\"https://user-images.githubusercontent.com/52259890/219910292-4732b4ad-cc85-41e4-b469-b7c29091e30d.png\" width=\"80%\">",
-     "#MD<img src=\"https://user-images.githubusercontent.com/52259890/219910294-fae9d7a1-9638-426f-813c-e446a20b3736.png\" width=\"80%\">",
-     "#MD<img src=\"https://user-images.githubusercontent.com/52259890/219910229-2c158ad8-1d04-4cff-919f-9b0728e2c2e8.png\" width=\"80%\">"
+     "#MD<img src=\"https://user-images.githubusercontent.com/52259890/219910294-fae9d7a1-9638-426f-813c-e446a20b3736.png\" width=\"80%\">"
      ],
     goOff:[
      "#MD<img src=\"https://user-images.githubusercontent.com/52259890/219910305-b86665eb-de2e-47b6-aef3-8bda005f612a.png\" width=\"80%\">",
