@@ -331,6 +331,7 @@ class Var {
     get ww() { return this.w(100) }
     get wa() { return this.w("auto") }
     get xy() { return this.script.xy }
+    get set() { setvars({test:this})}
     apply = (a,remap=true) => {
         this.objectVars = [...this.objectVars, ...Var.Object2Array(a)]
         this[CJSON] = Var.Array2Object(this.objectVars)
@@ -496,7 +497,7 @@ class setvar extends Action {
     }
 
 
-    function setvars(input) { return new setvar(input) }
+    function setvars(input) { return new setvar(input).run }
     function js(input) { new Action('运行JS代码', { jsCode: "" })
         let outt
         outt = Array.isArray(input) ? input[0][0] : input
