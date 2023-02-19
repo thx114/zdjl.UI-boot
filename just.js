@@ -74,13 +74,13 @@ TheImgSave = {
      ],
     go_on(a=100){ 
         return this.goOn.map((url,index)=>{
-            let ms = index * 40 * a * 0.01 +  40 * a * 0.01;
+            let ms = index * 20 * a * 0.01 +  20 * a * 0.01;
             return `new setvar({thisobjimg:string('${url}').s}).d( ${ms} ).run`
         }).join(';\n')
     },
     go_off(a=100){ 
         return this.goOff.map((url,index)=>{
-            let ms = index * 40 * a * 0.01+  40 * a * 0.01;
+            let ms = index * 20 * a * 0.01+  20 * a * 0.01;
             return `new setvar({thisobjimg:string('${url}').s}).d( ${ms} ).run`
         }).join(';\n')
     }
@@ -465,7 +465,7 @@ class setvar extends Action {
 
 window.M = {
     s:{
-    a(name,size=100,time=100){return Exp_Modules.Button_Action_exp(name, size/2, name , time/2)[0][0]},
+    a(name,size=100,time=100){return Exp_Modules.Button_Action_exp(name, size, name , time)[0][0]},
     t(name){return Exp_Modules.Button_Text_exp(name)[0][0]}
     }
  }
