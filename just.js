@@ -13,9 +13,7 @@ Exp_Modules = {
   Button_Text_exp : (a,size,Vname) => { let rtext =`
     (()=>{
     switch (thisobjmode) {
-    case "go - on":thisobjmode= "on - ing" ; thisobjtime= 0 ; #switch# = true ; return "#MD<img src='https://user-images.githubusercontent.com/52259890/219705758-abfb74ad-5b41-4be7-972b-e7cf54a0bfe3.gif' width='80%'>"
     case "on - ing": thisobjtime++ ; thisobjmode +="";return "#MD<img src='https://user-images.githubusercontent.com/52259890/219705758-abfb74ad-5b41-4be7-972b-e7cf54a0bfe3.gif' width='80%'>"
-    case "go - off": thisobjmode = "off - ing"; thisobjtime = 0; #switch# = false ;return "#MD<img src='https://user-images.githubusercontent.com/52259890/219711727-8027dde0-1d93-4194-82ec-86009183f8c6.gif' width='80%'>"
     case "off - ing":thisobjtime++ ; thisobjmode +="";return "#MD<img src='https://user-images.githubusercontent.com/52259890/219711727-8027dde0-1d93-4194-82ec-86009183f8c6.gif' width='80%'>"
     case "off":return "#MD<img src='https://user-images.githubusercontent.com/52259890/219713371-76ab63f7-c1a7-4b4b-9548-428682ee45a3.gif' width='80%'>"
     case "on":return "#MD<img src='https://user-images.githubusercontent.com/52259890/219713381-4530445b-d41e-468f-8861-d60dae93511a.gif' width='80%'>"
@@ -28,30 +26,14 @@ Exp_Modules = {
         console.log('B_textExp:' + JSON.stringify(out))
     return out
     },
-    
-  Button_TextR_exp: (a,size) => { let rtext =
-    thisobjtime=`
-    (()=>{
-    if( thisobjtime > 0 ) { thisobjtime++}
-    if( thisobjtime > 2000 ) { 
-      thisobjtime= 0 
-      thisobjmode= thisobjmode.replace(" - ing","") }
-      return thisobjtime
-    })()`
-        .replace(/thisobj/g, `_${a}`)
-        .replace(/width='80%'/g, `width='${size}%'`);
-      let out = [['eval(`' + rtext + '`)']]
-        console.log('B_TimeExp:' + JSON.stringify(out))
-        return out
-    },
 
   Button_Action_exp: (a, size, Vname) => { let rtext = 
     thisobjmode=`
     (()=>{
     thisobjmode??="off"
     switch (thisobjmode){
-    case "off": thisobjmode= "go - on";new setvar({${Vname}:bool(true).s}).run;break
-    case "on": thisobjmode= "go - off";new setvar({${Vname}:bool(false).s}).run;break
+    case "off": thisobjmode= "go - on";new setvar({${Vname}:bool(true).s}).run; new setvar({${thisobjmode}:string("on").s}).d(2000).run ;break
+    case "on": thisobjmode= "go - off";new setvar({${Vname}:bool(false).s}).run; new setvar({${thisobjmode}:string("off").s}).d(2000).run ;break
     }
     })()`
       .replace(/thisobj/g, `_${a}`)
@@ -258,8 +240,8 @@ class Var {
     get t() { this.showInputHiddenLabel = true; return this }
     get c() { this.closeDialogOnAction = false; return this }
     get ww() { return this.w(100) }
-    get set() { new setvar({ name: this[NAME] || "noname", value: this }).run }
     get wa() { return this.wa() }
+    set=(a)=>{ return new setvar([{name:a,vlaue:this.s}])}
     apply = (a) => {
         this.objectVars = [...this.objectVars, ...Var.Object2Array(a)]
         this[CJSON] = Var.Array2Object(this.objectVars)
@@ -324,6 +306,11 @@ class Action {
         this.scriptCallbacks = {}
         this.scriptCallbacks.afterExecSuc = js(input); return this
     }
+    d = (a) => {
+        this.delayUnit = 0
+        this.delay=a
+        return this 
+    }
  }
 { // 函数创建
     function string(input = "") { return new Var('value', input, "string") }
@@ -353,7 +340,6 @@ class Action {
         ]).run
         return Thisobj.apply({ button: button().c.style("none")
             .text(Exp_Modules.Button_Text_exp(SwitchValueName, size))
-            .textR(Exp_Modules.Button_TextR_exp(SwitchValueName, size))
             .js(Exp_Modules.Button_Action_exp(SwitchValueName, size, SwitchValueName))
         })}
 
