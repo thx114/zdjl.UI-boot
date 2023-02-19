@@ -366,7 +366,6 @@ class obj extends Var {
         super('objectVars', [])
         if(input === false){
             return this
-            
         }
         let thisid
         thisid = all.add(this)
@@ -485,12 +484,16 @@ class setvar extends Action {
           .js([[JS[0][0]+RUNLIST]])
      }   
     function textlist(obj){ let thisobj = object(false).t
-        thisobj.objectVars = Object.entries(obj).map(([key, value],index)=>{ 
-            return {name:`_${index}`,value:text(value[0])
+        Object.entries(obj).forEach(([key, value],index)=>{ 
+            if(value[1]===0){thisobj.objectVars=[...thisobj.objectVars,...[
+                {name:`_${index}`,value:text(value[0]).h(Array.isArray(key)?[[`!(${exp(key)})`]]:[[`!(${key})`]]).BGcolor('#035d00').color('#07ea00')},
+                {name:`_${index}`,value:text(value[0]).h(Array.isArray(key)?[[`${exp(key)}`]]:[[key]]).BGcolor('#400300').color('#ff0005')}
+            ]]}
+            else{thisobj.objectVars.push({name:`_${index}`,value:text(value[0])
               .h(Array.isArray(key)?[[`${exp(key)}`]]:[[key]])
               .BGcolor(value[1]?'#035d00':'#400300')
               .color(value[1]?'#07ea00':'#ff0005')
-            }
+            })}
         })
         thisobj.apply({})
         return thisobj
