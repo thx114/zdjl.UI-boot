@@ -16,7 +16,7 @@ var id
 TheImgSave = {
     off : "https://user-images.githubusercontent.com/52259890/219910219-ce0abfa1-6252-41ae-9a1e-b19e14394197.png",
     on : "https://user-images.githubusercontent.com/52259890/219910229-2c158ad8-1d04-4cff-919f-9b0728e2c2e8.png",
-    goOff:[
+    goOn:[
      "https://user-images.githubusercontent.com/52259890/219910269-44a4c078-d8c6-4b0b-8bd1-d6a22a45b7ab.png",
      "https://user-images.githubusercontent.com/52259890/219910241-bfdf25d0-be6b-4fbd-8a92-169ec721f332.png",
      "https://user-images.githubusercontent.com/52259890/219910244-079e9225-5c90-4a3a-a023-1c39c35a2133.png",
@@ -43,7 +43,7 @@ TheImgSave = {
      "https://user-images.githubusercontent.com/52259890/219910294-fae9d7a1-9638-426f-813c-e446a20b3736.png",
      "https://user-images.githubusercontent.com/52259890/219910219-ce0abfa1-6252-41ae-9a1e-b19e14394197.png"
      ],
-    goOn:[
+    goOff:[
      "https://user-images.githubusercontent.com/52259890/219910305-b86665eb-de2e-47b6-aef3-8bda005f612a.png",
      "https://user-images.githubusercontent.com/52259890/219910306-64516040-2578-457a-a87d-4fedff0aaec6.png",
      "https://user-images.githubusercontent.com/52259890/219910307-17f91df4-401c-4109-b79e-6f11fb3eb5b4.png",
