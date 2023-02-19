@@ -88,7 +88,7 @@ TheImgSave = {
 }
 
 Exp_Modules = {
-  Button_Text_exp : (a) => { let rtext =`thisobjimg`
+  Button_Text_exp : (a) => { let rtext =`thisobjimg + SwitchImg()`
         .replace(/thisobj/g, `_${a}`)
         .replace(/1%/g, `0%`)
         let out = [['eval(`' + rtext +'`)']]
