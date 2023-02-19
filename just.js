@@ -485,8 +485,3 @@ window.M = {
 for (i of [getid, Var, exp, obj, Action, string, number, bool, text, button, object, image, color, xy, area, jscode, setvars, js, setvar, set, get, lookforMother, scanforpath, Switch,SwitchImg,n,Ba]) {
     window[i.name] = i
  }
-jtest=
- new setvar({
-    qaq:Ba('ava',[[`console.log('qaq')`]],TheImgSave.goOn)
-    })
-console.log(jtest.vars[0].value.action.jsCode)
