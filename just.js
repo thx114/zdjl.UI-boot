@@ -13,10 +13,11 @@ const Mother = Symbol("Mother")
 const R = Symbol("R")
 const REALPATH = Symbol("REALPATH")
 var id
-
+window.SwitchDefaultTime = 100
+window.SwitchDefaultSize = 100
 TheImgSave = {
-    off : "#MD<img src=\"https://user-images.githubusercontent.com/52259890/219910219-ce0abfa1-6252-41ae-9a1e-b19e14394197.png\" width=\"80%\">",
-    on : "#MD<img src=\"https://user-images.githubusercontent.com/52259890/219910229-2c158ad8-1d04-4cff-919f-9b0728e2c2e8.png\" width=\"80%\">",
+    off : "<img src=\"https://user-images.githubusercontent.com/52259890/219910219-ce0abfa1-6252-41ae-9a1e-b19e14394197.png\" width=\"80%\">",
+    on : "<img src=\"https://user-images.githubusercontent.com/52259890/219910229-2c158ad8-1d04-4cff-919f-9b0728e2c2e8.png\" width=\"80%\">",
     goOn:[
      "<img src=\"https://user-images.githubusercontent.com/52259890/219910269-44a4c078-d8c6-4b0b-8bd1-d6a22a45b7ab.png\" width=\"80%\">",
      "<img src=\"https://user-images.githubusercontent.com/52259890/219910241-bfdf25d0-be6b-4fbd-8a92-169ec721f332.png\" width=\"80%\">",
@@ -113,7 +114,7 @@ Exp_Modules = {
     }
     })()`
       .replace(/thisobj/g, `_${a}`)
-      .replace(/width='80%'/g, `width='${size}%'`);
+      .replace(/width='80%'/g, `width='${size/2}%'`);
       let out = [['eval(`' + rtext + '`)']]
       console.log('B_ActionExp: '+out[0][0]  )
       return out
@@ -397,7 +398,7 @@ class Action {
     function xy(input) { return new Var('position', input, "position") }
     function area(input) { return new Var('screen_area', input, "screen_area") }
     function jscode(input) { return new Var('jsCode', input, "js_function") }
-    function Switch(SwitchValueName,size=80,time=100) { 
+    function Switch(SwitchValueName,size=SwitchDefaultSize,time=SwitchDefaultTime) { 
         new setvar([
             { name: `_${SwitchValueName}img`, value: string(TheImgSave.off).s },
             { name: `_${SwitchValueName}mode`, value: string(`off`).s },
