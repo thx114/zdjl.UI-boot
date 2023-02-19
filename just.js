@@ -74,13 +74,13 @@ TheImgSave = {
      ],
     go_on(a=100){ 
         return this.goOn.map((url,index)=>{
-            let ms = index * 40 * a * 0.01;
+            let ms = index * 40 * a * 0.01 +  40 * a * 0.01;
             return `new setvar({thisobjimg:string('${url}').s}).d( ${ms} ).run`
         }).join(';\n')
     },
     go_off(a=100){ 
         return this.goOff.map((url,index)=>{
-            let ms = index * 40 * a * 0.01;
+            let ms = index * 40 * a * 0.01+  40 * a * 0.01;
             return `new setvar({thisobjimg:string('${url}').s}).d( ${ms} ).run`
         }).join(';\n')
     }
