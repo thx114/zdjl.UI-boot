@@ -248,15 +248,15 @@ class Var {
     get ww() { return this.w(100) }
     get wa() { return this.wa() }
     set=(a)=>{ return new setvar([{name:a,vlaue:this.s}])}
-    apply = (a) => {
-        this.objectVars = [...this.objectVars, ...Var.Object2Array(a)]
-        this[CJSON] = Var.Array2Object(this.objectVars)
-        Var.ReMap(this, this.objectVars)
-        this.objectVars.forEach(i => {
-            i.value[Mother] = this
-        })
-        return this
-     }
+    // apply = (a) => {
+    //     this.objectVars = [...this.objectVars, ...Var.Object2Array(a)]
+    //     this[CJSON] = Var.Array2Object(this.objectVars)
+    //     Var.ReMap(this, this.objectVars)
+    //     this.objectVars.forEach(i => {
+    //         i.value[Mother] = this
+    //     })
+    //     return this
+    //  }
     push = (a) => {
         this.objectVars = [...this.objectVars, ...Var.Object2Array(a)]
         this[CJSON] = Var.Array2Object(this.objectVars)
@@ -329,16 +329,16 @@ class Action {
     function xy(input) { return new Var('position', input, "position") }
     function area(input) { return new Var('screen_area', input, "screen_area") }
     function jscode(input) { return new Var('jsCode', input, "js_function") }
-    // function Switch(SwitchValueName,size=80) { let Thisobj = object().t
-    //     new setvar([
-    //         { name: `_${SwitchValueName}time`, value: number(0).s },
-    //         { name: `_${SwitchValueName}mode`, value: string(`off`).s },
-    //         { name: SwitchValueName, value: bool(false).s }
-    //     ]).run
-    //     return Thisobj.apply({ button: button().c.style("none")
-    //         .text(Exp_Modules.Button_Text_exp(SwitchValueName, size))
-    //         .js(Exp_Modules.Button_Action_exp(SwitchValueName, size, SwitchValueName))
-    //     })}
+    function Switch(SwitchValueName,size=80) { let Thisobj = object().t
+        new setvar([
+            { name: `_${SwitchValueName}time`, value: number(0).s },
+            { name: `_${SwitchValueName}mode`, value: string(`off`).s },
+            { name: SwitchValueName, value: bool(false).s }
+        ]).run
+        return Thisobj.apply({ button: button().c.style("none")
+            .text(Exp_Modules.Button_Text_exp(SwitchValueName, size))
+            .js(Exp_Modules.Button_Action_exp(SwitchValueName, size, SwitchValueName))
+        })}
 
     function setvars(input) { return new setvars(input) }
     function js(input) { new Action('运行JS代码', { jsCode: "" })
