@@ -73,16 +73,16 @@ TheImgSave = {
      "<img src=\"https://user-images.githubusercontent.com/52259890/219910342-8c3a1a58-abf5-4aac-b454-4925aeced4e7.png\" width=\"80%\">",
      "<img src=\"https://user-images.githubusercontent.com/52259890/219910219-ce0abfa1-6252-41ae-9a1e-b19e14394197.png\" width=\"80%\">"
      ],
-    go_on(a=100){ 
+    go_on(a=100,b){ 
         return this.goOn.map((url,index)=>{
             let ms = index * 20 * a * 0.01 +  20 * a * 0.01;
-            return `new setvar({thisobjimg:{varType:"string",value:'${url}'}}).d( ${ms} ).run`
+            return `new setvar({thisobjimg:{varType:"string",value:'${url.replace('80%',b)}'}}).d( ${ms} ).run`
         }).join(';\n')
     },
-    go_off(a=100){ 
+    go_off(a=100,b){ 
         return this.goOff.map((url,index)=>{
             let ms = index * 20 * a * 0.01+  20 * a * 0.01;
-            return `new setvar({thisobjimg:{varType:"string",value:'${url}'}}).d( ${ms} ).run`
+            return `new setvar({thisobjimg:{varType:"string",value:'${url.replace('80%',b)}'}}).d( ${ms} ).run`
         }).join(';\n')
     }
 
@@ -91,7 +91,6 @@ TheImgSave = {
 Exp_Modules = {
   Button_Text_exp : (a) => { let rtext =`SwitchImg()+thisobjimg`
         .replace(/thisobj/g, `_${a}`)
-        .replace(/1%/g, `0%`)
         let out = [['eval(`' + rtext +'`)']]
         console.log('B_textExp:'+out[0][0] )
     return out
@@ -104,17 +103,17 @@ Exp_Modules = {
     case "off": 
     new setvar({${Vname}:bool(true).s}).run; 
     new setvar({thisobjmode:string("on").s}).run; 
-    ${TheImgSave.go_on(time)} 
+    ${TheImgSave.go_on(time,size+"%")} 
     ;break
     case "on": 
     new setvar({${Vname}:bool(false).s}).run; 
     new setvar({thisobjmode:string("off").s}).run ; 
-    ${TheImgSave.go_off(time)} 
+    ${TheImgSave.go_off(time,size+"%")} 
     ;break
     }
     })()`
       .replace(/thisobj/g, `_${a}`)
-      .replace(/width='80%'/g, `width='${size/2}%'`);
+      .replace(/80%/g, `${size/2}%`);
       let out = [['eval(`' + rtext + '`)']]
       console.log('B_ActionExp: '+out[0][0]  )
       return out
