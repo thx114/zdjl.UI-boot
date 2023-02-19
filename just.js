@@ -465,8 +465,8 @@ class setvar extends Action {
 
 window.M = {
     s:{
-    a(name,size=100,time=100){return Exp_Modules.Button_Action_exp(name, size/2, name , time/2)},
-    t(name){return Exp_Modules.Button_Text_exp(name)}
+    a(name,size=100,time=100){return Exp_Modules.Button_Action_exp(name, size/2, name , time/2)[0][0]},
+    t(name){return Exp_Modules.Button_Text_exp(name)[0][0]}
     }
  }
 
