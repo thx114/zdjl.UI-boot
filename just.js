@@ -331,7 +331,7 @@ class Var {
     get ww() { return this.w(100) }
     get wa() { return this.w("auto") }
     get xy() { return this.script.xy }
-    apply = (a) => {
+    apply = (a,remap=true) => {
         this.objectVars = [...this.objectVars, ...Var.Object2Array(a)]
         this[CJSON] = Var.Array2Object(this.objectVars)
         Var.ReMap(this, this.objectVars)
@@ -363,6 +363,10 @@ class obj extends Var {
     remvoe = (key, val) => { this.objectVars.find(v => v.name == key).value = val }
     constructor(input = {}) {
         super('objectVars', [])
+        if(input === false){
+            return this
+            
+        }
         let thisid
         thisid = all.add(this)
         id = thisid
@@ -375,8 +379,7 @@ class obj extends Var {
         this.objectVars.forEach(i => {
             i.value[Mother] = this
             i.value[NAME] = i.name
-        }
-        )
+        })
     }
  }
 class Action {
@@ -480,7 +483,7 @@ class setvar extends Action {
           .text([[`'#MD'+${boolname}img`]])
           .js([[JS[0][0]+RUNLIST]])
      }   
-    function textlist(obj){ let thisobj = object().t
+    function textlist(obj){ let thisobj = object(false).t
         thisobj.objectVars = Object.entries(obj).map(([key, value],index)=>{ 
             return {name:`_${index}`,value:text(value[0])
               .h(Array.isArray(key)?[[`${exp(key)}`]]:[[key]])
