@@ -1,11 +1,11 @@
-//版本 0.2<bool log> 2023.2.18
-if (typeof window == "undefined") { var window = global; }
-if (typeof zdjl == "undefined") { var zdjl={
-    getVar: function (name) { global[name] },
-    setVar:function(name,value){global[name]=value},
-    alert:function(msg_){alert(msg_)},
-    runActionAsync:function(a){return console.log(a)  }
-} }
+//版本 0.2<switch async> 2023.2.19
+// if (typeof window == "undefined") { var window = global; }
+// if (typeof zdjl == "undefined") { var zdjl={
+//     getVar: function (name) { global[name] },
+//     setVar:function(name,value){global[name]=value},
+//     alert:function(msg_){alert(msg_)},
+//     runActionAsync:function(a){return console.log(a)  }
+// } }
 const ID = Symbol("ID")
 const CJSON = Symbol("CJSON")
 const NAME = Symbol("NAME")
@@ -255,7 +255,6 @@ class Var {
         this.objectVars.forEach(i => {
             i.value[Mother] = this
         })
-
         return this
      }
     push = (a) => {
