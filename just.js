@@ -13,6 +13,7 @@ const Mother = Symbol("Mother")
 const R = Symbol("R")
 const REALPATH = Symbol("REALPATH")
 var id
+
 TheImgSave = {
     off : "#MD<img src=\"https://user-images.githubusercontent.com/52259890/219910219-ce0abfa1-6252-41ae-9a1e-b19e14394197.png\" width=\"80%\">",
     on : "#MD<img src=\"https://user-images.githubusercontent.com/52259890/219910229-2c158ad8-1d04-4cff-919f-9b0728e2c2e8.png\" width=\"80%\">",
@@ -87,7 +88,7 @@ TheImgSave = {
 }
 
 Exp_Modules = {
-  Button_Text_exp : (a,size,Vname) => { let rtext =`thisobjimg + SwitchImg()`
+  Button_Text_exp : (a) => { let rtext =`thisobjimg + SwitchImg()`
         .replace(/thisobj/g, `_${a}`)
         .replace(/1%/g, `0%`)
         let out = [['eval(`' + rtext +'`)']]
@@ -461,6 +462,13 @@ class setvar extends Action {
     }
  }
 
+
+window.M = {
+    s:{
+    a(name,size=100,time=100){return Exp_Modules.Button_Action_exp(name, size/2, name , time/2)},
+    t(name){return Exp_Modules.Button_Text_exp(name)}
+    }
+ }
 
 
 for (i of [getid, Var, exp, obj, Action, string, number, bool, text, button, object, image, color, xy, area, jscode, setvars, js, setvar, set, get, lookforMother, scanforpath, Switch,SwitchImg]) {
