@@ -6,7 +6,7 @@
 //    alert:function(msg_){console.log(msg_)},
 //    runActionAsync:function(a){return console.log(a)  }
 // } }
-{
+
  const ID = Symbol("ID")
  const CJSON = Symbol("CJSON")
  const NAME = Symbol("NAME")
@@ -14,7 +14,7 @@
  const R = Symbol("R")
  const REALPATH = Symbol("REALPATH")
  var id
- }
+
 window.SwitchDefaultTime = 100
 window.SwitchDefaultSize = 100
 window.TheImgSave = {
