@@ -1,11 +1,11 @@
 //版本 0.2<switch async> 2023.2.19
-// if (typeof window == "undefined") { var window = global; }
-// if (typeof zdjl == "undefined") { var zdjl={
-//     getVar: function (name) { global[name] },
-//     setVar:function(name,value){global[name]=value},
-//     alert:function(msg_){alert(msg_)},
-//     runActionAsync:function(a){return console.log(a)  }
-// } }
+if (typeof window == "undefined") { var window = global; }
+if (typeof zdjl == "undefined") { var zdjl={
+    getVar: function (name) { global[name] },
+    setVar:function(name,value){global[name]=value},
+    alert:function(msg_){console.log(msg_)},
+    runActionAsync:function(a){return console.log(a)  }
+} }
 const ID = Symbol("ID")
 const CJSON = Symbol("CJSON")
 const NAME = Symbol("NAME")
@@ -329,24 +329,16 @@ class Action {
     function xy(input) { return new Var('position', input, "position") }
     function area(input) { return new Var('screen_area', input, "screen_area") }
     function jscode(input) { return new Var('jsCode', input, "js_function") }
-    function Switch(SwitchValueName,size=80) { let Thisobj = object().t
-        if (!SwitchValueName) { zdjl.alert(
-         `开关输入参数错误 Switch() 需要一个必须输入参数 SwitchValueName
-         input : 
-           SwitchValueName : string 
-             < 开关 开启与关闭 修改的全局变量中的 布尔值变量名 >
-           size : string 
-             < 开关 大小 >
-         `.replace(/^\s+/gm, ''));throw Error()}
-        new setvar([
-            { name: `_${SwitchValueName}time`, value: number(0).s },
-            { name: `_${SwitchValueName}mode`, value: string(`off`).s },
-            { name: SwitchValueName, value: bool(false).s }
-        ]).run
-        return Thisobj.apply({ button: button().c.style("none")
-            .text(Exp_Modules.Button_Text_exp(SwitchValueName, size))
-            .js(Exp_Modules.Button_Action_exp(SwitchValueName, size, SwitchValueName))
-        })}
+    // function Switch(SwitchValueName,size=80) { let Thisobj = object().t
+    //     new setvar([
+    //         { name: `_${SwitchValueName}time`, value: number(0).s },
+    //         { name: `_${SwitchValueName}mode`, value: string(`off`).s },
+    //         { name: SwitchValueName, value: bool(false).s }
+    //     ]).run
+    //     return Thisobj.apply({ button: button().c.style("none")
+    //         .text(Exp_Modules.Button_Text_exp(SwitchValueName, size))
+    //         .js(Exp_Modules.Button_Action_exp(SwitchValueName, size, SwitchValueName))
+    //     })}
 
     function setvars(input) { return new setvars(input) }
     function js(input) { new Action('运行JS代码', { jsCode: "" })
