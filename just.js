@@ -124,7 +124,7 @@ Exp_Modules = {
 function Ba(boolname,JS,Imgs,size=100,time=100){
     let RUNLIST = ';'+ Imgs.map((url,index)=>{
         let ms = index * 20 * time * 0.01 +  20 * time * 0.01;
-        return `new setvar({${boolname}img:{varType:"string",value:'${url.replace('80%',size)}'}}).d( ${ms} ).run`
+        return `new setvar({${boolname}img:{varType:"string",value:'${url.replace('80%',size+'%')}'}}).d( ${ms} ).run`
     }).join(';\n')
     new setvar([{name: `'#MD'+${boolname}img`,value:string(Imgs[0]).s}]).run
     return button().c.style("none")
