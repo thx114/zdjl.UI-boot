@@ -455,9 +455,7 @@ class Action {
         ]).run
         return Thisobj.apply({ button: button().c.style("none")
             .text(Exp_Modules.Button_Text_exp(SwitchValueName, size))
-            .js(Exp_Modules.Button_Action_exp(SwitchValueName, size, SwitchValueName ,time)),
-            
-
+            .js(Exp_Modules.Button_Action_exp(SwitchValueName, size, SwitchValueName ,time))
         })}
 
     function setvars(input) { return new setvars(input) }
