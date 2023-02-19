@@ -247,16 +247,15 @@ class Var {
     get c() { this.closeDialogOnAction = false; return this }
     get ww() { return this.w(100) }
     get wa() { return this.wa() }
-    set=(a)=>{ return new setvar([{name:a,vlaue:this.s}])}
-    // apply = (a) => {
-    //     this.objectVars = [...this.objectVars, ...Var.Object2Array(a)]
-    //     this[CJSON] = Var.Array2Object(this.objectVars)
-    //     Var.ReMap(this, this.objectVars)
-    //     this.objectVars.forEach(i => {
-    //         i.value[Mother] = this
-    //     })
-    //     return this
-    //  }
+    apply = (a) => {
+        this.objectVars = [...this.objectVars, ...Var.Object2Array(a)]
+        this[CJSON] = Var.Array2Object(this.objectVars)
+        Var.ReMap(this, this.objectVars)
+        this.objectVars.forEach(i => {
+            i.value[Mother] = this
+        })
+        return this
+     }
     push = (a) => {
         this.objectVars = [...this.objectVars, ...Var.Object2Array(a)]
         this[CJSON] = Var.Array2Object(this.objectVars)
@@ -265,7 +264,6 @@ class Var {
             i.value[Mother] = this
             i.value[NAME] = i.name
         })
-
         return this
      }
  }
