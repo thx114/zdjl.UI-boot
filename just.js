@@ -1,4 +1,4 @@
-//版本 0.3<click> 2023.2.19
+//版本 0.31<textlist> 2023.2.19
 // if (typeof window == "undefined") { var window = global; }
 // if (typeof zdjl == "undefined") { var zdjl={
 //    getVar: function (name) { global[name] },
@@ -471,7 +471,7 @@ class setvar extends Action {
     function textlist(obj){ let thisobj = object().t
         thisobj.objectVars = Object.entries(obj).map(([key, value],index)=>{ 
             return {name:`_${index}`,value:text(value[0])
-              .h([['!('+key+')']])
+              .h(Array.isArray(key)?[[`!(${exp(key)})`]]:[['!('+key+')']])
               .BGcolor(value[1]?'#035d00':'#400300')
               .color(value[1]?'#07ea00':'#ff0005')
             }
@@ -513,4 +513,8 @@ for (i of [getid, Var, exp, obj, Action, string, number, bool, text, button, obj
     window[i.name] = i
  }
 
-
+// a=
+// textlist({
+//     [[`this.qaq`]]:['qaq',true]
+// })
+// console.log(a.objectVars[0].value.__vars.showInputHiddenView)
