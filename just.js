@@ -483,7 +483,7 @@ class setvar extends Action {
     function textlist(obj){ let thisobj = object().t
         thisobj.objectVars = Object.entries(obj).map(([key, value],index)=>{ 
             return {name:`_${index}`,value:text(value[0])
-              .h(Array.isArray(key)?[[`!(${exp(key)})`]]:[['!('+key+')']])
+              .h(Array.isArray(key)?[[`${exp(key)}`]]:[[key]])
               .BGcolor(value[1]?'#035d00':'#400300')
               .color(value[1]?'#07ea00':'#ff0005')
             }
