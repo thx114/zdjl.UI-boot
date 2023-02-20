@@ -13,9 +13,18 @@ const NAME = Symbol("NAME")
 const Mother = Symbol("Mother")
 const R = Symbol("R")
 const REALPATH = Symbol("REALPATH")
+const FROMOBJECT = Symbol("REALPATH")
 var id
 window.idnow = ''
-
+class From {
+    constructor(obj) {
+        this[FROMOBJECT] = obj
+    }
+    remove=(name)=>{
+        this[FROMOBJECT].objectVars.splice(this[FROMOBJECT].objectVars.findIndex(v=>v.name==name),1)
+    }
+}
+function from(obj) { return new From(obj) }
 window.SwitchDefaultTime = 100
 window.SwitchDefaultSize = 100
 window.TheImgSave = {
@@ -201,7 +210,6 @@ function exp(keyname, value, apply) {
         let _id
         _id = id ?? window.id ?? global.id ?? zdjl.getVar('id')
         let out = value[0][0]
-            .replace(/from\((.*)\)remove\((.*)\);/g,"$1.objectVars.splice($1.objectVars.findIndex(v=>v.name=='$2'),1));")
             .replace(/#this/g, `all[${_id}]`)
             .replace(/this/g, `eval(all[${_id}].R)`)
         console.log(`Exp: ${out}  <${apply.name}>`)
@@ -555,7 +563,7 @@ window.M = {
  }
 
 
-for (i of [getid, Var, exp, obj, Action, string, number, bool, text, button, object, image, color, xy, area, jscode, setvars, js, setvar, set, get, lookforMother, scanforpath, Switch,SwitchImg,n,Ba,gesture,click,location,action,textlist,condition]) {
+for (i of [getid, Var, exp, obj, Action, string, number, bool, text, button, object, image, color, xy, area, jscode, setvars, js, setvar, set, get, lookforMother, scanforpath, Switch,SwitchImg,n,Ba,gesture,click,location,action,textlist,condition,from,From]) {
     window[i.name] = i
  }
 
