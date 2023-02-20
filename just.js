@@ -467,8 +467,7 @@ class setvar extends Action {
             get color(){return this.colorData.color},
             get x(){return this.colorData.x},
             get y(){return this.colorData.y},
-            get s(){return this.colorData.similarPercent},
-            get g(){this.colorData = `#${zdjl.getScreenColorAsync(500, 500).toString(16).padStart(6, '0')}`;return this}
+            get s(){return this.colorData.similarPercent}
             }
             return out
         }
