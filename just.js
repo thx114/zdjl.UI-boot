@@ -334,7 +334,9 @@ class Var {
     color = (a) => { return this.exp('textColor', a) }
     action = (a) => { this.action = a; return this }
     list = (a) => { return this.exp('stringItems', a) }
-    js = (a) => { this.action = js(a); return this }
+    js = (a,...args) => { 
+        let jscode = a[0][0]+ args.map(i=>i[0][0]).join(";")
+        this.action = js([[jscode]]); return this }
     C = (a) => { this.closeDialogOnAction = a; return this }
     push = (a) => { this[a.name] = a.value; return this }
     style = (a) => { this.buttonStyle = a; return this }
@@ -383,7 +385,7 @@ class Var {
     set conditions(a){this.condition.conditions = a}
     get length(){return this.objectVars.length}
  }
-[].map
+
 class obj extends Var {
     varType = "object"
     showInputHiddenLabel = false
