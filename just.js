@@ -380,6 +380,7 @@ class Var {
     get colors(){return this.condition.colorData?this.condition.colorData.color:this.condition.conditions.map(i=>i.color)}
     get xys(){return this.condition.conditions.map(i=>{return{x:i.x,y:i.y}})}
     get conditions(){return this.condition.conditions}
+    set conditions(a){this.condition.conditions = a}
     get length(){return this.objectVars.length}
  }
 
