@@ -207,9 +207,7 @@ function exp(keyname, value, apply) {
     if (typeof arguments[1] == "undefined"){ 
         let _id
         _id = id ?? window.id ?? global.id ?? zdjl.getVar('id')
-        return keyname[0][0]
-            .replace(/#this/g, `all[${_id}]`)
-            .replace(/this/g, `eval(all[${_id}].R)`)
+        return keyname[0][0].replace(/#this/g, `all[${_id}]`).replace(/this/g, `eval(all[${_id}].R)`)
      }
     if (typeof value === "function") {
         if (value.toString().match(/^\(\)/)) {
@@ -539,7 +537,7 @@ class setvar extends Action {
               .BGcolor(value[1]?'#035d00':'#400300')
               .color(value[1]?'#07ea00':'#ff0005')
             })}
-            console.log(exp(key))
+            console.log(key)
         })
         thisobj.apply({})
         return thisobj
