@@ -535,7 +535,7 @@ class setvar extends Action {
                 key=key.replace('#add',`!(${LastKey})||`)
             }
             if (exp(key).includes('#and')){
-                key=key.replace('#add',`(${LastKey})||`)
+                key=key.replace('#and',`(${LastKey})||`)
             }
             if (exp(key).includes('#as')){
                 key=key.replace('#as',``)
