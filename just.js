@@ -543,6 +543,7 @@ class setvar extends Action {
               .color(value[1]?'#07ea00':'#ff0005')
             })}
             TEXTLISTLASTKEY = key_[0][0]
+            console.log(exp(key_))
         })
         thisobj.apply({})
         return thisobj
