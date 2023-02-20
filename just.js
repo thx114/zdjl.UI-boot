@@ -460,7 +460,7 @@ class setvar extends Action {
     function image(input = {}) { return new Var('imageData', input, "ui_image") }
     function color(...args) { 
         function colorFound(icolor,x,y,similarPercent=99){
-            icolor=(icolor===0)?'#000000':icolor
+            icolor=(icolor===0)?`#${zdjl.getScreenColor(x, y).toString(16).padStart(6, '0')}`:icolor
             let out ={
             type:'colorFound',
             colorData:{type:"color",x:x,y:y,limitPosX:x,limitPosY:y,color:icolor,similarPercent:similarPercent},
