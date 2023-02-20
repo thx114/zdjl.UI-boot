@@ -544,7 +544,7 @@ class setvar extends Action {
                 key=key.replace('#as',``)
                 LastKey = key
             }
-            if(typeof value[1]==='string'){BGcolor = value[1];color=value[2] }
+            if(typeof value[1]==='string'){BGcolor = value[2];color=value[1] }
             else {
                 BGcolor = value[1]?'#035d00':'#400300';
                 color=value[1]?'#07ea00':'#ff0005'}
