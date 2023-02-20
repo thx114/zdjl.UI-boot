@@ -207,6 +207,7 @@ function exp(keyname, value, apply) {
     if (typeof arguments[1] == "undefined"){ 
         let _id
         _id = id ?? window.id ?? global.id ?? zdjl.getVar('id')
+        if (typeof keyname == "string") {keyname = [[keyname]]}
         return keyname[0][0].replace(/#this/g, `all[${_id}]`).replace(/this/g, `eval(all[${_id}].R)`)
      }
     if (typeof value === "function") {
@@ -528,7 +529,6 @@ class setvar extends Action {
      }   
     function textlist(obj){ let thisobj = object(false).t
         Object.entries(obj).forEach(([key, value],index)=>{
-            zdjl.alert(JSON.stringify(key))
             if(value[2]===0){thisobj.objectVars=[...thisobj.objectVars,...[
                 {name:`_${index}`,value:text(value[0]).h([[`!(${exp(key)})`]]).BGcolor('#035d00').color('#07ea00')},
                 {name:`_${index}`,value:text(value[1]).h([[`${exp(key)}`]]).BGcolor('#400300').color('#ff0005')}
