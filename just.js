@@ -16,6 +16,7 @@ const REALPATH = Symbol("REALPATH")
 const FROMOBJECT = Symbol("REALPATH")
 var id
 window.idnow = ''
+window.GA=gestureActions
 class From {
     constructor(obj) {
         this[FROMOBJECT] = obj
