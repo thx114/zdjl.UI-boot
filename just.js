@@ -529,14 +529,13 @@ class setvar extends Action {
      }   
     function textlist(obj){ let thisobj = object(false).t
         Object.entries(obj).forEach(([key, value],index)=>{
-            let key_=key[0][0].replace(/#add#/,`!${Object.keys(obj)[index-1]}||`)
-            key=[[key_]]
+            let key_=[[key[0][0].replace(/#add#/,`!${Object.keys(obj)[index-1]}||`)]]
             if(value[2]===0){thisobj.objectVars=[...thisobj.objectVars,...[
-                {name:`_${index}`,value:text(value[0]).h(Array.isArray(key)?[[`!(${exp(key)})`]]:[[`!(${key})`]]).BGcolor('#035d00').color('#07ea00')},
-                {name:`_${index}`,value:text(value[1]).h(Array.isArray(key)?[[`${exp(key)}`]]:[[key]]).BGcolor('#400300').color('#ff0005')}
+                {name:`_${index}`,value:text(value[0]).h([[`!(${exp(key_)})`]]).BGcolor('#035d00').color('#07ea00')},
+                {name:`_${index}`,value:text(value[1]).h([[`${exp(key_)}`]]).BGcolor('#400300').color('#ff0005')}
             ]]}
             else{thisobj.objectVars.push({name:`_${index}`,value:text(value[0])
-              .h(Array.isArray(key)?[[`${exp(key)}`]]:[[key]])
+              .h([[`${exp(key_)}`]])
               .BGcolor(value[1]?'#035d00':'#400300')
               .color(value[1]?'#07ea00':'#ff0005')
             })}
