@@ -528,7 +528,7 @@ class setvar extends Action {
      }   
     function textlist(obj){ let thisobj = object(false).t
         Object.entries(obj).forEach(([key, value],index)=>{
-            key = exp([[key]])
+            zdjl.alert(JSON.stringify(key))
             if(value[2]===0){thisobj.objectVars=[...thisobj.objectVars,...[
                 {name:`_${index}`,value:text(value[0]).h([[`!(${exp(key)})`]]).BGcolor('#035d00').color('#07ea00')},
                 {name:`_${index}`,value:text(value[1]).h([[`${exp(key)}`]]).BGcolor('#400300').color('#ff0005')}
