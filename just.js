@@ -27,8 +27,8 @@ class From {
     }
 }
 function from(obj) { return new From(obj) }
-function Delete(obj,name){
-    return `#MD[❌](javascript_then_finish:from(${obj}).remove('${name}'))`   
+function Delete(obj,name,more){
+    return `[❌](javascript_then_finish:from(${obj}).remove('${name}');${more})`
 }
 window.SwitchDefaultTime = 100
 window.SwitchDefaultSize = 100
