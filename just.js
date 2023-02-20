@@ -383,7 +383,7 @@ class Var {
     set conditions(a){this.condition.conditions = a}
     get length(){return this.objectVars.length}
  }
-
+[].map
 class obj extends Var {
     varType = "object"
     showInputHiddenLabel = false
@@ -534,6 +534,10 @@ class setvar extends Action {
             if (exp(key).includes('#add')){
                 key=key.replace('#add',`!(${LastKey})||`)
             }
+            if (exp(key).includes('#as')){
+                key=key.replace('#as',``)
+                LastKey = key
+            }
             if(value[2]===0){thisobj.objectVars=[...thisobj.objectVars,...[
                 {name:`_${index}`,value:text(value[0]).h([[`!(${exp(key)})`]]).BGcolor('#035d00').color('#07ea00')},
                 {name:`_${index}`,value:text(value[1]).h([[`${exp(key)}`]]).BGcolor('#400300').color('#ff0005')}
@@ -543,7 +547,6 @@ class setvar extends Action {
               .BGcolor(value[1]?'#035d00':'#400300')
               .color(value[1]?'#07ea00':'#ff0005')
             })}
-            LastKey = key
         })
         thisobj.apply({})
         return thisobj
