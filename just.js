@@ -1,4 +1,4 @@
-//版本 0.31<textlist2> 2023.2.19
+//版本 0.32<conditions> 2023.2.19
 // if (typeof window == "undefined") { var window = global; }
 // if (typeof zdjl == "undefined") { var zdjl={
 //    getVar: function (name) { global[name] },
@@ -352,6 +352,11 @@ class Var {
         })
         return this
      }
+    get x(){return this.condition.colorData.x}
+    get y(){return this.condition.colorData.y}
+    get colors(){return this.condition.colorData?this.condition.colorData.color:this.condition.conditions.map(i=>i.color)}
+    get xys(){return this.condition.conditions.map(i=>{return{x:i.x,y:i.y}})}
+    get conditions(){return this.condition.conditions}
  }
 
 class obj extends Var {
@@ -453,7 +458,18 @@ class setvar extends Action {
     function button(input = "") { return new Var('buttonText', input, "ui_button").sync }
     function object(input = {}, id = null) { return new obj(input, id) }
     function image(input = {}) { return new Var('imageData', input, "ui_image") }
-    function color(input) { return new Var('color', input, "color") }
+    function color(...args) { 
+        function colorFound(color,x,y,similarPercent=99){return {
+            type:'colorFound',
+            colorData:{type:"color",x:x,y:y,limitPosX:x,limitPosY:y,color:color,similarPercent:similarPercent},
+            get color(){return this.colorData.color},
+            get x(){return this.colorData.x},
+            get y(){return this.colorData.y},
+            get s(){return this.colorData.similarPercent}
+         }}
+        if (args.length == 1) {return new Var('color', input, "color")}
+        if (args.length > 1) {return colorFound(...args)} 
+     }
     function xy(input) { return new Var('position', input, "position") }
     function area(input) { return new Var('screen_area', input, "screen_area") }
     function jscode(input) { return new Var('jsCode', input, "js_function") }
@@ -497,8 +513,11 @@ class setvar extends Action {
         })
         thisobj.apply({})
         return thisobj
-    }
-
+     }
+    function condition(input){ 
+        if (input instanceof Array) { return new Var('condition', {"type":"conditionSet","conditions":input}, "script_condition")  }
+        return new Var('condition', input, "script_condition") 
+     }
 
     function setvars(input) { var runtime = new setvar(input) ;runtime.run }
     function js(input) { new Action('运行JS代码', { jsCode: "" })
@@ -528,7 +547,7 @@ window.M = {
  }
 
 
-for (i of [getid, Var, exp, obj, Action, string, number, bool, text, button, object, image, color, xy, area, jscode, setvars, js, setvar, set, get, lookforMother, scanforpath, Switch,SwitchImg,n,Ba,gesture,click,location,action,textlist]) {
+for (i of [getid, Var, exp, obj, Action, string, number, bool, text, button, object, image, color, xy, area, jscode, setvars, js, setvar, set, get, lookforMother, scanforpath, Switch,SwitchImg,n,Ba,gesture,click,location,action,textlist,condition]) {
     window[i.name] = i
  }
 
@@ -539,3 +558,10 @@ for (i of [getid, Var, exp, obj, Action, string, number, bool, text, button, obj
 // })
 // a.run
 // console.log(all.qee._0)
+// run=
+// new setvar({ 
+//     qaq:condition([color('#000000',100,100,99)]) 
+// })
+// console.log(
+// run.vars[0].value.conditions
+// )
