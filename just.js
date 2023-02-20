@@ -467,16 +467,16 @@ class setvar extends Action {
     function object(input = {}, id = null) { return new obj(input, id) }
     function image(input = {}) { return new Var('imageData', input, "ui_image") }
     function color(...args) { 
-        function colorFound(color,x,y,similarPercent=99){return {
+        function colorFound(icolor,x,y,similarPercent=99){return {
             type:'colorFound',
-            colorData:{type:"color",x:x,y:y,limitPosX:x,limitPosY:y,color:color===0?'#000000':color,similarPercent:similarPercent},
+            colorData:{type:"color",x:x,y:y,limitPosX:x,limitPosY:y,color:((icolor===0)?'#000000':icolor),similarPercent:similarPercent},
             get color(){return this.colorData.color},
             get x(){return this.colorData.x},
             get y(){return this.colorData.y},
             get s(){return this.colorData.similarPercent},
             get getcolor(){this.colorData.color=`#${zdjl.getScreenColorAsync(this.x, this.y).toString(16).padStart(6, '0')}`;return this}
          }}
-        if (args.length == 1) {return new Var('color', input, "color")}
+        if (args.length == 1) {return new Var('color', args[0], "color")}
         if (args.length > 1) {return colorFound(...args)} 
      }
     function xy(input) { return new Var('position', input, "position") }
