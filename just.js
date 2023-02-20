@@ -25,6 +25,9 @@ class From {
     }
 }
 function from(obj) { return new From(obj) }
+function Delete(obj,name){
+    return `#MD[❌](javascript_then_finish:from(${obj}).remove('${name}'))`   
+}
 window.SwitchDefaultTime = 100
 window.SwitchDefaultSize = 100
 window.TheImgSave = {
@@ -301,7 +304,7 @@ class Var {
             catch { console.error('eval error'); return undefined }
         }
      }
-    exp = (k, v) => { exp(k, v, this); return this }
+    exp = (k, v ) => { exp(k, v, this); return this }
     get real() { return lookforMother(this) }
     get reload() { this.val(this.real) }
     get nid() { all.add(this); return this[ID] }
@@ -563,7 +566,7 @@ window.M = {
  }
 
 
-for (i of [getid, Var, exp, obj, Action, string, number, bool, text, button, object, image, color, xy, area, jscode, setvars, js, setvar, set, get, lookforMother, scanforpath, Switch,SwitchImg,n,Ba,gesture,click,location,action,textlist,condition,from,From]) {
+for (i of [getid, Var, exp, obj, Action, string, number, bool, text, button, object, image, color, xy, area, jscode, setvars, js, setvar, set, get, lookforMother, scanforpath, Switch,SwitchImg,n,Ba,gesture,click,location,action,textlist,condition,from,From,Delete]) {
     window[i.name] = i
  }
 
