@@ -531,7 +531,7 @@ class setvar extends Action {
         let LastKey = ''
         Object.entries(obj).forEach(([key, value],index)=>{
             if (exp(key).includes('#add')){
-                key=key.replace('#add',LastKey)
+                key=key.replace('#add',`!(${LastKey})||`)
             }
             if(value[2]===0){thisobj.objectVars=[...thisobj.objectVars,...[
                 {name:`_${index}`,value:text(value[0]).h([[`!(${exp(key)})`]]).BGcolor('#035d00').color('#07ea00')},
