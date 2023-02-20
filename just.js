@@ -540,7 +540,7 @@ class setvar extends Action {
               .BGcolor(value[1]?'#035d00':'#400300')
               .color(value[1]?'#07ea00':'#ff0005')
             })}
-            window.TEXTLISTLASTKEY=key_[0][0]
+            window.TEXTLISTLASTKEY=exp(key_)
         })
         thisobj.apply({})
         return thisobj
