@@ -531,17 +531,18 @@ class setvar extends Action {
     function textlist(obj){ let thisobj = object(false).t
         let TEXTLISTLASTKEY = ''
         Object.entries(obj).forEach(([key, value],index)=>{
-            if (key[0][0].includes('#add')){key=[[key[0][0].replace('#add',TEXTLISTLASTKEY)]]}
+            let key_ = key
+            if (key_[0][0].includes('#add')){key_=[[key_[0][0].replace('#add',TEXTLISTLASTKEY)]]}
             if(value[2]===0){thisobj.objectVars=[...thisobj.objectVars,...[
-                {name:`_${index}`,value:text(value[0]).h([[`!(${exp(key)})`]]).BGcolor('#035d00').color('#07ea00')},
-                {name:`_${index}`,value:text(value[1]).h([[`${exp(key)}`]]).BGcolor('#400300').color('#ff0005')}
+                {name:`_${index}`,value:text(value[0]).h([[`!(${exp(key_)})`]]).BGcolor('#035d00').color('#07ea00')},
+                {name:`_${index}`,value:text(value[1]).h([[`${exp(key_)}`]]).BGcolor('#400300').color('#ff0005')}
             ]]}
             else{thisobj.objectVars.push({name:`_${index}`,value:text(value[0])
-              .h([[`${exp(key)}`]])
+              .h([[`${exp(key_)}`]])
               .BGcolor(value[1]?'#035d00':'#400300')
               .color(value[1]?'#07ea00':'#ff0005')
             })}
-            TEXTLISTLASTKEY = key[0][0]
+            TEXTLISTLASTKEY = key_[0][0]
         })
         thisobj.apply({})
         return thisobj
