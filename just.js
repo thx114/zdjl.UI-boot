@@ -201,7 +201,7 @@ function exp(keyname, value, apply) {
         let _id
         _id = id ?? window.id ?? global.id ?? zdjl.getVar('id')
         let out = value[0][0]
-            .replace(/from\s(.*)\sremove\s(.*);/,`$1.objectVars.splice($1.objectVars.findIndex(v=>v.name=='$2'),1));`)
+            .replace(/from\s(.*)\sremove\s(.*);/g,"$1.objectVars.splice($1.objectVars.findIndex(v=>v.name=='$2'),1));")
             .replace(/#this/g, `all[${_id}]`)
             .replace(/this/g, `eval(all[${_id}].R)`)
         console.log(`Exp: ${out}  <${apply.name}>`)
