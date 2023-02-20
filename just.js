@@ -366,7 +366,7 @@ class obj extends Var {
     get setvar() { return new setvar(this.objectVars) }
     get remap() { Var.ReMap(this, this.objectVars) }
     remvoe = (key) => { this.objectVars.splice(this.objectVars.findIndex(v => v.name == key), 1) }
-    remvoe = (key, val) => { this.objectVars.find(v => v.name == key).value = val }
+    vapply = (key, val) => { this.objectVars.find(v => v.name == key).value = val }
     constructor(input = {}) {
         super('objectVars', [])
         if(input === false){
