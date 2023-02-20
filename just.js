@@ -357,6 +357,14 @@ class Var {
     get colors(){return this.condition.colorData?this.condition.colorData.color:this.condition.conditions.map(i=>i.color)}
     get xys(){return this.condition.conditions.map(i=>{return{x:i.x,y:i.y}})}
     get conditions(){return this.condition.conditions}
+    get getallcolors(){
+        this.conditions.forEach(i=>{
+            if(i.type == "colorFound"){
+            i.colorData.color = `#${zdjl.getScreenColor(i.colorData.x, i.colorData.y).toString(16).padStart(6, '0')}`
+            }
+        })
+        return this
+     }
  }
 
 class obj extends Var {
@@ -461,7 +469,7 @@ class setvar extends Action {
     function color(...args) { 
         function colorFound(color,x,y,similarPercent=99){return {
             type:'colorFound',
-            colorData:{type:"color",x:x,y:y,limitPosX:x,limitPosY:y,color:color,similarPercent:similarPercent},
+            colorData:{type:"color",x:x,y:y,limitPosX:x,limitPosY:y,color:color===0?'#000000':color,similarPercent:similarPercent},
             get color(){return this.colorData.color},
             get x(){return this.colorData.x},
             get y(){return this.colorData.y},
