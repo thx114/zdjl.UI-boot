@@ -357,14 +357,6 @@ class Var {
     get colors(){return this.condition.colorData?this.condition.colorData.color:this.condition.conditions.map(i=>i.color)}
     get xys(){return this.condition.conditions.map(i=>{return{x:i.x,y:i.y}})}
     get conditions(){return this.condition.conditions}
-    get getallcolors(){
-        this.conditions.forEach(i=>{
-            if(i.type == "colorFound"){
-            i.colorData.color = `#${zdjl.getScreenColor(i.colorData.x, i.colorData.y).toString(16).padStart(6, '0')}`
-            }
-        })
-        return this
-     }
  }
 
 class obj extends Var {
@@ -467,16 +459,19 @@ class setvar extends Action {
     function object(input = {}, id = null) { return new obj(input, id) }
     function image(input = {}) { return new Var('imageData', input, "ui_image") }
     function color(...args) { 
-        function colorFound(icolor,x,y,similarPercent=99){return {
+        function colorFound(icolor,x,y,similarPercent=99){
+            icolor=(icolor===0)?'#000000':icolor
+            let out ={
             type:'colorFound',
-            colorData:{type:"color",x:x,y:y,limitPosX:x,limitPosY:y,color:((icolor===0)?'#000000':icolor),similarPercent:similarPercent},
+            colorData:{type:"color",x:x,y:y,limitPosX:x,limitPosY:y,color:icolor,similarPercent:similarPercent},
             get color(){return this.colorData.color},
             get x(){return this.colorData.x},
             get y(){return this.colorData.y},
-            get s(){return this.colorData.similarPercent},
-            get getcolor(){this.colorData.color=`#${zdjl.getScreenColorAsync(this.x, this.y).toString(16).padStart(6, '0')}`;return this}
-         }}
-        if (args.length == 1) {return new Var('color', args[0], "color")}
+            get s(){return this.colorData.similarPercent}
+            }
+            return out
+        }
+        if (args.length === 1) {return new Var('color', args[0], "color")}
         if (args.length > 1) {return colorFound(...args)} 
      }
     function xy(input) { return new Var('position', input, "position") }
