@@ -203,6 +203,11 @@ function getid() { //生成一个在all里不重复的数值
     return id
  }
 function exp(keyname, value, apply) {
+    if (typeof arguments[1] == "undefined"){ 
+        return keyname[0][0]
+            .replace(/#this/g, `all[${_id}]`)
+            .replace(/this/g, `eval(all[${_id}].R)`)
+     }
     if (typeof value === "function") {
         if (value.toString().match(/^\(\)/)) {
             value = value.toString().replace(/\s*\(\s*\)\s*\=\>\s*/, "")
