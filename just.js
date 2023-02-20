@@ -545,7 +545,10 @@ class setvar extends Action {
                 LastKey = key
             }
             if(typeof value[1]==='string'){BGcolor = value[1];color=value[2] }
-            else if(typeof value[1]==='bool'){BGcolor = value[1]?'#035d00':'#400300';color=value[1]?'#07ea00':'#ff0005'}
+            else {
+                BGcolor = value[1]?'#035d00':'#400300';
+                color=value[1]?'#07ea00':'#ff0005'}
+            
             if(value[2]===0){thisobj.objectVars=[...thisobj.objectVars,...[
                 {name:`_${index}`,value:text(value[0]).h([[`!(${exp(key)})`]]).BGcolor('#035d00').color('#07ea00')},
                 {name:`_${index}`,value:text(value[1]).h([[`${exp(key)}`]]).BGcolor('#400300').color('#ff0005')}
