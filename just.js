@@ -204,6 +204,8 @@ function getid() { //生成一个在all里不重复的数值
  }
 function exp(keyname, value, apply) {
     if (typeof arguments[1] == "undefined"){ 
+        let _id
+        _id = id ?? window.id ?? global.id ?? zdjl.getVar('id')
         return keyname[0][0]
             .replace(/#this/g, `all[${_id}]`)
             .replace(/this/g, `eval(all[${_id}].R)`)
