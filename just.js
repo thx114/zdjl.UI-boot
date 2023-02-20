@@ -530,7 +530,7 @@ class setvar extends Action {
     function textlist(obj){ let thisobj = object(false).t
         let input = obj
         Object.entries(obj).forEach(([key, value],index)=>{
-            let key_=[[key[0][0].replace("#add",`!${Object.keys(input)[index-1]}||`)]]
+            let key_=[[key[0][0].replace("#add",`!${Object.keys(input)[index-1][0][0]}||`)]]
             if(value[2]===0){thisobj.objectVars=[...thisobj.objectVars,...[
                 {name:`_${index}`,value:text(value[0]).h([[`!(${exp(key_)})`]]).BGcolor('#035d00').color('#07ea00')},
                 {name:`_${index}`,value:text(value[1]).h([[`${exp(key_)}`]]).BGcolor('#400300').color('#ff0005')}
