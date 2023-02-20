@@ -14,6 +14,7 @@ const Mother = Symbol("Mother")
 const R = Symbol("R")
 const REALPATH = Symbol("REALPATH")
 var id
+window.idnow = ''
 
 window.SwitchDefaultTime = 100
 window.SwitchDefaultSize = 100
@@ -202,6 +203,7 @@ function exp(keyname, value, apply) {
         let out = value[0][0]
             .replace(/#this/g, `all[${_id}]`)
             .replace(/this/g, `eval(all[${_id}].R)`)
+            .replace(/from\s(.*)\sremove\s(.*);/,"$1.objectVars.splice($1.objectVars.findIndex(v=>v.name=='$2'),1));")
         console.log(`Exp: ${out}  <${apply.name}>`)
         apply.e[keyname] = { valueExp: out, varType: 'expression' }
     }
@@ -301,6 +303,7 @@ class Var {
     get name() { return this[NAME] }
     get Mother() { return this[Mother] }
     get R() { return this.REALPATH }
+    get idThis(){ window.idnow = this.id;return  this}
     textT = (a) => { return this.exp('textLineBefore', a) }
     textB = (a) => { return this.exp('textLineAfter', a) }
     textL = (a) => { return this.exp('showInputLabel', a) }
@@ -352,6 +355,7 @@ class Var {
         })
         return this
      }
+    remvoe = (key) => { this.objectVars.splice(this.objectVars.findIndex(v => v.name == key), 1) }
     get x(){return this.condition.colorData.x}
     get y(){return this.condition.colorData.y}
     get colors(){return this.condition.colorData?this.condition.colorData.color:this.condition.conditions.map(i=>i.color)}
