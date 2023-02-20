@@ -323,10 +323,6 @@ class Var {
     get Mother() { return this[Mother] }
     get R() { return this.REALPATH }
     get idThis(){ window.idnow = this.id;return  this}
-    textT = (a) => { return this.exp('textLineBefore', a) }
-    textB = (a) => { return this.exp('textLineAfter', a) }
-    textL = (a) => { return this.exp('showInputLabel', a) }
-    textR = (a) => { return this.exp('textAppendRight', a) }
     w = (a) => { return this.exp('showInputWidthBasis', a) }
     g = (a) => { return this.exp('showInputWidthGrow', a) }
     h = (a) => { return this.exp('showInputHiddenView', a) }
@@ -347,6 +343,7 @@ class Var {
     textR = (a) => { return this.exp('textAppendRight', a) }
     BGcolor = (a) => { return this.exp('backgroundColor', a) }
     BGimg = (a) => { return this.exp('backgroundImageData', a) }
+    xy=(a) =>{return this.exp('showInputContentAlign',a)}
     get s() { this.showInput = false; return this }
     get m() { this.mustInput = true; return this }
     get sync() { this.syncValueOnChange = false; return this }
