@@ -351,7 +351,6 @@ class Var {
     get c() { this.closeDialogOnAction = false; return this }
     get ww() { return this.w(100) }
     get wa() { return this.w("auto") }
-    get xy() { return this.script.xy }
     get set() { new setvar({test:this}).run}
     apply = (a,remap=true) => {
         this.objectVars = [...this.objectVars, ...Var.Object2Array(a)]
@@ -377,7 +376,8 @@ class Var {
     get x(){return this.condition.colorData.x}
     get y(){return this.condition.colorData.y}
     get colors(){return this.condition.colorData?this.condition.colorData.color:this.condition.conditions.map(i=>i.color)}
-    get xys(){return this.condition.conditions.map(i=>{return{x:i.x,y:i.y}})}
+    get xys(){
+        return this.script.xy??this.condition.conditions.map(i=>{return{x:i.x,y:i.y}})}
     get conditions(){return this.condition.conditions}
     set conditions(a){this.condition.conditions = a}
     get length(){return this.objectVars.length}
@@ -437,7 +437,7 @@ class Action {
      }}
     get run() {
         this.scan
-        zdjl.runActionAsync(this)
+        zdjl.runActionAsync( JSON.parse ( JSON.stringify( this )) )
      }
  }
 class setvar extends Action {
@@ -601,17 +601,3 @@ for (i of [getid, Var, exp, obj, Action, string, number, bool, text, button, obj
     window[i.name] = i
  }
 
-// a=new setvar({
-// qee:textlist({
-//     [[`this.qaq`]]:['qaq',true]
-// })
-// })
-// a.run
-// console.log(all.qee._0)
-// run=
-// new setvar({ 
-//     qaq:condition([color('#000000',100,100,99)]) 
-// })
-// console.log(
-// run.vars[0].value.conditions
-// )
