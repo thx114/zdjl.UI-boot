@@ -1,11 +1,6 @@
 //版本 0.32<conditions> 2023.2.19
-// if (typeof window == "undefined") { var window = global; }
-// if (typeof zdjl == "undefined") { var zdjl={
-//    getVar: function (name) { global[name] },
-//    setVar:function(name,value){global[name]=value},
-//    alert:function(msg_){console.log(msg_)},
-//    runActionAsync:function(a){return console.log(a)  }
-// } }
+
+
 
 const ID = Symbol("ID")
 const CJSON = Symbol("CJSON")
@@ -106,7 +101,7 @@ window.TheImgSave = {
  }
 
 Exp_Modules = {
-  Button_Text_exp : (a) => { let rtext =`SwitchImg()+thisobjimg`
+  Button_Text_exp : (a) => { let rtext =`true?(SwitchImg()+thisobjimg):0`
         .replace(/thisobj/g, `_${a}`)
         let out = [['eval(`' + rtext +'`)']]
         console.log('B_textExp:'+out[0][0] )
@@ -344,6 +339,7 @@ class Var {
     BGcolor = (a) => { return this.exp('backgroundColor', a) }
     BGimg = (a) => { return this.exp('backgroundImageData', a) }
     xy=(a) =>{return this.exp('showInputContentAlign',a)}
+    get os () { this.onlyForShow = true; return this}
     get s() { this.showInput = false; return this }
     get m() { this.mustInput = true; return this }
     get sync() { this.syncValueOnChange = false; return this }
@@ -481,20 +477,20 @@ class setvar extends Action {
     function text(input = "") { return new Var('textContent', input, "ui_text").sync }
     function button(input = "") { return new Var('buttonText', input, "ui_button").sync }
     function object(input = {}, id = null) { return new obj(input, id) }
-    function image(input = {}) { return new Var('imageData', input, "ui_image") }
+    function image(input = {}) { return new Var('data', input, "imageData") }
+    
     function color(...args) { 
         function colorFound(icolor,x,y,similarPercent=99){
             icolor=(icolor===0)?`#${zdjl.getScreenColor(x, y).toString(16).padStart(6, '0')}`:icolor
-            let out ={
-            type:'colorFound',
-            colorData:{type:"color",x:x,y:y,limitPosX:x,limitPosY:y,color:icolor,similarPercent:similarPercent},
+            let out = {type:'colorFound',
             get color(){return this.colorData.color},
             get x(){return this.colorData.x},
             get y(){return this.colorData.y},
-            get s(){return this.colorData.similarPercent}
-            }
-            return out
-        }
+            get s(){return this.colorData.similarPercent}}
+            if (arguments.length < 3){
+                out={type:"color",color:icolor,similarPercent:x}}
+            else{out.colorData={type:"color",x:x,y:y,limitPosX:x,limitPosY:y,color:icolor,similarPercent:similarPercent}}
+            return out}
         if (args.length === 1) {return new Var('color', args[0], "color")}
         if (args.length > 1) {return colorFound(...args)} 
      }
@@ -528,7 +524,7 @@ class setvar extends Action {
         return button().c.style("none")
           .text([[`'#MD'+${boolname}img`]])
           .js([[JS[0][0]+RUNLIST]])
-     }   
+     }
     function textlist(obj){ let thisobj = object(false).t
         let LastKey = ''
         Object.entries(obj).forEach(([key, value],index)=>{
@@ -588,7 +584,6 @@ class setvar extends Action {
  }
 
 
-
 window.M = {
     s:{
     a(name,size=100,time=100){return Exp_Modules.Button_Action_exp(name, size, name , time)[0][0]},
@@ -600,4 +595,9 @@ window.M = {
 for (i of [getid, Var, exp, obj, Action, string, number, bool, text, button, object, image, color, xy, area, jscode, setvars, js, setvar, set, get, lookforMother, scanforpath, Switch,SwitchImg,n,Ba,gesture,click,location,action,textlist,condition,from,From,Delete]) {
     window[i.name] = i
  }
+
+
+//
+
+
 
