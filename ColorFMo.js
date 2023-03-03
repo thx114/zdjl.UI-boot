@@ -1,5 +1,5 @@
 if(zdjl.getStorage("MoSaves")==null){zdjl.setStorage("MoSaves",{存储为:{}})}
-if(typeof allC=='undefined'){window.allC={}}
+if(typeof allC=='undefined'){window.allC={}} 
 window.guid=()=>{
     return '_xxxxxxxx_xxxx_4xxx_yxxx_xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
         var r = Math.random() * 16 | 0,
@@ -24,8 +24,16 @@ Set:string().wa.t
 Load:button("#MD## ⤵️").wa.style("none")
   .h([[` this.Set=='存储为' `]])
   .js([[`let save= zdjl.getStorage("MoSaves") 
+       let only=false
        save[this.Set].forEach((i,index)=>{
        let listindex=#this.output.length+index
+       if(i.desc=="自适应函数"){
+       if(only){return}
+       only=true
+       #this.output.objectVars.unshift({name:"__",value:condition(color("#555555",1,1,100)).t.textR('#MD <img src="data:image/png;base64,'+i.colorData.__vars.limitArea.valueExp.match(/"base64":"(.*)","wi.*"/)[1]+'" width="80%">'+Delete('#this.output',"__",'this.output.__=undefined;#this.output2.conditions=#this.output.objectVars.map(i=>i.value.condition);zdjl.alert("你删除了一个自适应函数,这将使此配置的自适应颜色寻找全部失效,除非再次添加")'))})
+       #this.output.objectVars[0].value.condition.desc="自适应函数"
+       #this.output.objectVars[0].value.condition.runWhenFalse=true
+       return}
        #this.output.push({
         ["_"+listindex]:condition(i).t
           .textR("#MD"+Delete('#this.output',"_"+listindex,'this.output._'+listindex+'=undefined;#this.output2.conditions=#this.output.objectVars.map(i=>i.value.condition)'))
@@ -136,23 +144,38 @@ window.setareaG_2=new setvar({G_area:area(),info:text('此操作不可逆，将�
 
     all[id].Area_a_img.imageData = await zdjl.recognitionScreenAsync({"recognitionMode":"get_image_data","recognitionArea":G_area.area})
     IMG_=all[id].Area_a_img.imageData
-
+    let __id=guid()
     let imgW =0+(G_area.right_100-G_area.left_100)/2
     let imgH =0+(G_area.bottom_100-G_area.top_100)/2
-    all[id].output.objectVars.forEach(i=>{
-       if (i.value.condition.type='colorFound'){
+    if(all[id].output.objectVars[0].value.condition.desc=="自适应函数"){}
+    else{
+    all[id].output.objectVars.unshift({name:"__",value:condition(color("#555555",1,1,100)).textR('#MD <img src="data:image/png;base64,'+IMG_.base64+'" width="80%">'+Delete('#this.output',"__",'this.output.__=undefined;#this.output2.conditions=#this.output.objectVars.map(i=>i.value.condition);zdjl.alert("你删除了一个自适应函数,这将使此配置的自适应颜色寻找全部失效,除非再次添加")'))})
+    all[id].output.objectVars[0].value.condition.desc='自适应函数'
+    all[id].output.objectVars[0].value.condition.runWhenFalse=true}
+    
+    
+    all[id].output.objectVars.forEach((i,index)=>{
+       if (i.value.condition.type=='colorFound'){
          delete i.value.condition.colorData.limitPosX
          delete i.value.condition.colorData.limitPosY
          i.value.condition.colorData.__vars={}
-         i.value.condition.colorData.__vars.limitArea =CON_IMG(imgW,imgH,IMG_,guid())
-         console.log(i.value.condition.colorData.__vars)
+         i.value.condition.colorData.__vars.limitArea =CON_IMG(imgW,imgH,IMG_,__id)
+         if (index > 0) { i.value.condition.colorData.__vars.limitArea.valueExp="(()=>{ if (typeof allC."+__id+"!= 'undefined'){return allC."+__id+"}else{return '0% 0% 0.1% 0.1%'}})()"
+         i.value.condition.desc="自适应"
+  }
+         #this.output2.conditions=#this.output.objectVars.map(i=>i.value.condition)
          }})
   `]])
 window.CON_IMG=function(w,h,img,id){
-  
+  if(typeof allC=='undefined'){window.allC={}}
   let findP={"type":"image","imageData":img,"searchMode":"color_2.21","minSimilarPercent":95,"codeVersion":"V1_7","imageScaleType":"dpi"}
   return {varType:"expression",valueExp:`(()=>{
-  if (typeof allC.${id} != 'undefined'){return allC.${id}}
+  if (typeof allC.${id} != 'undefined'){
+  let gx=0+allC.${id}.match(/(\d*)%/)[1]+${w}
+  let gy=0+allC.${id}.match(/\d*%.*(\d*)%/)[1]+${h}
+  window.Gp=gx+"%,"+gy+"%"
+  
+  return allC.${id}}
   try{
   sleep(1000)
   let xy=zdjl.findLocation(${JSON.stringify(findP)})
@@ -160,15 +183,17 @@ window.CON_IMG=function(w,h,img,id){
   let y = xy.y_100
   let areaxy =''+ (x-${w}) + '% ' +( y-${h} )+ '% ' +( x+${w}) + '% ' + (y+${h} )+ '%'
   if(xy){
-  allC.${id}=areaxy}
+  allC.${id}=areaxy
+  }
+  window.Gp=x+"%,"+y+"%"
   return areaxy}
-  catch{return "0% 0% 0.1% 0.1%"}
+  catch{}
   })()
-  `
+  `}
+  
   
   }
   
-  }
 window.runtime=
 new setvar({test:Mo.颜色配置()}).then_js([[` runtime.d(50).run `]])
 runtime.run
