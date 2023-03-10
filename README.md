@@ -8,7 +8,10 @@
 ### [点此 移动到<部署>](https://github.com/thx114/zdjl.UI-boot/wiki/1.%E9%83%A8%E7%BD%B2)
 
 ## 更新日志:
-
+### 2.0.1
+ * 新增特性 `%BOOLNAME%`: 与this配合使用获取变量实际内容 例:``` button().text(()=>{return this['%BOOLNAME%']})```
+ * Switch上线，参数只有一个`default:bool` 全局变量 G_Switch_size 调整大小，默认100
+ * exp重构
 
 ### 2.0
  * 全部代码重构
