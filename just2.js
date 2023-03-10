@@ -7,7 +7,7 @@ M = Symbol('M')
 window.FINDM=M
 
 if (typeof all == 'undefined') { var all = {}}
-
+G_Switch_size = 125
 class Main{
     static checkRuntime(){
         if(typeof window === 'undefined'){
@@ -44,8 +44,10 @@ class All{
         return obj
      }
     static base64_to_img(base,size=100,end=''){
-        return `<img width="${size}" src="data:image/${end};base64,${base}" >`
+        return `#MD<img width="${size}" src="data:image/${end};base64,${base}" >`
      }
+    static setVar(name,value){setvars({[name]:value})}
+    static Find(a){return eval(Var.findR(Var.findM(a)))}
     get all(){return all}
 }
 class Obj {
@@ -84,18 +86,22 @@ class Obj {
         console.log(`注册id:${input[ID]}`)
         if (typeof input.__vars != 'undefined'){
             Object.keys(input.__vars).forEach(key=>{
-                if(now.isSwitch==true){
+                if(input.BOOLNAME==true){
                     input.__vars[key].valueExp = input.__vars[key].valueExp
-                    .replace('%BOOLNAME%',name)
-                
+                    .replace(/%BOOLNAME%/g,name)
                 }
                 input.__vars[key].valueExp = input.__vars[key].valueExp
-                .replace('#this',`Obj.object(Var.findM(${input[ID]}).objectVars)`)
-                .replace('this',`eval(Var.findR(Var.findM(${input[ID]})))`)
-
+                .replace(/#this/g,`Obj.object(Var.findM(${input[ID]}).objectVars)`)
+                .replace(/this/g,`eval(Var.findR(Var.findM(${input[ID]})))`)
             })
-            
-
+        }
+        if (typeof input.action?.jsCode != 'undefined'){
+            if(input.BOOLNAME==true){
+                input.action.jsCode = input.action.jsCode
+                .replace(/%BOOLNAME%/g,name)
+                .replace(/#this/g,`Obj.object(Var.findM(${input[ID]}).objectVars)`)
+                .replace(/this/g,`eval(Var.findR(Var.findM(${input[ID]})))`)
+            }
         }
         input.__vars
 
@@ -121,13 +127,13 @@ class Obj {
 class Var{
     static value2Var(value){
         switch(typeof value){
-            case 'string': return string(value).output
-            case 'number': return number(value).output
-            case 'boolean': return bool(value).output
+            case 'string': return string(value).s.output
+            case 'number': return number(value).s.output
+            case 'boolean': return bool(value).s.output
             case 'object': 
-              if(value instanceof Array){return array(value).output}
-              else{return object(value).output}
-            case 'function': return func(value).output
+              if(value instanceof Array){return array(value).s.output}
+              else{return object(value).s.output}
+            case 'function': return func(value).s.output
             
         }
      }
@@ -144,11 +150,13 @@ class Var{
             if (now[M]==-1){
                 let add = all[-1].vars.find(i=>i.value[ID]==id).name
                 str = add+str
+                
                 break}
             let idbefor = id
             now = Var.findM(now)
             let idnow = now[ID]
             if(typeof now == 'undefined'){console.error(`FindM error at ${id}`)}
+            if(typeof now[ID] == -1){return now.vars.find(i=>i.value[ID]==id).name}
             let add
             try{
             add = now.objectVars.find(i=>i.value[ID]==id).name
@@ -159,6 +167,7 @@ class Var{
             str = add+str
             str = '.'+str
         }
+        if(str.length<1){str='zdjl.getVars()'}
         return str
      }
 
@@ -168,6 +177,9 @@ class Var{
         this.SYNC(true)
     }
     exp=(name,value)=>{
+        if (typeof value.output != 'undefined'){
+            value = value.output
+        }
         let app = exp(value,true)
         function self(input){
             if (input instanceof Action||input instanceof Var){
@@ -217,45 +229,59 @@ class Var{
     SYNC=(bool=true)=>{return this.exp('syncValueOnChange',bool)}
     T=(bool=false)=>{return this.exp('showInputHiddenLabel',bool)}
     C=(bool=true)=>{return this.exp('closeDialogOnAction',bool)}
-    get w(){this.W(100)}
-    get wa(){this.W('auto')}
-    get w0(){this.W(0)}
-    get g(){this.G(1)}
-    get g0(){this.G(0)}
-    get h(){this.H(true)}
-    get h0(){this.H(false)}
-    get size0(){this.size(13)}
-    get color0(){this.color('#FFFFFF')}
-    get color1(){this.color('#303030')}
-    get BGcolor0(){this.BGcolor('#303030')}
-    get BGcolor1(){this.BGcolor('#404040')}
-    get BGcolor2(){this.BGcolor('#505050')}
-    get xyL(){this.xy('left')}
-    get xyR(){this.xy('right')}
-    get xyC(){this.xy('center')}
-    get os(){this.OS(true)}
-    get s(){this.S(false)}
-    get m(){this.M(true)}
-    get sync(){this.SYNC(false)}
-    get t(){this.T(true)}
-    get c(){this.C(false)}
+    get w(){return this.W(100)}
+    get wa(){return this.W('auto')}
+    get w0(){return this.W(0)}
+    get g(){return this.G(1)}
+    get g0(){return this.G(0)}
+    get h(){return this.H(true)}
+    get h0(){return this.H(false)}
+    get size0(){return this.size(13)}
+    get color0(){return this.color('#FFFFFF')}
+    get color1(){return this.color('#303030')}
+    get BGcolor0(){return this.BGcolor('#303030')}
+    get BGcolor1(){return this.BGcolor('#404040')}
+    get BGcolor2(){return this.BGcolor('#505050')}
+    get xyL(){return this.xy('left')}
+    get xyR(){return this.xy('right')}
+    get xyC(){return this.xy('center')}
+    get os(){return this.OS(true)}
+    get s(){return this.S(false)}
+    get m(){return this.M(true)}
+    get sync(){return this.SYNC(false)}
+    get t(){return this.T(true)}
+    get c(){return this.C(false)}
+    js=(string='')=>{
+        if (typeof string == "function"){string=`(${string})()`}
+        return this.action(js(string))}
 
 }
 class setvar{
-    static scan(input,inputlist){
+    static scan(input,inputlist,path='window'){
         let obj = input
         if(typeof obj.output != 'undefined'){obj = obj.output}
         if(typeof obj.value != 'undefined'){obj = obj.value}
         obj[inputlist].forEach(now=>{
-
+            let name
             if(typeof now.output != 'undefined'){now = now.output}
-            if(typeof now.name != 'undefined'){now = now.value}
+            if(typeof now.name != 'undefined'){name = now.name;now = now.value}
             now[M]=obj[ID]
             if(typeof obj[ID] == 'undefined'){
                 console.error(`父对象ID缺失: var ${now[ID]} at ${obj[ID]} ${JSON.stringify(now)}`)
             }
             if (now.varType==="object"){
-                setvar.scan(now,'objectVars')
+
+                if(path=='window'){
+                    window[name] = {}
+                    zdjl.setVar(name,new Object())}
+                else{path[name]={}}
+                if (path=='window'){setvar.scan(now,'objectVars',eval(name))}
+                else{setvar.scan(now,'objectVars',path[name])}  
+                
+            }
+            else{
+                if(path=='window'){zdjl.setVar(name,Object.values(now)[1])}
+                else{path[name]=Object.values(now)[1]}
             }
         })
 
@@ -296,6 +322,10 @@ class Action{
     static then_js(obj,code){obj.scriptCallbacks ??= {};obj.scriptCallbacks.afterExecSuc = js(code)}
     constructor(input){
         this.output=input
+        if (this.output.type=='运行JS代码'&&  typeof this.output.jsCode == "function"){
+            this.output.jsCode=`(${this.output.jsCode.toString()})()`
+            console.log(this.output.jsCode)
+        }
      }
     toJSON(){return `<Action> ${this.output.type} :「${JSON.stringify(Object.values(this.output)[1])}」 ${JSON.stringify(this.output)}`}
     delay(time,Dunit=0){Action.delay(this.output,time,Dunit);return this}
@@ -307,11 +337,11 @@ class Action{
  function string(value='') {return new Var({varType:'string',value:value})}
  function number(value=0) {return new Var({varType:'number',number:value})}
  function bool(value=false) {return new Var({varType:'boolean',value:value})}
- function object(value={},isaddon) {return new Var(new Obj(value,isaddon))}
+ function object(value={},isaddon) {return new Var(new Obj(value,isaddon)).sync}
  function array(value=[]) {return new Var({varType:'object',objectVars:Obj.as_array(value),get get(){return Obj.array(this.objectVars)}})}
  function func(value=()=>{}){return new Var({varType:'js_function',jsCode:(typeof value=='string')?value:value.toString()})}
  
- function button(text){return new Var({varType:'button',buttonText:text})}
+ function button(text){return new Var({varType:'ui_button',buttonText:text}).sync}
  function image(input = {}){return new Var({varType:'imageData',data:input})}
  function color(input = {}) { return new Var({varType:'color',color:input})}
  function xy(input={}) { return new Var({varType:'position',position:input} )}
@@ -320,7 +350,7 @@ class Action{
  
  function setvars(input){return new Action( new setvar(input))}
  function run(input){zdjl.runActionAsync(input)}
- function js(input){return {type:'运行JS代码',jsCode:input}}
+ function js(input){return new Action({type:'运行JS代码',jsCode:input})}
  
  function direct(input){return input}
  function set2(input,sets){
@@ -344,14 +374,22 @@ class Action{
     if(need){return {varType:'expression',valueExp:out,mode:mode}}
     else{return {varType:'expression',valueExp:out}}
  }
- function Switch(size){
-    return button().MORE('isSwitch',true)
+ function Switch(bool){
+    return button(bool).MORE('BOOLNAME',true).sync.c.style('none')
     .text(()=>{
         switch(this['%BOOLNAME%']){
-          
-        }
-        })
-
+            case -2: return All.base64_to_img( BASE64_ZUI.off,G_Switch_size,'png' )
+            case 2: return All.base64_to_img( BASE64_ZUI.on,G_Switch_size,'png' )
+            case -1: return All.base64_to_img( BASE64_ZUI.go_off,G_Switch_size,'gif' )
+            case 1: return All.base64_to_img( BASE64_ZUI.go_on,G_Switch_size,'gif' )
+            case false: this['%BOOLNAME%']=-2;return All.base64_to_img( BASE64_ZUI.on,G_Switch_size,'png' )
+            case true: this['%BOOLNAME%']=2;return All.base64_to_img( BASE64_ZUI.off,G_Switch_size,'png' )
+        }})
+    .js(()=>{
+        switch(this['%BOOLNAME%']){
+            case -2:this['%BOOLNAME%']=1;js(()=>{this['%BOOLNAME%']=2}).delay(500).run;break
+            case 2: this['%BOOLNAME%']=-1;js(()=>{this['%BOOLNAME%']=-2}).delay(500).run;break
+        }})
   }
 }
 new Main()
@@ -371,8 +409,8 @@ BaseTlist = {
       area:                 ['区域',1,area,['screen_area']],
     },
     addlist:{
-      value_string:         ['内容',direct,`string()`,1,'value'],
-      value_boolean:        ['布尔',direct,`bool()`,1,'value'],
+      value_string:         ['内容',direct,`string()`,1],
+      value_boolean:        ['布尔',direct,`bool()`,1],
       value:                ['',direct,null,1],
       number:               ['数字',direct,`number()`,1],
       objectVars:           ['对象',direct,`text('未实现')`,0],
@@ -412,10 +450,15 @@ BaseTlist = {
     }
 
 }
-let list =[Action,Var,Obj,setvar, string,number,bool,object,func, button,image,color,xy,area,text, setvars,run,js,direct,set2,exp]
+let list =[Action,Var,Obj,setvar,All, string,number,bool,object,func, button,image,color,xy,area,text, setvars,run,js,direct,set2,exp]
 list.forEach(i=>{window[i.name]=i})
 
 
 
+
+setvars({
+    a:Switch(true)
+}).run
+console.log(All.Find(0).a)
 
 
