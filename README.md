@@ -18,6 +18,6 @@
  * 新增了基础变量 array ，使用 array 将生成一个 object 对象，工作原理与 js 的 Array 类似
  * 新增函数 `Obj.object()` : 将一个 object 变量转换为 Object
  * 新增函数 `Obj.array()` : 将一个 object 变量转换为 Array (只保留values)
- * 新增函数 `Var.value2Var()` :将一个普通变量转换为<Var>变量，当然这在 `object()` 中是默认自动进行的
+ * 新增函数 `Var.value2Var()` :将一个普通变量转换为\<Var\>变量，当然这在 `object()` 中是默认自动进行的
 
 注意 : Switch textlist等都没有被迁移到最新版本，现在的一切都是不稳定的
