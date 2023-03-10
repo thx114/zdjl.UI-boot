@@ -27,9 +27,9 @@ if(UI_ZDJL_JUSTshow){zdjl.alert(str_UI)}
 
 if (typeof V_NOW[0] != 'number'||V_UI[0]>V_NOW[0]){
 modelloadS('https://api.github.com/repos/thx114/zdjl.UI-boot/contents/just2.js','Just_UI','justJs')
-}else{zdjl.runAction({ type: "运行JS代码", jsCode: Buffer.concat(zdjl.getStorage(valName,spaceName)).toString('utf8') + '' })}
+}else{zdjl.runAction({ type: "运行JS代码", jsCode: Buffer.concat(zdjl.getStorage('justJs','Just_UI')).toString('utf8') + '' })}
 if (typeof V_NOW[1] != 'number'||V_UI[1]>V_NOW[1]){
 modelloadS('https://api.github.com/repos/thx114/zdjl.UI-boot/contents/Base.64.js','Just_UI','base')}
-else{zdjl.runAction({ type: "运行JS代码", jsCode: Buffer.concat(zdjl.getStorage(valName,spaceName)).toString('utf8') + '' })}
+else{zdjl.runAction({ type: "运行JS代码", jsCode: Buffer.concat(zdjl.getStorage('base','Just_UI')).toString('utf8') + '' })}
 
 
