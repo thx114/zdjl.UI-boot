@@ -2,6 +2,7 @@
 
 ID = Symbol('ID')
 M = Symbol('M')
+window.FINDM=M
 all
 if (typeof all == 'undefined') { var all = {}}
 
@@ -33,6 +34,12 @@ class All{
           }
         }
         Object.freeze(p)
+     }
+    static removeAll(obj,a){
+        a.forEach(i=>{
+            delete obj[i]
+        })
+        return obj
      }
     get all(){return all}
 }
@@ -71,8 +78,19 @@ class Obj {
             input=Var.value2Var(value)
             }
         input[M]=obj[ID]
-
         input[ID]=All.add(input)
+        console.log(`注册id:${input[ID]}`)
+        if (typeof input.__vars != 'undefined'){
+            Object.keys(input.__vars).forEach(key=>{
+                input.__vars[key].valueExp = input.__vars[key].valueExp
+                .replace('#this',`Obj.object(Var.findM(${input[ID]}).objectVars)`)
+                .replace('this',`eval(Var.findR(Var.findM(${input[ID]})))`)
+
+            })
+
+        }
+        input.__vars
+
         return input
      }
     
@@ -113,15 +131,23 @@ class Var{
         if (typeof obj_or_id  == 'number'){now = all[obj_or_id]}
         else{now = obj_or_id}
         while(now[ID] != -1){
-            console.log(now)
             let id =now[ID]
             
             if (now[M]==-1){
                 let add = all[-1].vars.find(i=>i.value[ID]==id).name
                 str = add+str
                 break}
+            let idbefor = id
             now = Var.findM(now)
-            let add = now.objectVars.find(i=>i.value[ID]==id).name
+            let idnow = now[ID]
+            if(typeof now == 'undefined'){console.error(`FindM error at ${id}`)}
+            let add
+            try{
+            add = now.objectVars.find(i=>i.value[ID]==id).name
+            }catch{
+                console.error(`find error :value now has no objectVars [${idbefor} > ${idnow}] ${JSON.stringify(now)}`)
+                throw new Error()
+            }
             str = add+str
             str = '.'+str
         }
@@ -135,7 +161,6 @@ class Var{
     }
     exp=(name,value)=>{
         let app = exp(value,true)
-        console.log(JSON.stringify(app))
         function self(input){
             if (input instanceof Action||input instanceof Var){
                 input = input.output
@@ -159,29 +184,30 @@ class Var{
         return this
 
         }
-    W=(a)=>{return this.exp('showInputWidthBasis',a)}
-    G=(a)=>{return this.exp('showInputWidthGrow',a)}
-    H=(a)=>{return this.exp('showInputHiddenView',a)}
-    size=(a)=>{return this.exp('textSize',a)}
-    color=(a)=>{return this.exp('textColor',a)}
-    action=(a)=>{return this.exp('action',a)}
-    list=(a)=>{return this.exp('stringItems',a)}
-    style=(a)=>{return this.exp('buttonStyle',a)}
-    text=(a)=>{return this.exp('buttonText',a)}
-    textT=(a)=>{return this.exp('textLineBefore',a)}
-    textB=(a)=>{return this.exp('textLineAfter',a)}
-    textL=(a)=>{return this.exp('showInputLabel',a)}
-    textR=(a)=>{return this.exp('textAppendRight',a)}
-    textB=(a)=>{return this.exp('textLineAfter',a)}
-    BGcolor=(a)=>{return this.exp('backgroundColor',a)}
-    BGimg=(a)=>{return this.exp('backgroundImg',a)}
-    xy=(a)=>{return this.exp('showInputContentAlign',a)}
-    OS=(a)=>{return this.exp('onlyForShow',a)}
-    S=(a)=>{return this.exp('showInput',a)}
-    M=(a)=>{return this.exp('mustInput',a)}
-    SYNC=(a)=>{return this.exp('syncValueOnChange',a)}
-    T=(a)=>{return this.exp('showInputHiddenLabel',a)}
-    C=(a)=>{return this.exp('closeDialogOnAction',a)}
+    toJSON(){return `<Var> ${this.output.varType} :「${JSON.stringify(Object.values(this.output)[1])}」 ${JSON.stringify(this.output)}`}
+    W=(any=100)=>{return this.exp('showInputWidthBasis',any)}
+    G=(number=0)=>{return this.exp('showInputWidthGrow',number)}
+    H=(bool=false)=>{return this.exp('showInputHiddenView',bool)}
+    size=(number=13)=>{return this.exp('textSize',number)}
+    color=(string='#FFFFFF')=>{return this.exp('textColor',string)}
+    action=(action=Action)=>{return this.exp('action',action)}
+    list=(array=[])=>{return this.exp('stringItems',array)}
+    style=(string='button')=>{return this.exp('buttonStyle',string)}
+    text=(string='')=>{return this.exp('buttonText',string)}
+    textT=(string='')=>{return this.exp('textLineBefore',string)}
+    textB=(string='')=>{return this.exp('textLineAfter',string)}
+    textL=(string='')=>{return this.exp('showInputLabel',string)}
+    textR=(string='')=>{return this.exp('textAppendRight',string)}
+    textB=(string='')=>{return this.exp('textLineAfter',string)}
+    BGcolor=(string)=>{return this.exp('backgroundColor',string)}
+    BGimg=(object)=>{return this.exp('backgroundImg',object)}
+    xy=(string='left')=>{return this.exp('showInputContentAlign',string)}
+    OS=(bool=false)=>{return this.exp('onlyForShow',bool)}
+    S=(bool=true)=>{return this.exp('showInput',bool)}
+    M=(bool=false)=>{return this.exp('mustInput',bool)}
+    SYNC=(bool=true)=>{return this.exp('syncValueOnChange',bool)}
+    T=(bool=false)=>{return this.exp('showInputHiddenLabel',bool)}
+    C=(bool=true)=>{return this.exp('closeDialogOnAction',bool)}
     get w(){this.W(100)}
     get wa(){this.W('auto')}
     get w0(){this.W(0)}
@@ -207,13 +233,22 @@ class Var{
 
 }
 class setvar{
-    static scan(obj,inputlist){
-        obj[inputlist].forEach(i=>{
-            let obj = i
-            if(typeof obj.output != 'undefined'){obj = obj.output}
-            obj.value[M]=obj[ID]
-            if (obj.value.varType==="object"){
-                setvar.scan(obj.value,'objectVars')
+    static scan(input,inputlist){
+        let obj = input
+        if(typeof obj.output != 'undefined'){obj = obj.output}
+        if(typeof obj.value != 'undefined'){obj = obj.value}
+        obj[inputlist].forEach(now=>{
+
+            if(typeof now.output != 'undefined'){now = now.output}
+            if(typeof now.name != 'undefined'){now = now.value}
+            now[M]=obj[ID]
+            if(typeof obj[ID] == 'undefined'){
+                console.error(`父对象ID缺失: var ${now[ID]} at ${obj[ID]} ${JSON.stringify(now)}`)
+            }
+            
+            
+            if (now.varType==="object"){
+                setvar.scan(now,'objectVars')
             }
         })
 
@@ -254,9 +289,11 @@ class Action{
     static then_js(obj,code){obj.scriptCallbacks ??= {};obj.scriptCallbacks.afterExecSuc = js(code)}
     constructor(input){
         this.output=input
-    }
-    toJSON(){return `<Action> ${JSON.stringify(this.output)}`}
+     }
+    toJSON(){return `<Action> ${this.output.type} :「${JSON.stringify(Object.values(this.output)[1])}」 ${JSON.stringify(this.output)}`}
     delay(time,Dunit=0){Action.delay(this.output,time,Dunit);return this}
+    then(action){Action.then(this.output,action);return this}
+    then_js(code){Action.then_js(this.output,code);return this}
     get run(){run(this.output);return this}
 }
 {
@@ -288,7 +325,7 @@ class Action{
         if(sets[index] == String){ if(val.length>SET){SET = val.length;OUT = key} }
     })
     return input[OUT]
- }
+  }
  function exp(input,need=false){
     let out
     let mode 
@@ -361,7 +398,16 @@ BaseTlist = {
     }
 
 }
+let list =[Action,Var,Obj,setvar, string,number,bool,object,func, button,image,color,xy,area,text, setvars,run,js, FO,FT,direct,set2,exp]
+list.forEach(i=>{window[i.name]=i})
+setvars({
+    test:object({
+        a:string().textR([[`#this.b`]]),
+        b:string('atest')
 
-setvars({a:string()}).delay('1s').run
+    })}).run
+
+
+
 
 
