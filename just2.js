@@ -1,9 +1,11 @@
+versionOUT=[2.0]
 
-
+zdjl.setStorage('version', versionOUT[0],'Just_UI')
+window.G_ver_UI=versionOUT[0]
 ID = Symbol('ID')
 M = Symbol('M')
 window.FINDM=M
-all
+
 if (typeof all == 'undefined') { var all = {}}
 
 class Main{
@@ -41,6 +43,9 @@ class All{
         })
         return obj
      }
+    static base64_to_img(base,size=100,end=''){
+        return `<img width="${size}" src="data:image/${end};base64,${base}" >`
+     }
     get all(){return all}
 }
 class Obj {
@@ -48,7 +53,7 @@ class Obj {
     static as_array(arr=[]){return Object.entries(arr).map(([key,val])=>Object({name:key,value:val}))}
     static object(arr=[]){return Object.assign({}, ...arr.map(item => ({[item.name]: item.value})))}
     static array(arr=[]){return  arr.map(item => item.value)}
-    static add(obj,name,value){if(typeof value.output != 'undefined'){value=value.output}obj.objectVars.push({name:name,value:Obj.add_ons(obj,value)})}
+    static add(obj,name,value){if(typeof value.output != 'undefined'){value=value.output}obj.objectVars.push({name:name,value:Obj.add_ons(obj,value,name)})}
     static delete(obj,name){obj.objectVars.splice(obj.objectVars.findIndex(item=>item.name==name),1)}
     static push(obj,value){this.add(obj,obj.objectVars.length+'',value)}
     static apply(obj,name,value){if(name instanceof Object){return Obj.applys(obj,name)}obj.objectVars.find(item=>item.name==name).value=value}
@@ -70,23 +75,26 @@ class Obj {
         if(name instanceof Array){name.forEach(item=>Obj.delete(obj,item))}
         else{Obj.delete(obj,name)}
      }
-    static add_ons(obj,value){
+    static add_ons(obj,value,name){
         let input = value
-        if(typeof value.output != 'undefined'){input = input.output}
-        if(typeof value.varType === 'undefined'){ 
-
-            input=Var.value2Var(value)
-            }
+        if(typeof input.output != 'undefined'){input = input.output}
+        if(typeof input.varType === 'undefined'){ input=Var.value2Var(input)}
         input[M]=obj[ID]
         input[ID]=All.add(input)
         console.log(`注册id:${input[ID]}`)
         if (typeof input.__vars != 'undefined'){
             Object.keys(input.__vars).forEach(key=>{
+                if(now.isSwitch==true){
+                    input.__vars[key].valueExp = input.__vars[key].valueExp
+                    .replace('%BOOLNAME%',name)
+                
+                }
                 input.__vars[key].valueExp = input.__vars[key].valueExp
                 .replace('#this',`Obj.object(Var.findM(${input[ID]}).objectVars)`)
                 .replace('this',`eval(Var.findR(Var.findM(${input[ID]})))`)
 
             })
+            
 
         }
         input.__vars
@@ -185,6 +193,7 @@ class Var{
 
         }
     toJSON(){return `<Var> ${this.output.varType} :「${JSON.stringify(Object.values(this.output)[1])}」 ${JSON.stringify(this.output)}`}
+    MORE(name,value){this.output[name]=value;return this}
     W=(any=100)=>{return this.exp('showInputWidthBasis',any)}
     G=(number=0)=>{return this.exp('showInputWidthGrow',number)}
     H=(bool=false)=>{return this.exp('showInputHiddenView',bool)}
@@ -245,8 +254,6 @@ class setvar{
             if(typeof obj[ID] == 'undefined'){
                 console.error(`父对象ID缺失: var ${now[ID]} at ${obj[ID]} ${JSON.stringify(now)}`)
             }
-            
-            
             if (now.varType==="object"){
                 setvar.scan(now,'objectVars')
             }
@@ -315,8 +322,6 @@ class Action{
  function run(input){zdjl.runActionAsync(input)}
  function js(input){return {type:'运行JS代码',jsCode:input}}
  
- function FO(id){return `eval(Var.findR(${id}))`}
- function FT(id){return `all[${id}]`}
  function direct(input){return input}
  function set2(input,sets){
     let SET = 0
@@ -339,6 +344,15 @@ class Action{
     if(need){return {varType:'expression',valueExp:out,mode:mode}}
     else{return {varType:'expression',valueExp:out}}
  }
+ function Switch(size){
+    return button().MORE('isSwitch',true)
+    .text(()=>{
+        switch(this['%BOOLNAME%']){
+          
+        }
+        })
+
+  }
 }
 new Main()
 BaseTlist = {
@@ -398,7 +412,7 @@ BaseTlist = {
     }
 
 }
-let list =[Action,Var,Obj,setvar, string,number,bool,object,func, button,image,color,xy,area,text, setvars,run,js, FO,FT,direct,set2,exp]
+let list =[Action,Var,Obj,setvar, string,number,bool,object,func, button,image,color,xy,area,text, setvars,run,js,direct,set2,exp]
 list.forEach(i=>{window[i.name]=i})
 
 
