@@ -400,12 +400,6 @@ BaseTlist = {
 }
 let list =[Action,Var,Obj,setvar, string,number,bool,object,func, button,image,color,xy,area,text, setvars,run,js, FO,FT,direct,set2,exp]
 list.forEach(i=>{window[i.name]=i})
-setvars({
-    test:object({
-        a:string().textR([[`#this.b`]]),
-        b:string('atest')
-
-    })}).run
 
 
 
