@@ -1,4 +1,4 @@
-GLOBAL_VARS = {}; pass = Symbol('pass'); window.$Setting = {switch:{fastSwitch:false,switchTime:450}}
+GLOBAL_VARS = {}; pass = Symbol('pass'); window.$Setting = {}
 try { window } catch {
     zdjl = {
         runActionAsync: async (i) => { console.log(JSON.stringify(i)) },
@@ -389,8 +389,11 @@ function ctrl(...i) { return new Control(...i) }
 function runScript(...i) { return new RunScript(...i) }
 function setvar(...i) { return new Setvar(...i) }
 function runActions(...i) { return new RunActions(...i) }
-let SwitchImg = '<img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e3e6acd32.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e3e6e4cf1.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e3e6d4ed3.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e3e6d56cf.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e3e6d6fd5.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e3e8835a8.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e3e8e3bc2.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e3e95a144.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e3e9d7e6e.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e3e6c497e.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e4c67d1f3.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e4c689629.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e4c689538.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e4c69f2bb.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e4c695f33.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e4c897524.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e4c8d40ae.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e4c8cb96d.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e4c930573.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e5326d8dc.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e533429c6.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e5321698b.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e5321b388.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e532101e7.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e53489913.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e532101e7.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e53489913.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e534d84ab.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e534e9719.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e535162b7.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e531ebfa2.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e5b5259dc.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e5b53cbaa.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e5b5259dc.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e5b53cbaa.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e5b53402d.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e5b530e92.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e5b54067a.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e5b7047f9.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e5b7357f2.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e5b786a34.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e5b7c8c49.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e5b522caa.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e81243d5f.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e8125f9ca.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e8126c684.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e8125f0f4.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e81262248.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e8125f0f4.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e81262248.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e8127174c.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e8149b935.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e814db154.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e814f2794.png"><img width="0%" src="https://www.helloimg.com/i/2025/01/12/6782e8150fb41.png">'
+[$set, $get, exp, str, num, bool, jsFunc, btn, text, image, color, pos, area, obj, action, click, swipe, gesture, js, prompt, ctrl, runScript, setvar, runActions, Mio].forEach(i => window[i.name] = i)
 
+
+
+////// 代码示例  包含一个模块和一个设置变量动作 /////
 window.TheImgSave = {
     off: `#MD<img width="90" src="https://www.helloimg.com/i/2025/01/12/6782e8150fb41.png">`,
     on: `#MD<img width="90" src="https://www.helloimg.com/i/2025/01/12/6782e532101e7.png">`,
@@ -496,10 +499,12 @@ function Switch(swName) {
         }))
 
 }
-[$set, $get, exp, str, num, bool, jsFunc, btn, text, image, color, pos, area, obj, action, click, swipe, gesture, js, prompt, ctrl, runScript, setvar, runActions, Mio].forEach(i => window[i.name] = i)
 
+$Setting.switch = {
+    fastSwitch: false,
+    switchTime: 450
+}
 
-$Setting.switch.fastSwitch = false
 ZDJLUI = setvar({
     all: obj({
         SW1: Switch('SW1').textRight('选项1').bgColor('#11ffffff'),
