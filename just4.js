@@ -456,7 +456,7 @@ window.IMG = {
     c: `<img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e3e6acd32.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e3e6e4cf1.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e3e6d4ed3.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e3e6d56cf.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e3e6d6fd5.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e3e8835a8.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e3e8e3bc2.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e3e95a144.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e3e9d7e6e.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e3e6c497e.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e4c67d1f3.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e4c689629.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e4c689538.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e4c69f2bb.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e4c695f33.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e4c897524.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e4c8d40ae.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e4c8cb96d.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e4c930573.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e5326d8dc.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e533429c6.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e5321698b.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e5321b388.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e532101e7.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e53489913.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e53489913.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e534d84ab.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e534e9719.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e535162b7.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e531ebfa2.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e5b5259dc.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e5b53cbaa.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e5b5259dc.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e5b53cbaa.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e5b53402d.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e5b530e92.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e5b54067a.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e5b7047f9.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e5b7357f2.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e5b786a34.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e5b7c8c49.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e5b522caa.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e81243d5f.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e8125f9ca.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e8126c684.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e8125f0f4.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e81262248.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e8125f0f4.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e81262248.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e8127174c.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e8149b935.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e814db154.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e814f2794.png"><img width="0" src="https://www.helloimg.com/i/2025/01/12/6782e8150fb41.png">`
 }
 
-function Switch(swName) {
+window.Switch = function Switch(swName) {
     $set(swName, -2)
     $set('IMG_' + swName, IMG.off)
     return btn(bool).input.style_none
@@ -500,16 +500,24 @@ $Setting.switch = {
     switchTime: 350
 }
 
-ZDJLUI = setvar({
+window.ZDJLUI = setvar({
     all: obj({
-        SW1: Switch('SW1').textRight('选项1').bgColor('#11ffffff').sync.remember,
-        SW2: Switch('SW2').textRight('选项2').bgColor('#11ffffff').sync.remember,
-        SW3: Switch('SW3').textRight('选项3').bgColor('#11ffffff').sync.remember
-    }).input.sync
+        add: btn('添加按钮').action(js(()=>{
+            console.warn(ZDJLUI)
+            let list = ZDJLUI.vars[0].value.objectVars[1].value.objectVars
+            let id = list.length + 1
+            list.push(
+                {name: 'SW'+id, value: Switch('SW'+id).textRight('选项'+id).bgColor('#11ffffff').sync.remember.execute}
+            )
+        })).close,
+        swList: obj({
+            SW1: Switch('SW1').textRight('选项1').bgColor('#11ffffff').sync.remember,
+        })
+    }).fill('all').input.sync
 }).execute
 
 
-zdjl.runActionAsync(runActions([
-    ZDJLUI
-]).repeat(0).execute)
+zdjl.runActionAsync(runActions().exp(
+    'scriptSet', '[ZDJLUI]'
+).repeat(0).execute)
 
