@@ -152,12 +152,12 @@ class Action extends Builder { // 动作
     fail(Action) { this.data.afterExecFail = Action; return this }
 }
 
-class expression extends Var { // 表达式
+class Exp extends Var { // 表达式
     data = { varType: 'expression', valueExp: '' }
     constructor() { super() }
     valueExp(...args) { this.data.valueExp = Builder.asFuncInput(...args); return this }
 }
-class string extends Var { // 字符串
+class Str extends Var { // 字符串
     data = { varType: 'string', syncValueOnChange: true }
     constructor(string = '') { super(); this.value(string) }
     value(i) {
@@ -166,23 +166,23 @@ class string extends Var { // 字符串
     }
     list(i) { this.data.stringItems = i; return this }
 }
-class number extends Var { // 数字
+class Num extends Var { // 数字
     data = { varType: 'number', syncValueOnChange: true }
     constructor(number = 0) { super(); this.value(number) }
     value(i) { this.data.number = i; return this }
     list(i) { this.data.stringItems = i; return this }
 }
-class boolean extends Var { // 布尔
+class Bool extends Var { // 布尔
     data = { varType: 'boolean', syncValueOnChange: true }
     constructor(bool = false) { super(); this.value(bool) }
     value(i) { this.data.value = i; return this }
 }
-class js_function extends Var { // JS函数
+class JSfunc extends Var { // JS函数
     data = { varType: 'js_function', syncValueOnChange: true }
     constructor(string = '') { super(); this.jscode(string) }
     jscode(i) { this.data.jsCode = i; return this }
 }
-class button extends Var { // 按钮
+class Btn extends Var { // 按钮
     data = { varType: 'ui_button', buttonText: '', closeDialogOnAction: false }
     constructor(string = '') { super(); this.text(string) }
     text(i) { this.data.buttonText = i; return this }
@@ -192,14 +192,14 @@ class button extends Var { // 按钮
     get style_none() { this.data.buttonStyle = 'none'; return this }
     get style_normal() { this.data.buttonStyle = 'normal'; return this }
 }
-class ui_text extends Var { // 文本
+class UI_Text extends Var { // 文本
     data = { varType: 'ui_text', textContent: '' }
     constructor(string = '') { super(); this.text(string) }
     text(string) { this.data.textContent = string; return this }
     size(number) { this.data.textSize = number; return this }
     color(string) { this.data.textColor = string; return this }
 }
-class imageData extends Var { // 图片
+class Img extends Var { // 图片
     data = { varType: 'imageData', imageData: '' }
     constructor(object = {}) { super(); this.imageData(object) }
     imageData(i) { this.data.imageData = i; return this }
@@ -210,17 +210,17 @@ class Color extends Var { // 颜色
     constructor(string = '') { super(); this.color(string) }
     color(i) { this.data.color = i; return this }
 }
-class position extends Var { // 位置
+class Pos extends Var { // 位置
     data = { varType: 'position', position: '' }
     constructor(string = '') { super(); this.position(string) }
     position(i) { this.data.position = i; return this }
 }
-class screen_area extends Var { // 区域
+class Area extends Var { // 区域
     data = { varType: 'screen_area', screen_area: '' }
     constructor(string = '') { super(); this.screen_area(string) }
     screen_area(i) { this.data.screen_area = i; return this }
 }
-class object extends Var { // 对象
+class Obj extends Var { // 对象
     data = { varType: 'object', objectVars: [] }
     constructor(object = {}) { super(); this.vars(object) }
     vars(i) {
@@ -237,7 +237,7 @@ class object extends Var { // 对象
         return this
     }
 }
-class script_action extends Var { // 动作
+class Act extends Var { // 动作
     data = { varType: 'script_action', script: '' }
     constructor(Action) { super(); this.script(Action) }
     script(i) { this.data.script = i; return this }
@@ -366,19 +366,19 @@ function $get(path) { // 顶级获取变量
     return eval(path);
 }
 
-function exp(...i) { return new expression(...i) }
-function str(...i) { return new string(...i) }
-function num(...i) { return new number(...i) }
-function bool(...i) { return new boolean(...i) }
-function jsFunc(...i) { return new js_function(...i) }
-function btn(...i) { return new button(...i) }
-function text(...i) { return new ui_text(...i) }
-function image(...i) { return new imageData(...i) }
+function exp(...i) { return new Exp(...i) }
+function str(...i) { return new Str(...i) }
+function num(...i) { return new Num(...i) }
+function bool(...i) { return new Bool(...i) }
+function jsFunc(...i) { return new JSfunc(...i) }
+function btn(...i) { return new Btn(...i) }
+function text(...i) { return new UI_Text(...i) }
+function image(...i) { return new Img(...i) }
 function color(...i) { return new Color(...i) }
-function pos(...i) { return new position(...i) }
-function area(...i) { return new screen_area(...i) }
-function obj(...i) { return new object(...i) }
-function action(...i) { return new script_action(...i) }
+function pos(...i) { return new Pos(...i) }
+function area(...i) { return new Area(...i) }
+function obj(...i) { return new Obj(...i) }
+function action(...i) { return new Act(...i) }
 function click(...i) { return new Click(...i) }
 function swipe(...i) { return new Swipe(...i) }
 function gesture(...i) { return new Gesture(...i) }
@@ -520,4 +520,3 @@ window.ZDJLUI = setvar({
 zdjl.runActionAsync(runActions().exp(
     'scriptSet', '[ZDJLUI]'
 ).repeat(0).execute)
-
