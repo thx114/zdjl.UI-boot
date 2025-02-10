@@ -5,7 +5,7 @@
 同步全局变量，动态修改UI
 
 ## 我该怎么使用
-### [点此 移动到<部署>](https://gitlab.com/thx114/zdjl-UI-boot/-/wikis/1.%E9%83%A8%E7%BD%B2)
+### [点此 移动到<部署>](https://github.com/thx114/zdjl.UI-boot/wiki/1.%E9%83%A8%E7%BD%B2)
 
 ## 更新日志:
 ### 4.1  
