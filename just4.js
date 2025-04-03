@@ -173,7 +173,7 @@ class Num extends Var { // 数字
     list(i) { this.data.stringItems = i; return this }
 }
 class Bool extends Var { // 布尔
-    data = { varType: 'boolean', syncValueOnChange: true }
+    data = { varType: 'bool', syncValueOnChange: true }
     constructor(bool = false) { super(); this.value(bool) }
     value(i) { this.data.value = i; return this }
 }
